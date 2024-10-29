@@ -6,7 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-//using TasksManagementApp.Models;
+using DrivingSchoolApp.Models;
 
 namespace TasksManagementApp.Services
 {
@@ -27,11 +27,11 @@ namespace TasksManagementApp.Services
 
         #region with tunnel
         //Define the serevr IP address! (should be realIP address if you are using a device that is not running on the same machine as the server)
-        private static string serverIP = "qz6qcgd3-5224.euw.devtunnels.ms";
+        private static string serverIP = "7dqc0f3r-5224.euw.devtunnels.ms";
         private HttpClient client;
         private string baseUrl;
-        public static string BaseAddress = "https://qz6qcgd3-5224.euw.devtunnels.ms/api/";
-        private static string ImageBaseAddress = "https://qz6qcgd3-5224.euw.devtunnels.ms/";
+        public static string BaseAddress = "https://7dqc0f3r-5224.euw.devtunnels.ms/api/";
+        private static string ImageBaseAddress = "https://7dqc0f3r-5224.euw.devtunnels.ms/";
         #endregion
 
         public TasksManagementWebAPIProxy()
@@ -52,6 +52,47 @@ namespace TasksManagementApp.Services
         public string GetDefaultProfilePhotoUrl()
         {
             return $"{TasksManagementWebAPIProxy.ImageBaseAddress}/profileImages/default.png";
+        }
+
+        public async Task<Object?> LoginAsync(LoginInfo userInfo)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}login";
+            try
+            {
+                Object? ret = null;
+                //Call the server API
+                string json = JsonSerializer.Serialize(userInfo);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    if (userInfo.StudentTypes == StudentTypes.STUDENT) 
+                    {
+                        Student? result = JsonSerializer.Deserialize<Student>(resContent, options);
+                        ret = result;
+                    }
+                    
+                    return ret;
+                }
+                else
+                {
+                    
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }
