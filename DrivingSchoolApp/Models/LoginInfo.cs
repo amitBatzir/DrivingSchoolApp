@@ -8,7 +8,7 @@ namespace DrivingSchoolApp.Models
 {
     public class LoginInfo
     {
-            public StudentTypes StudentTypes { get; set; }
+            public UserTypes UserTypes { get; set; }
             public string Email { get; set; }
             public string Password { get; set; }
 

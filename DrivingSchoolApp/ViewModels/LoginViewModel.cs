@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DrivingSchoolApp.Models
+namespace DrivingSchoolApp.ViewModels
 {
-    public enum UserTypes
+    public class LoginViewModel
     {
-        STUDENT = 0,
-        TEACHER = 1,
-        MANAGER = 2
     }
 }

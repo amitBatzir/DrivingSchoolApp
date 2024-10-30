@@ -47,17 +47,17 @@ namespace DrivingSchoolApp.Services
 
         public string GetImagesBaseAddress()
         {
-            return TasksManagementWebAPIProxy.ImageBaseAddress;
+            return DrivingSchoolAppWebAPIProxy.ImageBaseAddress;
         }
         
         public string GetDefaultProfilePhotoUrl()
         {
-            return $"{TasksManagementWebAPIProxy.ImageBaseAddress}/profileImages/default.png";
+            return $"{DrivingSchoolAppWebAPIProxy.ImageBaseAddress}/profileImages/default.png";
         }
         
         public async Task<Object?> LoginAsync(LoginInfo userInfo)
         {
-            
+           
             //Set URI to the specific function API
             string url = $"{this.baseUrl}login";
             try
@@ -83,12 +83,12 @@ namespace DrivingSchoolApp.Services
                         Student? result = JsonSerializer.Deserialize<Student>(resContent, options);
                         ret = result;
                     }
-                    if(userInfo.UserTypes == UserTypes.Teacher)
+                    if(userInfo.UserTypes == UserTypes.TEACHER)
                     {
                        Teacher? result = JsonSerializer.Deserialize<Teacher>(resContent, options);
                         ret = result;
                     }
-                    if (userInfo.UserTypes == UserTypes.Manager)
+                    if (userInfo.UserTypes == UserTypes.MANAGER)
                     {
                         Manager? result = JsonSerializer.Deserialize<Manager>(resContent, options);
                         ret = result;
