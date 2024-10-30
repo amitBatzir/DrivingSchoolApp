@@ -8,9 +8,9 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using DrivingSchoolApp.Models;
 
-namespace TasksManagementApp.Services
+namespace DrivingSchoolApp.Services
 {
-    public class TasksManagementWebAPIProxy
+    public class DrivingSchoolAppWebAPIProxy
     {
         #region without tunnel
         /*
@@ -34,7 +34,8 @@ namespace TasksManagementApp.Services
         private static string ImageBaseAddress = "https://7dqc0f3r-5224.euw.devtunnels.ms/";
         #endregion
 
-        public TasksManagementWebAPIProxy()
+        
+        public DrivingSchoolAppWebAPIProxy()
         {
             //Set client handler to support cookies!!
             HttpClientHandler handler = new HttpClientHandler();
@@ -42,20 +43,21 @@ namespace TasksManagementApp.Services
 
             this.client = new HttpClient(handler);
             this.baseUrl = BaseAddress;
-        }
+        }       
 
         public string GetImagesBaseAddress()
         {
             return TasksManagementWebAPIProxy.ImageBaseAddress;
         }
-
+        
         public string GetDefaultProfilePhotoUrl()
         {
             return $"{TasksManagementWebAPIProxy.ImageBaseAddress}/profileImages/default.png";
         }
-
+        
         public async Task<Object?> LoginAsync(LoginInfo userInfo)
         {
+            
             //Set URI to the specific function API
             string url = $"{this.baseUrl}login";
             try
@@ -68,6 +70,7 @@ namespace TasksManagementApp.Services
                 //Check status
                 if (response.IsSuccessStatusCode)
                 {
+                    
                     //Extract the content as string
                     string resContent = await response.Content.ReadAsStringAsync();
                     //Desrialize result
@@ -75,12 +78,21 @@ namespace TasksManagementApp.Services
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    if (userInfo.StudentTypes == StudentTypes.STUDENT) 
+                    if (userInfo.UserTypes == UserTypes.STUDENT) 
                     {
                         Student? result = JsonSerializer.Deserialize<Student>(resContent, options);
                         ret = result;
                     }
-                    
+                    if(userInfo.UserTypes == UserTypes.Teacher)
+                    {
+                       Teacher? result = JsonSerializer.Deserialize<Teacher>(resContent, options);
+                        ret = result;
+                    }
+                    if (userInfo.UserTypes == UserTypes.Manager)
+                    {
+                        Manager? result = JsonSerializer.Deserialize<Manager>(resContent, options);
+                        ret = result;
+                    }
                     return ret;
                 }
                 else
