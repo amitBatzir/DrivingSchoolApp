@@ -7,6 +7,7 @@ using System.Windows.Input;
 using DrivingSchoolApp.Services;
 using DrivingSchoolApp.Models;
 using Microsoft.Win32;
+using DrivingSchoolApp.ViewModels;
 
 namespace DrivingSchoolApp.ViewModels
 {
@@ -99,27 +100,75 @@ namespace DrivingSchoolApp.ViewModels
                 Email = this.Email, 
                 Password = this.Password 
             };
-            AppUser? u = await this.proxy.LoginAsync(loginInfo);
-
-            InServerCall = false;
-
-            //Set the application logged in user to be whatever user returned (null or real user)
-            ((App)Application.Current).LoggedInUser = u;
-            if (u == null)
+            if(UserType == 0)
             {
-                ErrorMsg = "Invalid email or password";
+                object? o = await this.proxy.LoginAsync(loginInfo);
+                InServerCall = false;
+                Student s = (Student)o;
+                //Set the application logged in user to be whatever user returned (null or real user)
+                ((App)Application.Current).LoggedInUser = s;
+                if (s == null)
+                {
+                    ErrorMsg = "Invalid email or password";
+                }
+                else
+                {
+                    ErrorMsg = "";
+                    //Navigate to the main page
+                    AppShell shell = serviceProvider.GetService<AppShell>();
+                    HomePageViewModel homePageViewModel = serviceProvider.GetService<HomePageViewModel>();
+                    //homePageViewModel.Refresh(); //Refresh data and user in the homepageViewModel as it is a singleton
+                    ((App)Application.Current).MainPage = shell;
+                    Shell.Current.FlyoutIsPresented = false; //close the flyout
+                    Shell.Current.GoToAsync("Home"); //Navigate to the Home Page tab page
+                }
             }
-            else
+            if (UserType == 1)
             {
-                ErrorMsg = "";
-                //Navigate to the main page
-                AppShell shell = serviceProvider.GetService<AppShell>();
-                TasksViewModel tasksViewModel = serviceProvider.GetService<TasksViewModel>();
-                tasksViewModel.Refresh(); //Refresh data and user in the tasksview model as it is a singleton
-                ((App)Application.Current).MainPage = shell;
-                Shell.Current.FlyoutIsPresented = false; //close the flyout
-                Shell.Current.GoToAsync("Tasks"); //Navigate to the Tasks tab page
+                object? o = await this.proxy.LoginAsync(loginInfo);
+                InServerCall = false;
+                Teacher t= (Teacher)o;
+                //Set the application logged in user to be whatever user returned (null or real user)
+                ((App)Application.Current).LoggedInUser = u;
+                if (t == null)
+                {
+                    ErrorMsg = "Invalid email or password";
+                }
+                else
+                {
+                    ErrorMsg = "";
+                    //Navigate to the main page
+                    AppShell shell = serviceProvider.GetService<AppShell>();
+                    HomePageViewModel homePageViewModel = serviceProvider.GetService<HomePageViewModel>();
+                    //homePageViewModel.Refresh(); //Refresh data and user in the homepageViewModel as it is a singleton
+                    ((App)Application.Current).MainPage = shell;
+                    Shell.Current.FlyoutIsPresented = false; //close the flyout
+                    Shell.Current.GoToAsync("Home"); //Navigate to the Home Page tab pa
+                }
             }
+            if (UserType == 2)
+            {
+                object? o = await this.proxy.LoginAsync(loginInfo);
+                InServerCall = false;
+                Manager m = (Manager)o;
+                //Set the application logged in user to be whatever user returned (null or real user)
+                ((App)Application.Current).LoggedInUser = m;
+                if (m == null)
+                {
+                    ErrorMsg = "Invalid email or password";
+                }
+                else
+                {
+                    ErrorMsg = "";
+                    //Navigate to the main page
+                    AppShell shell = serviceProvider.GetService<AppShell>();
+                    HomePageViewModel homePageViewModel = serviceProvider.GetService<HomePageViewModel>();
+                    //homePageViewModel.Refresh(); //Refresh data and user in the homepageViewModel as it is a singleton
+                    ((App)Application.Current).MainPage = shell;
+                    Shell.Current.FlyoutIsPresented = false; //close the flyout
+                    Shell.Current.GoToAsync("Home"); //Navigate to the Home Page tab pa
+                }
+            }  
         }
 
         private void OnRegister()

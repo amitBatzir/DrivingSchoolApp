@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
-using TasksManagementApp.Services;
+using DrivingSchoolApp.Services;
 
 namespace DrivingSchoolApp
 {
