@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using DrivingSchoolApp.Services;
+using DrivingSchoolApp.View;
+using DrivingSchoolApp.ViewModels;
 
 namespace DrivingSchoolApp
 {
@@ -28,16 +30,25 @@ namespace DrivingSchoolApp
         }
         public static MauiAppBuilder RegisterPages(this MauiAppBuilder builder)
         {
-
+            builder.Services.AddTransient<LoginView>();
+            builder.Services.AddTransient<HomePageView>();
+            builder.Services.AddTransient<RegisterView>();
+            builder.Services.AddTransient<ScheduleView>();
+            builder.Services.AddTransient<Shell>();
             return builder;
         }
 
         public static MauiAppBuilder RegisterDataServices(this MauiAppBuilder builder)
         {
+            builder.Services.AddSingleton<DrivingSchoolAppWebAPIProxy>();
             return builder;
         }
         public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
         {
+            builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<HomePageViewModel>();
+            builder.Services.AddTransient<RegisterViewModel>();
+            builder.Services.AddTransient<ScheduleViewModel>();    
             return builder;
         }
     }

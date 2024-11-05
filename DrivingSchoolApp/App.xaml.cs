@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System;
-
+using DrivingSchoolApp.Models;
+using DrivingSchoolApp.Services;
+using DrivingSchoolApp.View;
 namespace DrivingSchoolApp
 {
     public partial class App : Application
@@ -12,15 +14,18 @@ namespace DrivingSchoolApp
         //    MainPage = new AppShell();
         //}
         //Application level variables
-        public AppUser? LoggedInUser { get; set; }
-        public List<UrgencyLevel> UrgencyLevels { get; set; } = new List<UrgencyLevel>();
-        private TasksManagementWebAPIProxy proxy;
-        public App(IServiceProvider serviceProvider, TasksManagementWebAPIProxy proxy)
+        public Student? LoggedInStudent { get; set; }
+        public Teacher? LoggedInTeacher { get; set; }
+        public Manager? LoggedInManager { get; set; }
+      
+        private DrivingSchoolAppWebAPIProxy proxy;
+        public App(IServiceProvider serviceProvider, DrivingSchoolAppWebAPIProxy proxy)
         {
             this.proxy = proxy;
             InitializeComponent();
-            LoggedInUser = null;
-            
+            LoggedInStudent = null;
+            LoggedInTeacher = null;
+            LoggedInManager = null;
             //Start with the Login View
             MainPage = new NavigationPage(serviceProvider.GetService<LoginView>());
         }

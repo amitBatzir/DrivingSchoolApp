@@ -8,6 +8,7 @@ using DrivingSchoolApp.Services;
 using DrivingSchoolApp.Models;
 using Microsoft.Win32;
 using DrivingSchoolApp.ViewModels;
+using DrivingSchoolApp.View;
 
 namespace DrivingSchoolApp.ViewModels
 {
@@ -69,8 +70,8 @@ namespace DrivingSchoolApp.ViewModels
                 }
             }
         }
-        private int userType;
-        public int UserType
+        private UserTypes userType;
+        public UserTypes UserType
         {
             get => userType;
             set
@@ -98,18 +99,19 @@ namespace DrivingSchoolApp.ViewModels
             { 
 
                 Email = this.Email, 
-                Password = this.Password 
+                Password = this.Password,
+                UserTypes = this.UserType
             };
-            if(UserType == 0)
+            if(UserType == UserTypes.STUDENT)
             {
                 object? o = await this.proxy.LoginAsync(loginInfo);
                 InServerCall = false;
                 Student s = (Student)o;
                 //Set the application logged in user to be whatever user returned (null or real user)
-                ((App)Application.Current).LoggedInUser = s;
+                ((App)Application.Current).LoggedInStudent = s;
                 if (s == null)
                 {
-                    ErrorMsg = "Invalid email or password";
+                    ErrorMsg = "מייל או סיסמה לא תקינים";
                 }
                 else
                 {
@@ -123,16 +125,16 @@ namespace DrivingSchoolApp.ViewModels
                     Shell.Current.GoToAsync("Home"); //Navigate to the Home Page tab page
                 }
             }
-            if (UserType == 1)
+            if (UserType == UserTypes.TEACHER)
             {
                 object? o = await this.proxy.LoginAsync(loginInfo);
                 InServerCall = false;
                 Teacher t= (Teacher)o;
                 //Set the application logged in user to be whatever user returned (null or real user)
-                ((App)Application.Current).LoggedInUser = u;
+                ((App)Application.Current).LoggedInTeacher = t;
                 if (t == null)
                 {
-                    ErrorMsg = "Invalid email or password";
+                    ErrorMsg = "מייל או סיסמה לא תקינים";
                 }
                 else
                 {
@@ -146,27 +148,27 @@ namespace DrivingSchoolApp.ViewModels
                     Shell.Current.GoToAsync("Home"); //Navigate to the Home Page tab pa
                 }
             }
-            if (UserType == 2)
+            if (UserType == UserTypes.MANAGER)
             {
                 object? o = await this.proxy.LoginAsync(loginInfo);
                 InServerCall = false;
                 Manager m = (Manager)o;
                 //Set the application logged in user to be whatever user returned (null or real user)
-                ((App)Application.Current).LoggedInUser = m;
+                ((App)Application.Current).LoggedInManager = m;
                 if (m == null)
                 {
-                    ErrorMsg = "Invalid email or password";
+                    ErrorMsg = "מייל או סיסמה לא תקינים";
                 }
                 else
                 {
                     ErrorMsg = "";
                     //Navigate to the main page
                     AppShell shell = serviceProvider.GetService<AppShell>();
-                    HomePageViewModel homePageViewModel = serviceProvider.GetService<HomePageViewModel>();
+                    //HomePageViewModel homePageViewModel = serviceProvider.GetService<HomePageViewModel>();
                     //homePageViewModel.Refresh(); //Refresh data and user in the homepageViewModel as it is a singleton
                     ((App)Application.Current).MainPage = shell;
-                    Shell.Current.FlyoutIsPresented = false; //close the flyout
-                    Shell.Current.GoToAsync("Home"); //Navigate to the Home Page tab pa
+                    //Shell.Current.FlyoutIsPresented = false; //close the flyout
+                    //Shell.Current.GoToAsync("Home"); //Navigate to the Home Page tab pa
                 }
             }  
         }
