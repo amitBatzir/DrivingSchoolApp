@@ -24,6 +24,7 @@
             CheckedChanged="OnRadioButtonCheckedChanged"
             Content="תלמיד"
             GroupName="UserType"
+            Style=""
             Value="0" />
 
         <RadioButton
