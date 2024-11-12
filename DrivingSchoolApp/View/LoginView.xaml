@@ -24,19 +24,21 @@
             CheckedChanged="OnRadioButtonCheckedChanged"
             Content="תלמיד"
             GroupName="UserType"
-            Style=""
+            Style="{StaticResource buttonStyle}"
             Value="0" />
 
         <RadioButton
             CheckedChanged="OnRadioButtonCheckedChanged"
             Content="מורה"
             GroupName="UserType"
+            Style="{StaticResource buttonStyle}"
             Value="1" />
 
         <RadioButton
             CheckedChanged="OnRadioButtonCheckedChanged"
             Content="מנהל"
             GroupName="UserType"
+            Style="{StaticResource buttonStyle}"
             Value="2" />
         <Button
             Command="{Binding LoginCommand}"

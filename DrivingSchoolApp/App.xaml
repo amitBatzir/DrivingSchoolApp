@@ -1,8 +1,9 @@
-﻿<?xml version = "1.0" encoding = "UTF-8" ?>
-<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:DrivingSchoolApp"
-             x:Class="DrivingSchoolApp.App">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Application
+    x:Class="DrivingSchoolApp.App"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:DrivingSchoolApp">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -22,12 +23,12 @@
             </Style>
             <Style x:Key="buttonStyle" TargetType="Button">
                 <Setter Property="HorizontalOptions" Value="Fill" />
-                <Setter Property="BackgroundColor" Value="{StaticResource SecondColor}" />
-                <Setter Property="TextColor" Value="White" />
+                <Setter Property="TextColor" Value="Black" />
                 <Setter Property="Margin" Value="10" />
+                <Setter Property="BorderColor" Value="{StaticResource MainColor}" />
             </Style>
         </ResourceDictionary>
-        
-        
+
+
     </Application.Resources>
 </Application>
