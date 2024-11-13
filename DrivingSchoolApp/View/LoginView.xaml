@@ -24,26 +24,30 @@
             CheckedChanged="OnRadioButtonCheckedChanged"
             Content="תלמיד"
             GroupName="UserType"
-            Style="{StaticResource buttonStyle}"
-            Value="0" />
+             Value="0" />
+            <!--Style="{StaticResource buttonStyle}"-->
+           
 
         <RadioButton
             CheckedChanged="OnRadioButtonCheckedChanged"
             Content="מורה"
             GroupName="UserType"
-            Style="{StaticResource buttonStyle}"
-            Value="1" />
+             Value="1" />
+            <!--Style="{StaticResource buttonStyle}"-->
+           
 
         <RadioButton
             CheckedChanged="OnRadioButtonCheckedChanged"
             Content="מנהל"
             GroupName="UserType"
-            Style="{StaticResource buttonStyle}"
-            Value="2" />
+                Value="2" />
+            <!--Style="{StaticResource buttonStyle}"-->
+        
         <Button
             Command="{Binding LoginCommand}"
             IsEnabled="{Binding NotInServerCall}"
-            Text="Login" />
+             Style="{StaticResource buttonStyle}"
+            Text="התחברות" />
         <Label
             HorizontalOptions="Center"
             Text="{Binding ErrorMsg}"
@@ -52,7 +56,7 @@
             HorizontalOptions="Center"
             IsEnabled="{Binding NotInServerCall}"
             Text="אין לך חשבון? תירשם"
-            TextColor="Blue"
+            TextColor="{StaticResource MainColor}"
             VerticalOptions="End">
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RegisterCommand}" />
