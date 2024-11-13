@@ -34,7 +34,7 @@ namespace DrivingSchoolApp.Services
         private static string ImageBaseAddress = "https://7dqc0f3r-5224.euw.devtunnels.ms/";
         #endregion
 
-        
+
         public DrivingSchoolAppWebAPIProxy()
         {
             //Set client handler to support cookies!!
@@ -43,21 +43,22 @@ namespace DrivingSchoolApp.Services
 
             this.client = new HttpClient(handler);
             this.baseUrl = BaseAddress;
-        }       
+        }
 
         public string GetImagesBaseAddress()
         {
             return DrivingSchoolAppWebAPIProxy.ImageBaseAddress;
         }
-        
+
         public string GetDefaultProfilePhotoUrl()
         {
             return $"{DrivingSchoolAppWebAPIProxy.ImageBaseAddress}/profileImages/default.png";
         }
-        
+
+        #region Login 
         public async Task<Object?> LoginAsync(LoginInfo userInfo)
         {
-           
+
             //Set URI to the specific function API
             string url = $"{this.baseUrl}login";
             try
@@ -70,7 +71,7 @@ namespace DrivingSchoolApp.Services
                 //Check status
                 if (response.IsSuccessStatusCode)
                 {
-                    
+
                     //Extract the content as string
                     string resContent = await response.Content.ReadAsStringAsync();
                     //Desrialize result
@@ -78,14 +79,14 @@ namespace DrivingSchoolApp.Services
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    if (userInfo.UserTypes == UserTypes.STUDENT) 
+                    if (userInfo.UserTypes == UserTypes.STUDENT)
                     {
                         Student? result = JsonSerializer.Deserialize<Student>(resContent, options);
                         ret = result;
                     }
-                    if(userInfo.UserTypes == UserTypes.TEACHER)
+                    if (userInfo.UserTypes == UserTypes.TEACHER)
                     {
-                       Teacher? result = JsonSerializer.Deserialize<Teacher>(resContent, options);
+                        Teacher? result = JsonSerializer.Deserialize<Teacher>(resContent, options);
                         ret = result;
                     }
                     if (userInfo.UserTypes == UserTypes.MANAGER)
@@ -97,7 +98,7 @@ namespace DrivingSchoolApp.Services
                 }
                 else
                 {
-                    
+
                     return null;
                 }
             }
@@ -106,5 +107,81 @@ namespace DrivingSchoolApp.Services
                 return null;
             }
         }
+        #endregion
+
+
+        #region Register
+        //This methos call the Register web API on the server and return the AppUser object with the given ID
+        //or null if the call fails
+
+        // student register action
+        public async Task<Student?> RegisterStudent(Student student)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}registerStudent";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(student);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Student? result = JsonSerializer.Deserialize<Student>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        // Teacher register action
+        public async Task<Teacher?> RegisterTeacher(Teacher teacher)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}registerTeacher";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(teacher);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Teacher? result = JsonSerializer.Deserialize<Teacher>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
     }
 }
