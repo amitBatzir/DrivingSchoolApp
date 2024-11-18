@@ -8,5 +8,6 @@ namespace DrivingSchoolApp.ViewModels
 {
     internal class RegisterViewModel
     {
+
     }
 }

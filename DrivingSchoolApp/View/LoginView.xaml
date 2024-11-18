@@ -55,8 +55,8 @@
         <Label
             HorizontalOptions="Center"
             IsEnabled="{Binding NotInServerCall}"
-            Text="אין לך חשבון? תירשם"
-            TextColor="{StaticResource MainColor}"
+            Text="אין לך חשבון? תירשם"          
+            TextColor="Black"
             VerticalOptions="End">
             <Label.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding RegisterCommand}" />

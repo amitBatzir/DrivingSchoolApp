@@ -182,6 +182,41 @@ namespace DrivingSchoolApp.Services
                 return null;
             }
         }
+
+        // Manager register action
+        public async Task<Manager?> RegisterManager(Manager manager)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}registerManager";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(manager);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Manager? result = JsonSerializer.Deserialize<Manager>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         #endregion
     }
 }
