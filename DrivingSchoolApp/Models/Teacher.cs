@@ -21,6 +21,7 @@ namespace DrivingSchoolApp.Models
         public string Gender { get; set; } = null!;
         public string ProfilePic { get; set; } = null!;
         public int ManagerId { get; set; }
+
         public Teacher() { }
        
 
