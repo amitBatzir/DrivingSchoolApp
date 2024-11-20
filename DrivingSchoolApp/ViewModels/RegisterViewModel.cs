@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using DrivingSchoolApp.Services;
 using System.Threading.Tasks;
-using static Java.Util.Jar.Attributes;
+//using static Java.Util.Jar.Attributes;
 
 namespace DrivingSchoolApp.ViewModels
 {
@@ -29,8 +29,12 @@ namespace DrivingSchoolApp.ViewModels
             NameError = "Name is required";
             LastNameError = "Last name is required";
             EmailError = "Email is required";
-            PasswordError = "Password must be at least 4 characters long and contain letters and numbers";
+            PasswordError = "Password must be at least 2 characters long and contain letters and numbers";
+            DateTime date = DateTime.Now;
+            this.Date = date.AddDays(-1);
+            MaxDate = date;
         }
+
 
       
         //Defiine properties for each field in the registration form including error messages and validation logic
@@ -72,7 +76,7 @@ namespace DrivingSchoolApp.ViewModels
             }
         }
 
-        private void ValidateaFirstName()
+        private void ValidateFirstName()
         {
             this.ShowFirstNameError = string.IsNullOrEmpty(FirstName);
         }
@@ -258,17 +262,17 @@ namespace DrivingSchoolApp.ViewModels
         #endregion
 
         #region SchoolName
-        private bool showSchoolNameError;
+        //private bool showSchoolNameError;
 
-        public bool ShowSchoolNameError
-        {
-            get => showSchoolNameError;
-            set
-            {
-                showFirstNameError = value;
-                OnPropertyChanged("ShowSchoolNameError");
-            }
-        }
+        //public bool ShowSchoolNameError
+        //{
+        //    get => showSchoolNameError;
+        //    set
+        //    {
+        //        showFirstNameError = value;
+        //        OnPropertyChanged("ShowSchoolNameError");
+        //    }
+        //}
 
         private string schoolName;
 
@@ -278,29 +282,100 @@ namespace DrivingSchoolApp.ViewModels
             set
             {
                 schoolName = value;
-                ValidateSchoolName();
                 OnPropertyChanged("SchoolName");
             }
         }
 
-        private string schoolNameError;
+        //private string schoolNameError;
 
-        public string SchoolNameError
+        //public string SchoolNameError
+        //{
+        //    get => schoolNameError;
+        //    set
+        //    {
+        //        schoolNameError = value;
+        //        OnPropertyChanged("SchoolNameError");
+        //    }
+        //}
+        #endregion
+
+        #region Language
+        //private bool showLanguageError;
+
+        //public bool ShowLanguageError
+        //{
+        //    get => showLanguageError;
+        //    set
+        //    {
+        //        showLanguageError = value;
+        //        OnPropertyChanged("ShowLanguageError");
+        //    }
+        //}
+
+        private string language;
+
+        public string Language
         {
-            get => schoolNameError;
+            get => language;
             set
             {
-                schoolNameError = value;
-                OnPropertyChanged("SchoolNameError");
+                language = value;              
+                OnPropertyChanged("Language");
             }
         }
 
-        private void ValidateSchoolName()
+        //private string languageError;
+
+        //public string LanguageError
+        //{
+        //    get => languageError;
+        //    set
+        //    {
+        //        languageError = value;
+        //        OnPropertyChanged("LanguageError");
+        //    }
+        //}
+        #endregion
+
+        #region DoneTheoryTest
+
+        private string doneTheoryTest;
+
+        public string DoneTheoryTest
         {
-            this.ShowFirstNameError = string.IsNullOrEmpty(FirstName);
-            isEx
+            get => doneTheoryTest;
+            set
+            {
+                doneTheoryTest = value;
+                OnPropertyChanged("DoneTheoryTest");
+            }
         }
         #endregion
+
+        #region DateOfTheory
+        private DateTime date;
+        public DateTime Date
+        {
+            get=> date;
+            set
+            {
+                date = value;
+                OnPropertyChanged("Date");
+            }
+        }
+
+        private DateTime maxDate;
+        public DateTime MaxDate
+        {
+            get=> maxDate;
+            set
+            {
+                maxDate = value; 
+                OnPropertyChanged("MaxDate");
+            }
+        }
+        #endregion
+
 
 
     }
