@@ -30,6 +30,10 @@ namespace DrivingSchoolApp.ViewModels
             LastNameError = "Last name is required";
             EmailError = "Email is required";
             PasswordError = "Password must be at least 2 characters long and contain letters and numbers";
+            LessonLengthError = "The lesngth is supposed to be 45 minutes or 60 minutes";
+            SchoolNameError = "Check that you chose a school";
+            LanguageError = "Check that you chose a language";
+            
             DateTime date = DateTime.Now;
             this.Date = date.AddDays(-1);
             MaxDate = date;
@@ -262,17 +266,17 @@ namespace DrivingSchoolApp.ViewModels
         #endregion
 
         #region SchoolName
-        //private bool showSchoolNameError;
+        private bool showSchoolNameError;
 
-        //public bool ShowSchoolNameError
-        //{
-        //    get => showSchoolNameError;
-        //    set
-        //    {
-        //        showFirstNameError = value;
-        //        OnPropertyChanged("ShowSchoolNameError");
-        //    }
-        //}
+        public bool ShowSchoolNameError
+        {
+            get => showSchoolNameError;
+            set
+            {
+                showFirstNameError = value;
+                OnPropertyChanged("ShowSchoolNameError");
+            }
+        }
 
         private string schoolName;
 
@@ -282,35 +286,40 @@ namespace DrivingSchoolApp.ViewModels
             set
             {
                 schoolName = value;
+                ValidateSchoolName();
                 OnPropertyChanged("SchoolName");
             }
         }
 
-        //private string schoolNameError;
+        private string schoolNameError;
 
-        //public string SchoolNameError
-        //{
-        //    get => schoolNameError;
-        //    set
-        //    {
-        //        schoolNameError = value;
-        //        OnPropertyChanged("SchoolNameError");
-        //    }
-        //}
+        public string SchoolNameError
+        {
+            get => schoolNameError;
+            set
+            {
+                schoolNameError = value;
+                OnPropertyChanged("SchoolNameError");
+            }
+        }
+        private void ValidateSchoolName()
+        {
+            this.ShowSchoolNameError = string.IsNullOrEmpty(SchoolName);
+        }
         #endregion
 
         #region Language
-        //private bool showLanguageError;
+        private bool showLanguageError;
 
-        //public bool ShowLanguageError
-        //{
-        //    get => showLanguageError;
-        //    set
-        //    {
-        //        showLanguageError = value;
-        //        OnPropertyChanged("ShowLanguageError");
-        //    }
-        //}
+        public bool ShowLanguageError
+        {
+            get => showLanguageError;
+            set
+            {
+                showLanguageError = value;
+                OnPropertyChanged("ShowLanguageError");
+            }
+        }
 
         private string language;
 
@@ -319,22 +328,27 @@ namespace DrivingSchoolApp.ViewModels
             get => language;
             set
             {
-                language = value;              
+                language = value;
+                ValidateLanguage();
                 OnPropertyChanged("Language");
             }
         }
 
-        //private string languageError;
+        private string languageError;
 
-        //public string LanguageError
-        //{
-        //    get => languageError;
-        //    set
-        //    {
-        //        languageError = value;
-        //        OnPropertyChanged("LanguageError");
-        //    }
-        //}
+        public string LanguageError
+        {
+            get => languageError;
+            set
+            {
+                languageError = value;
+                OnPropertyChanged("LanguageError");
+            }
+        }
+        private void ValidateLanguage()
+        {
+            this.ShowLanguageError = string.IsNullOrEmpty(Language);
+        }
         #endregion
 
         #region DoneTheoryTest
@@ -375,6 +389,70 @@ namespace DrivingSchoolApp.ViewModels
             }
         }
         #endregion
+
+        #region LessonLength
+        private bool showlessonLengthError;
+
+        public bool ShowLessonLengthError
+        {
+            get => showlessonLengthError;
+            set
+            {
+                showlessonLengthError = value;
+                OnPropertyChanged("ShowLessonLengthError");
+            }
+        }
+
+        private string lessonLength;
+
+        public string LessonLength
+        {
+            get => lessonLength;
+            set
+            {
+                lessonLength = value;
+                ValidateLastName();
+                OnPropertyChanged("LessonLength");
+            }
+        }
+
+        private string lessonLengthError;
+
+        public string LessonLengthError
+        {
+            get => lessonLengthError;
+            set
+            {
+                lessonLengthError = value;
+                OnPropertyChanged("LessonLengthError");
+            }
+        }
+
+        private void ValidateLessonLength()
+        {
+            if (string.IsNullOrEmpty(lessonLength) || lessonLength.Length != 2  || !password.Any(char.IsLetter))
+            {
+                this.ShowLessonLengthError = true;
+            }
+            else
+                this.ShowLessonLengthError = false;
+        }
+        #endregion
+
+        #region HaveDocuments
+        private string haveDocuments;
+
+        public string HaveDocuments
+        {
+            get => haveDocuments;
+            set
+            {
+                haveDocuments = value;
+                OnPropertyChanged("HaveDocuments");
+            }
+        }
+        #endregion
+
 
 
 
