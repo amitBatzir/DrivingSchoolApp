@@ -11,447 +11,560 @@ namespace DrivingSchoolApp.ViewModels
 
     public class RegisterViewModel : ViewModelBase
     {
-        private DrivingSchoolAppWebAPIProxy proxy;
-        public Command RegisterCommand { get; }
-        public Command CancelCommand { get; }
-        public Command UploadPhotoCommand { get; }
-        
-        public RegisterViewModel(DrivingSchoolAppWebAPIProxy proxy)
-        {
-            this.proxy = proxy;
-            RegisterCommand = new Command(OnRegister);
-            CancelCommand = new Command(OnCancel);
-            ShowPasswordCommand = new Command(OnShowPassword);
-            UploadPhotoCommand = new Command(OnUploadPhoto);
-            PhotoURL = proxy.GetDefaultProfilePhotoUrl();
-            LocalPhotoPath = "";
-            IsPassword = true;
-            NameError = "Name is required";
-            LastNameError = "Last name is required";
-            EmailError = "Email is required";
-            PasswordError = "Password must be at least 2 characters long and contain letters and numbers";
-            LessonLengthError = "The lesngth is supposed to be 45 minutes or 60 minutes";
-            SchoolNameError = "Check that you chose a school";
-            LanguageError = "Check that you chose a language";
-            
-            DateTime date = DateTime.Now;
-            this.Date = date.AddDays(-1);
-            MaxDate = date;
-        }
+        //private DrivingSchoolAppWebAPIProxy proxy;
+        //public Command RegisterCommand { get; }
+        //public Command CancelCommand { get; }
+        //public Command UploadPhotoCommand { get; }
+        //public Command Student { get; }
+        //public Command Teacher { get; }
+        //public Command Manager { get; }
+
+        //public RegisterViewModel(DrivingSchoolAppWebAPIProxy proxy)
+        //{
+        //    this.proxy = proxy;
+        //    RegisterCommand = new Command(OnRegister);
+        //    CancelCommand = new Command(OnCancel);
+        //    ShowPasswordCommand = new Command(OnShowPassword);
+        //    UploadPhotoCommand = new Command(OnUploadPhoto);
+        //    PhotoURL = proxy.GetDefaultProfilePhotoUrl();
+        //    LocalPhotoPath = "";
+        //    IsPassword = true;
+        //    NameError = "Name is required";
+        //    LastNameError = "Last name is required";
+        //    EmailError = "Email is required";
+        //    PasswordError = "Password must be at least 2 characters long and contain letters and numbers";
+        //    LessonLengthError = "The lesngth is supposed to be 45 minutes or 60 minutes";
+        //    SchoolNameError = "Check that you chose a school";
+        //    LanguageError = "Check that you chose a language";
+
+        //    // ask ofer what it means
+        //    DateTime date = DateTime.Now;
+        //    this.Date = date.AddDays(-1);
+        //    MaxDate = date;
+
+        //     // ask ofer what it means
+        //    DateTime dateOfBirthMinus16Years = DateTime.Now.AddYears(-16).AddMonths(-9);
+        //    this.DateOfBirth = dateOfBirthMinus16Years.AddDays(-1);
+        //    MaxDateOfBirth = dateOfBirthMinus16Years;
+        //}
 
 
-      
-        //Defiine properties for each field in the registration form including error messages and validation logic
-        #region FirstName
-        private bool showFirstNameError;
 
-        public bool ShowFirstNameError
-        {
-            get => showFirstNameError;
-            set
-            {
-                showFirstNameError = value;
-                OnPropertyChanged("ShowFirstNameError");
-            }
-        }
+        ////Defiine properties for each field in the registration form including error messages and validation logic
+       
+        //// student
 
-        private string firstname;
+        //#region FirstName // entry
+        //private bool showFirstNameError;
 
-        public string FirstName
-        {
-            get => firstname;
-            set
-            {
-                firstname = value;
-                ValidateFirstName();
-                OnPropertyChanged("FirstName");
-            }
-        }
+        //public bool ShowFirstNameError
+        //{
+        //    get => showFirstNameError;
+        //    set
+        //    {
+        //        showFirstNameError = value;
+        //        OnPropertyChanged("ShowFirstNameError");
+        //    }
+        //}
 
-        private string firstnameError;
+        //private string firstname;
 
-        public string FirstNameError
-        {
-            get => firstnameError;
-            set
-            {
-                firstnameError = value;
-                OnPropertyChanged("FirstNameError");
-            }
-        }
+        //public string FirstName
+        //{
+        //    get => firstname;
+        //    set
+        //    {
+        //        firstname = value;
+        //        ValidateFirstName();
+        //        OnPropertyChanged("FirstName");
+        //    }
+        //}
 
-        private void ValidateFirstName()
-        {
-            this.ShowFirstNameError = string.IsNullOrEmpty(FirstName);
-        }
-        #endregion
+        //private string firstnameError;
 
-        #region LastName
-        private bool showLastNameError;
+        //public string FirstNameError
+        //{
+        //    get => firstnameError;
+        //    set
+        //    {
+        //        firstnameError = value;
+        //        OnPropertyChanged("FirstNameError");
+        //    }
+        //}
 
-        public bool ShowLastNameError
-        {
-            get => showLastNameError;
-            set
-            {
-                showLastNameError = value;
-                OnPropertyChanged("ShowLastNameError");
-            }
-        }
+        //private void ValidateFirstName()
+        //{
+        //    this.ShowFirstNameError = string.IsNullOrEmpty(FirstName);
+        //}
+        //#endregion
 
-        private string lastName;
+        //#region LastName // entry
+        //private bool showLastNameError;
 
-        public string LastName
-        {
-            get => lastName;
-            set
-            {
-                lastName = value;
-                ValidateLastName();
-                OnPropertyChanged("LastName");
-            }
-        }
+        //public bool ShowLastNameError
+        //{
+        //    get => showLastNameError;
+        //    set
+        //    {
+        //        showLastNameError = value;
+        //        OnPropertyChanged("ShowLastNameError");
+        //    }
+        //}
 
-        private string lastNameError;
+        //private string lastName;
 
-        public string LastNameError
-        {
-            get => lastNameError;
-            set
-            {
-                lastNameError = value;
-                OnPropertyChanged("LastNameError");
-            }
-        }
+        //public string LastName
+        //{
+        //    get => lastName;
+        //    set
+        //    {
+        //        lastName = value;
+        //        ValidateLastName();
+        //        OnPropertyChanged("LastName");
+        //    }
+        //}
 
-        private void ValidateLastName()
-        {
-            this.ShowLastNameError = string.IsNullOrEmpty(LastName);
-        }
-        #endregion
+        //private string lastNameError;
 
-        #region Email
-        private bool showEmailError;
+        //public string LastNameError
+        //{
+        //    get => lastNameError;
+        //    set
+        //    {
+        //        lastNameError = value;
+        //        OnPropertyChanged("LastNameError");
+        //    }
+        //}
 
-        public bool ShowEmailError
-        {
-            get => showEmailError;
-            set
-            {
-                showEmailError = value;
-                OnPropertyChanged("ShowEmailError");
-            }
-        }
+        //private void ValidateLastName()
+        //{
+        //    this.ShowLastNameError = string.IsNullOrEmpty(LastName);
+        //}
+        //#endregion
 
-        private string email;
+        //#region Email // entry
+        //private bool showEmailError;
 
-        public string Email
-        {
-            get => email;
-            set
-            {
-                email = value;
-                ValidateEmail();
-                OnPropertyChanged("Email");
-            }
-        }
+        //public bool ShowEmailError
+        //{
+        //    get => showEmailError;
+        //    set
+        //    {
+        //        showEmailError = value;
+        //        OnPropertyChanged("ShowEmailError");
+        //    }
+        //}
 
-        private string emailError;
+        //private string email;
 
-        public string EmailError
-        {
-            get => emailError;
-            set
-            {
-                emailError = value;
-                OnPropertyChanged("EmailError");
-            }
-        }
+        //public string Email
+        //{
+        //    get => email;
+        //    set
+        //    {
+        //        email = value;
+        //        ValidateEmail();
+        //        OnPropertyChanged("Email");
+        //    }
+        //}
 
-        private void ValidateEmail()
-        {
-            this.ShowEmailError = string.IsNullOrEmpty(Email);
-            if (!ShowEmailError)
-            {
-                //check if email is in the correct format using regular expression
-                if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
-                {
-                    EmailError = "Email is not valid";
-                    ShowEmailError = true;
-                }
-                else
-                {
-                    EmailError = "";
-                    ShowEmailError = false;
-                }
-            }
-            else
-            {
-                EmailError = "Email is required";
-            }
-        }
-        #endregion
+        //private string emailError;
 
-        #region Password
-        private bool showPasswordError;
+        //public string EmailError
+        //{
+        //    get => emailError;
+        //    set
+        //    {
+        //        emailError = value;
+        //        OnPropertyChanged("EmailError");
+        //    }
+        //}
 
-        public bool ShowPasswordError
-        {
-            get => showPasswordError;
-            set
-            {
-                showPasswordError = value;
-                OnPropertyChanged("ShowPasswordError");
-            }
-        }
+        //private void ValidateEmail()
+        //{
+        //    this.ShowEmailError = string.IsNullOrEmpty(Email);
+        //    if (!ShowEmailError)
+        //    {
+        //        //check if email is in the correct format using regular expression
+        //        if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
+        //        {
+        //            EmailError = "Email is not valid";
+        //            ShowEmailError = true;
+        //        }
+        //        else
+        //        {
+        //            EmailError = "";
+        //            ShowEmailError = false;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        EmailError = "Email is required";
+        //    }
+        //}
+        //#endregion
 
-        private string password;
+        //#region Password // entry
+        //private bool showPasswordError;
 
-        public string Password
-        {
-            get => password;
-            set
-            {
-                password = value;
-                ValidatePassword();
-                OnPropertyChanged("Password");
-            }
-        }
+        //public bool ShowPasswordError
+        //{
+        //    get => showPasswordError;
+        //    set
+        //    {
+        //        showPasswordError = value;
+        //        OnPropertyChanged("ShowPasswordError");
+        //    }
+        //}
 
-        private string passwordError;
+        //private string password;
 
-        public string PasswordError
-        {
-            get => passwordError;
-            set
-            {
-                passwordError = value;
-                OnPropertyChanged("PasswordError");
-            }
-        }
+        //public string Password
+        //{
+        //    get => password;
+        //    set
+        //    {
+        //        password = value;
+        //        ValidatePassword();
+        //        OnPropertyChanged("Password");
+        //    }
+        //}
 
-        private void ValidatePassword()
-        {
-            //Password must include characters and numbers and be longer than 2 characters
-            if (string.IsNullOrEmpty(password) ||
-                password.Length < 2 ||
-                !password.Any(char.IsDigit) ||
-                !password.Any(char.IsLetter))
-            {
-                this.ShowPasswordError = true;
-            }
-            else
-                this.ShowPasswordError = false;
-        }
+        //private string passwordError;
 
-        //This property will indicate if the password entry is a password
-        private bool isPassword = true;
-        public bool IsPassword
-        {
-            get => isPassword;
-            set
-            {
-                isPassword = value;
-                OnPropertyChanged("IsPassword");
-            }
-        }
-        //This command will trigger on pressing the password eye icon
-        public Command ShowPasswordCommand { get; }
-        //This method will be called when the password eye icon is pressed
-        public void OnShowPassword()
-        {
-            //Toggle the password visibility
-            IsPassword = !IsPassword;
-        }
-        #endregion
+        //public string PasswordError
+        //{
+        //    get => passwordError;
+        //    set
+        //    {
+        //        passwordError = value;
+        //        OnPropertyChanged("PasswordError");
+        //    }
+        //}
 
-        #region SchoolName
-        private bool showSchoolNameError;
+        //private void ValidatePassword()
+        //{
+        //    //Password must include characters and numbers and be longer than 2 characters
+        //    if (string.IsNullOrEmpty(password) ||
+        //        password.Length < 2 ||
+        //        !password.Any(char.IsDigit) ||
+        //        !password.Any(char.IsLetter))
+        //    {
+        //        this.ShowPasswordError = true;
+        //    }
+        //    else
+        //        this.ShowPasswordError = false;
+        //}
 
-        public bool ShowSchoolNameError
-        {
-            get => showSchoolNameError;
-            set
-            {
-                showFirstNameError = value;
-                OnPropertyChanged("ShowSchoolNameError");
-            }
-        }
+        ////This property will indicate if the password entry is a password
+        //private bool isPassword = true;
+        //public bool IsPassword
+        //{
+        //    get => isPassword;
+        //    set
+        //    {
+        //        isPassword = value;
+        //        OnPropertyChanged("IsPassword");
+        //    }
+        //}
+        ////This command will trigger on pressing the password eye icon
+        //public Command ShowPasswordCommand { get; }
+        ////This method will be called when the password eye icon is pressed
+        //public void OnShowPassword()
+        //{
+        //    //Toggle the password visibility
+        //    IsPassword = !IsPassword;
+        //}
+        //#endregion
 
-        private string schoolName;
+        //#region SchoolName // picker
+        //private bool showSchoolNameError;
 
-        public string SchoolName
-        {
-            get => schoolName;
-            set
-            {
-                schoolName = value;
-                ValidateSchoolName();
-                OnPropertyChanged("SchoolName");
-            }
-        }
+        //public bool ShowSchoolNameError
+        //{
+        //    get => showSchoolNameError;
+        //    set
+        //    {
+        //        showFirstNameError = value;
+        //        OnPropertyChanged("ShowSchoolNameError");
+        //    }
+        //}
 
-        private string schoolNameError;
+        //private string schoolName;
 
-        public string SchoolNameError
-        {
-            get => schoolNameError;
-            set
-            {
-                schoolNameError = value;
-                OnPropertyChanged("SchoolNameError");
-            }
-        }
-        private void ValidateSchoolName()
-        {
-            this.ShowSchoolNameError = string.IsNullOrEmpty(SchoolName);
-        }
-        #endregion
+        //public string SchoolName
+        //{
+        //    get => schoolName;
+        //    set
+        //    {
+        //        schoolName = value;
+        //        ValidateSchoolName();
+        //        OnPropertyChanged("SchoolName");
+        //    }
+        //}
 
-        #region Language
-        private bool showLanguageError;
+        //private string schoolNameError;
 
-        public bool ShowLanguageError
-        {
-            get => showLanguageError;
-            set
-            {
-                showLanguageError = value;
-                OnPropertyChanged("ShowLanguageError");
-            }
-        }
+        //public string SchoolNameError
+        //{
+        //    get => schoolNameError;
+        //    set
+        //    {
+        //        schoolNameError = value;
+        //        OnPropertyChanged("SchoolNameError");
+        //    }
+        //}
+        //private void ValidateSchoolName()
+        //{
+        //    this.ShowSchoolNameError = string.IsNullOrEmpty(SchoolName);
+        //}
+        //#endregion
 
-        private string language;
+        //#region Language // picker
+        //private bool showLanguageError;
 
-        public string Language
-        {
-            get => language;
-            set
-            {
-                language = value;
-                ValidateLanguage();
-                OnPropertyChanged("Language");
-            }
-        }
+        //public bool ShowLanguageError
+        //{
+        //    get => showLanguageError;
+        //    set
+        //    {
+        //        showLanguageError = value;
+        //        OnPropertyChanged("ShowLanguageError");
+        //    }
+        //}
 
-        private string languageError;
+        //private string language;
 
-        public string LanguageError
-        {
-            get => languageError;
-            set
-            {
-                languageError = value;
-                OnPropertyChanged("LanguageError");
-            }
-        }
-        private void ValidateLanguage()
-        {
-            this.ShowLanguageError = string.IsNullOrEmpty(Language);
-        }
-        #endregion
+        //public string Language
+        //{
+        //    get => language;
+        //    set
+        //    {
+        //        language = value;
+        //        ValidateLanguage();
+        //        OnPropertyChanged("Language");
+        //    }
+        //}
 
-        #region DoneTheoryTest
+        //private string languageError;
 
-        private string doneTheoryTest;
+        //public string LanguageError
+        //{
+        //    get => languageError;
+        //    set
+        //    {
+        //        languageError = value;
+        //        OnPropertyChanged("LanguageError");
+        //    }
+        //}
+        //private void ValidateLanguage()
+        //{
+        //    this.ShowLanguageError = string.IsNullOrEmpty(Language);
+        //}
+        //#endregion
 
-        public string DoneTheoryTest
-        {
-            get => doneTheoryTest;
-            set
-            {
-                doneTheoryTest = value;
-                OnPropertyChanged("DoneTheoryTest");
-            }
-        }
-        #endregion
+        //#region DoneTheoryTest // radio button
 
-        #region DateOfTheory
-        private DateTime date;
-        public DateTime Date
-        {
-            get=> date;
-            set
-            {
-                date = value;
-                OnPropertyChanged("Date");
-            }
-        }
+        //private string doneTheoryTest;
 
-        private DateTime maxDate;
-        public DateTime MaxDate
-        {
-            get=> maxDate;
-            set
-            {
-                maxDate = value; 
-                OnPropertyChanged("MaxDate");
-            }
-        }
-        #endregion
+        //public string DoneTheoryTest
+        //{
+        //    get => doneTheoryTest;
+        //    set
+        //    {
+        //        doneTheoryTest = value;
+        //        OnPropertyChanged("DoneTheoryTest");
+        //    }
+        //}
+        //#endregion 
 
-        #region LessonLength
-        private bool showlessonLengthError;
+        //#region DateOfTheory // picker of date
+        //private DateTime date;
+        //public DateTime Date
+        //{
+        //    get=> date;
+        //    set
+        //    {
+        //        date = value;
+        //        OnPropertyChanged("Date");
+        //    }
+        //}
 
-        public bool ShowLessonLengthError
-        {
-            get => showlessonLengthError;
-            set
-            {
-                showlessonLengthError = value;
-                OnPropertyChanged("ShowLessonLengthError");
-            }
-        }
+        //private DateTime maxDate;
+        //public DateTime MaxDate
+        //{
+        //    get=> maxDate;
+        //    set
+        //    {
+        //        maxDate = value; 
+        //        OnPropertyChanged("MaxDate");
+        //    }
+        //}
+        //#endregion 
 
-        private string lessonLength;
+        //#region LessonLength // entry
+        //private bool showlessonLengthError;
 
-        public string LessonLength
-        {
-            get => lessonLength;
-            set
-            {
-                lessonLength = value;
-                ValidateLastName();
-                OnPropertyChanged("LessonLength");
-            }
-        }
+        //public bool ShowLessonLengthError
+        //{
+        //    get => showlessonLengthError;
+        //    set
+        //    {
+        //        showlessonLengthError = value;
+        //        OnPropertyChanged("ShowLessonLengthError");
+        //    }
+        //}
 
-        private string lessonLengthError;
+        //private string lessonLength;
 
-        public string LessonLengthError
-        {
-            get => lessonLengthError;
-            set
-            {
-                lessonLengthError = value;
-                OnPropertyChanged("LessonLengthError");
-            }
-        }
+        //public string LessonLength
+        //{
+        //    get => lessonLength;
+        //    set
+        //    {
+        //        lessonLength = value;
+        //        ValidateLastName();
+        //        OnPropertyChanged("LessonLength");
+        //    }
+        //}
 
-        private void ValidateLessonLength()
-        {
-            if (string.IsNullOrEmpty(lessonLength) || lessonLength.Length != 2  || !password.Any(char.IsLetter))
-            {
-                this.ShowLessonLengthError = true;
-            }
-            else
-                this.ShowLessonLengthError = false;
-        }
-        #endregion
+        //private string lessonLengthError;
 
-        #region HaveDocuments
-        private string haveDocuments;
+        //public string LessonLengthError
+        //{
+        //    get => lessonLengthError;
+        //    set
+        //    {
+        //        lessonLengthError = value;
+        //        OnPropertyChanged("LessonLengthError");
+        //    }
+        //}
 
-        public string HaveDocuments
-        {
-            get => haveDocuments;
-            set
-            {
-                haveDocuments = value;
-                OnPropertyChanged("HaveDocuments");
-            }
-        }
-        #endregion
+        //private void ValidateLessonLength()
+        //{
+        //    if (string.IsNullOrEmpty(lessonLength) || lessonLength.Length != 2  || !password.Any(char.IsLetter))
+        //    {
+        //        this.ShowLessonLengthError = true;
+        //    }
+        //    else
+        //        this.ShowLessonLengthError = false;
+        //}
+        //#endregion 
+
+        //#region HaveDocuments // radio buttons
+        //private string haveDocuments;
+
+        //public string HaveDocuments
+        //{
+        //    get => haveDocuments;
+        //    set
+        //    {
+        //        haveDocuments = value;
+        //        OnPropertyChanged("HaveDocuments");
+        //    }
+        //}
+        //#endregion
+
+        //#region DrivingTechnic // radio buttons
+        //private string drivingTechnic;
+        //public string DrivingTechnic
+        //{
+        //    get => drivingTechnic;
+        //    set
+        //    {
+        //        drivingTechnic = value;
+        //        OnPropertyChanged("DrivingTechnic");
+        //    }
+        //}
+
+        //#endregion
+
+        //#region Gender // radio buttons
+        //private string gender;
+        //public string Gender
+        //{
+        //    get => gender;
+        //    set
+        //    {
+        //        gender = value;
+        //        OnPropertyChanged("Gender");
+        //    }
+        //}
+        //#endregion
+
+        //#region ID // entry
+        //private bool showidError;
+        //public bool ShowidError
+        //{
+        //    get => showidError;
+        //    set
+        //    {
+        //        showidError = value;
+        //        OnPropertyChanged("ShowidError");
+        //    }
+        //}
+
+        //private string id;
+
+        //public string ID
+        //{
+        //    get => id;
+        //    set
+        //    {
+        //        id = value;
+        //        ValidateFirstName();
+        //        OnPropertyChanged("ID");
+        //    }
+        //}
+
+        //private string idError;
+
+        //public string IDError
+        //{
+        //    get => idError;
+        //    set
+        //    {
+        //        idError = value;
+        //        OnPropertyChanged("IDError");
+        //    }
+        //}
+
+        //private void ValidateID()
+        //{
+        //    if (this.ShowidError = string.IsNullOrEmpty(ID) || !id.Any(char.IsLetter) || id.Length > 9)
+        //    {
+        //        this.ShowidError = true;
+        //    }
+        //    else
+        //        this.ShowidError = false;      
+        //}
+        //#endregion
+
+        //#region DateOfBirth // picker of date
+        //private DateTime dateOfBirth;
+        //public DateTime DateOfBirth
+        //{
+        //    get => dateOfBirth;
+        //    set
+        //    {
+        //        dateOfBirth = value;
+        //        OnPropertyChanged("DateOfBirth");
+        //    }
+        //}
+
+        //private DateTime maxDateOfBirth;
+        //public DateTime MaxDateOfBirth
+        //{
+        //    get => maxDateOfBirth;
+        //    set
+        //    {
+        //        maxDateOfBirth = value;
+        //        OnPropertyChanged("MaxDateOfBirth");
+        //    }
+        //}
+        //#endregion 
+
+        //// Manager
 
 
 

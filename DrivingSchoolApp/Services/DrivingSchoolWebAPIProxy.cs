@@ -219,45 +219,41 @@ namespace DrivingSchoolApp.Services
         }
         #endregion
 
-        public void IsExist()
-        {
+    
 
-        }
-
-
-        public async Task<Manager?> IsExist(Manager manager, string schoolName)
-        {
-            //Set URI to the specific function API
-            string url = $"{this.baseUrl}registerStudent";
-            try
-            {
-                //Call the server API
-                string json = JsonSerializer.Serialize(student);
-                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(url, content);
-                //Check status
-                if (response.IsSuccessStatusCode)
-                {
-                    //Extract the content as string
-                    string resContent = await response.Content.ReadAsStringAsync();
-                    //Desrialize result
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
-                    Student? result = JsonSerializer.Deserialize<Student>(resContent, options);
-                    return result;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
+        //public async Task<Manager?> IsExist(Manager manager, string schoolName)
+        //{
+        //    //Set URI to the specific function API
+        //    string url = $"{this.baseUrl}registerStudent";
+        //    try
+        //    {
+        //        //Call the server API
+        //        string json = JsonSerializer.Serialize(student);
+        //        StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+        //        HttpResponseMessage response = await client.PostAsync(url, content);
+        //        //Check status
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            //Extract the content as string
+        //            string resContent = await response.Content.ReadAsStringAsync();
+        //            //Desrialize result
+        //            JsonSerializerOptions options = new JsonSerializerOptions
+        //            {
+        //                PropertyNameCaseInsensitive = true
+        //            };
+        //            Student? result = JsonSerializer.Deserialize<Student>(resContent, options);
+        //            return result;
+        //        }
+        //        else
+        //        {
+        //            return null;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return null;
+        //    }
+        //}
 
 
     }
