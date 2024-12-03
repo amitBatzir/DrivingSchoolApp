@@ -21,8 +21,9 @@
             </Style>
             <Style x:Key="entryStyle" TargetType="Entry">
                 <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="TextColor" Value="PowderBlue" />
             </Style>
-            <Style x:Key="buttonStyle" TargetType="Button">
+            <Style x:Key="buttonStyle" TargetType="Button" >
                 <Setter Property="HorizontalOptions" Value="Fill" />
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="Margin" Value="10" />
@@ -30,7 +31,6 @@
                 <!--<Setter Property="BorderColor" Value="{StaticResource MainColor}" />-->
             </Style>
         </ResourceDictionary>
-
 
     </Application.Resources>
 </Application>
