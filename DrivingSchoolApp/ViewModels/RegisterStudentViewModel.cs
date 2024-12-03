@@ -1,9 +1,11 @@
-﻿using DrivingSchoolApp.Services;
+﻿using Android.OS;
+using DrivingSchoolApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
     namespace DrivingSchoolApp.ViewModels
     {
@@ -41,7 +43,7 @@ using System.Threading.Tasks;
             this.Date = date.AddDays(-1);
             MaxDate = date;
 
-            // ask ofer what it means
+            //// ask ofer what it means
             DateTime dateOfBirthMinus16Years = DateTime.Now.AddYears(-16).AddMonths(-9);
             this.DateOfBirth = dateOfBirthMinus16Years.AddDays(-1);
             MaxDateOfBirth = dateOfBirthMinus16Years;
@@ -50,8 +52,6 @@ using System.Threading.Tasks;
 
 
         //Defiine properties for each field in the registration form including error messages and validation logic
-
-        // student
 
         #region FirstName // entry
         private bool showFirstNameError;

@@ -23,8 +23,9 @@
                 <Setter Property="HorizontalOptions" Value="Fill" />
                 <Setter Property="TextColor" Value="PowderBlue" />
             </Style>
-            <Style x:Key="buttonStyle" TargetType="Button" >
+            <Style x:Key="buttonStyle" TargetType="Button">
                 <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="BackgroundColor" Value="PowderBlue" />
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="Margin" Value="10" />
                 <!--<Setter Property="BackgroundColor" Value="{StaticResource MainColor}" />-->

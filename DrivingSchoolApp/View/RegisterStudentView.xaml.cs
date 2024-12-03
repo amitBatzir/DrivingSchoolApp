@@ -2,9 +2,9 @@ using DrivingSchoolApp.ViewModels;
 
 namespace DrivingSchoolApp.View;
 
-public partial class RegisterView : ContentPage
+public partial class RegisterStudentView : ContentPage
 {
-	public RegisterView(RegisterStudentViewModel vm)
+	public RegisterStudentView(RegisterStudentViewModel vm)
 	{
 		this.BindingContext = vm;
 		InitializeComponent();

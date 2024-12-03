@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DrivingSchoolApp.View.RegisterView"
+             x:Class="DrivingSchoolApp.View.RegisterStudentView"
              FlowDirection="RightToLeft"
              Title="הרשמה">
-    <ScrollView Margin="20">
+    <!--<ScrollView Margin="20">
         <Grid>
+
+            --><!-- Main Content --><!--
             <VerticalStackLayout IsEnabled="{Binding NotInServerCall}" Padding="20">
-                <!-- Photo -->
+                --><!-- Photo --><!--
                 <Frame BorderColor="Black" Padding="5" Margin="10">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -42,7 +44,7 @@
                         </Label>
                     </Grid>
                 </Frame>
-                <!-- Name -->
+                --><!-- Name --><!--
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -53,7 +55,7 @@
                 </Grid>
                 <Entry Placeholder="הכנס שם מלא" Text="{Binding Name}" Style="{StaticResource entryStyle}" />
 
-                <!-- Email -->
+                --><!-- Email --><!--
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -63,7 +65,9 @@
                     <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
                 </Grid>
                 <Entry Placeholder="הכנס אימייל" Text="{Binding Email}" Style="{StaticResource entryStyle}" />
-                <!-- Password -->
+
+
+                --><!-- Password --><!--
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -76,7 +80,7 @@
                 <Entry Placeholder="הכנס סיסמה" Text="{Binding Password}" Style="{StaticResource entryStyle}" />
 
 
-                <!-- Phone -->
+                --><!-- Phone --><!--
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -89,7 +93,7 @@
                 <Entry Placeholder="הכנס מספר טלפון" Text="{Binding PhoneNumber}" Style="{StaticResource entryStyle}" />
 
 
-                <!-- City -->
+                --><!-- City --><!--
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -100,7 +104,7 @@
                 </Grid>
                 <Entry Placeholder="הכנס עיר מגורים" Text="{Binding City}" Style="{StaticResource entryStyle}" />
 
-                <!-- Adress -->
+                --><!-- Adress --><!--
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -110,33 +114,6 @@
                     <Label Text="{Binding AddressError}" IsVisible="{Binding ShowAddressError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
                 </Grid>
                 <Entry Placeholder="הכנס כתובת" Text="{Binding Address}" Style="{StaticResource entryStyle}" />
-
-
-
-                <StackLayout IsVisible="{Binding ShowBeekeeperFields}">
-                    <!-- Beekeeper Radius Field -->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Label Text="רדיוס מהמיקום שלי שאני יכול.ה לבוא לעזור" Grid.Column="0"/>
-                    </Grid>
-
-                    <Entry Placeholder="הכנס מרחק הרדיוס" Text="{Binding BeekeeperRadius}" Keyboard="Numeric" Style="{StaticResource entryStyle}" />
-
-                    <!-- Beekeeper Kind Field (as a dropdown) -->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                       
-                   
-                </StackLayout>
-
-              
-
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -157,9 +134,7 @@
                    VerticalOptions="Center" 
                    HorizontalOptions="Center" />
 
-
-
-
         </Grid>
-    </ScrollView>
+    </ScrollView>-->
 </ContentPage>
+        

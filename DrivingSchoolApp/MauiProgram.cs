@@ -32,7 +32,7 @@ namespace DrivingSchoolApp
         {
             builder.Services.AddTransient<LoginView>();
             builder.Services.AddTransient<HomePageView>();
-            builder.Services.AddTransient<RegisterView>();
+            builder.Services.AddTransient<RegisterStudentView>();
             builder.Services.AddTransient<ScheduleView>();
             builder.Services.AddTransient<AppShell>();
             return builder;
@@ -47,7 +47,7 @@ namespace DrivingSchoolApp
         {
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<HomePageViewModel>();
-            builder.Services.AddTransient<RegisterViewModel>();
+            builder.Services.AddTransient<RegisterStudentViewModel>();
             builder.Services.AddTransient<ScheduleViewModel>();    
             return builder;
         }
