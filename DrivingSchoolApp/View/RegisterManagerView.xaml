@@ -2,11 +2,139 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DrivingSchoolApp.View.RegisterManagerView"
-             Title="RegisterManagerView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="הרשמת מנהל">
+    <ScrollView Margin="20">
+        <Grid>
+
+            <!-- Main Content -->
+            <VerticalStackLayout IsEnabled="{Binding NotInServerCall}" Padding="20">
+                <!-- Photo -->
+                <Frame BorderColor="Black" Padding="5" Margin="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image x:Name="theImageBug" Source="{Binding PhotoURL}"  HeightRequest="150"/>
+                        <Label Grid.Row="0"
+                            Text="לחצו פה לקחת תמונה!"
+                            TextColor="PowderBlue"
+                            HorizontalOptions="Center"
+                            VerticalOptions="End">
+
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding UploadTakePhotoCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                        <Label Grid.Row="1"
+                            Text="לחץ פה להעלות תמונה!"
+                            TextColor="PowderBlue"
+                            HorizontalOptions="Center"
+                            VerticalOptions="End">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding UploadPhotoCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Frame>
+                <!-- Name -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="שם מלא" Grid.Column="0"/>
+                    <Label Text="{Binding NameError}" IsVisible="{Binding ShowNameError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                </Grid>
+                <Entry Placeholder="הכנס שם מלא" Text="{Binding Name}" Style="{StaticResource entryStyle}" />
+
+                <!-- Email -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="אימייל" Grid.Column="0"/>
+                    <Label Text="{Binding EmailError}" IsVisible="{Binding ShowEmailError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                </Grid>
+                <Entry Placeholder="הכנס אימייל" Text="{Binding Email}" Style="{StaticResource entryStyle}" />
+
+
+                <!-- Password -->
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="סיסמה" Grid.Column="0"/>
+                    <Label Text="{Binding PasswordError}" IsVisible="{Binding ShowPasswordError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                </Grid>
+                <Entry Placeholder="הכנס סיסמה" Text="{Binding Password}" Style="{StaticResource entryStyle}" />
+
+
+                <!-- Phone -->
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="טלפון" Grid.Column="0"  />
+                    <Label Text="{Binding PhoneNumberError}" IsVisible="{Binding ShowPhoneNumberError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                </Grid>
+                <Entry Placeholder="הכנס מספר טלפון" Text="{Binding PhoneNumber}" Style="{StaticResource entryStyle}" />
+
+
+                <!-- City -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="עיר מגורים" Grid.Column="0" />
+                    <Label Text="{Binding CityError}" IsVisible="{Binding ShowCityError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                </Grid>
+                <Entry Placeholder="הכנס עיר מגורים" Text="{Binding City}" Style="{StaticResource entryStyle}" />
+
+                <!-- Adress -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="כתובת" Grid.Column="0"  />
+                    <Label Text="{Binding AddressError}" IsVisible="{Binding ShowAddressError}" Grid.Column="1" Style="{StaticResource labelErrorStyle}" />
+                </Grid>
+                <Entry Placeholder="הכנס כתובת" Text="{Binding Address}" Style="{StaticResource entryStyle}" />
+
+                
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <Button Text="ביטול" Command="{Binding CancelCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Column="1"/>
+
+                    <Button Text="הרשמה" Command="{Binding RegisterCommand}" IsEnabled="{Binding NotInServerCall}" Grid.Column="0"  />
+                </Grid>
+
+            </VerticalStackLayout>
+
+
+            <ActivityIndicator IsRunning="{Binding InServerCall}" 
+                   Color="Red" 
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Center" />
+
+        </Grid>
+    </ScrollView>
 </ContentPage>

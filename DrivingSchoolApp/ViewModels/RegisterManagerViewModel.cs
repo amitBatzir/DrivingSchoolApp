@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DrivingSchoolApp.Models;
 using DrivingSchoolApp.Services;
 
 namespace DrivingSchoolApp.ViewModels
@@ -27,12 +28,12 @@ namespace DrivingSchoolApp.ViewModels
             PhotoURL = proxy.GetDefaultProfilePhotoUrl();
             LocalPhotoPath = "";
             IsPassword = true;
-            NameError = "Name is required";
+            FirstNameError = "Name is required";
             LastNameError = "Last name is required";
             EmailError = "Email is required";
             PasswordError = "Password must be at least 2 characters long and contain letters and numbers";
             SchoolNameError = "Check that you chose a school";
-         
+
         }
 
         #region SchoolName // picker
@@ -163,6 +164,7 @@ namespace DrivingSchoolApp.ViewModels
         private void ValidateLastName()
         {
             this.ShowLastNameError = string.IsNullOrEmpty(LastName);
+
         }
         #endregion
 
@@ -301,7 +303,214 @@ namespace DrivingSchoolApp.ViewModels
         }
         #endregion
 
-        #region Teacher // אני צריכה לעשוץת מאגר של מורים בפיקר לפי הבית ספר שנבחר בפיקר
+        #region ManagerPhone // entry
+        private bool showManagerPhoneError;
+
+        public bool ShowManagerPhoneError
+        {
+            get => showManagerPhoneError;
+            set
+            {
+                showManagerPhoneError = value;
+                OnPropertyChanged("ShowManagerPhoneError");
+            }
+        }
+
+        private string managerPhone;
+
+        public string ManagerPhone
+        {
+            get => managerPhone;
+            set
+            {
+                managerPhone = value;
+                ValidateLastName();
+                OnPropertyChanged("ManagerPhone");
+            }
+        }
+
+        private string managerPhoneError;
+
+        public string ManagerPhoneError
+        {
+            get => managerPhoneError;
+            set
+            {
+                managerPhoneError = value;
+                OnPropertyChanged("ManagerPhoneError");
+            }
+        }
+
+        private void ValidateMangagerPhone()
+        {
+            this.ShowManagerPhoneError = string.IsNullOrEmpty(ManagerPhone) || ManagerPhone.Length != 10;
+
+        }
         #endregion
+
+        #region SchoolPhone // entry
+        private bool showSchoolPhoneError;
+
+        public bool ShowSchoolPhoneError
+        {
+            get => showSchoolPhoneError;
+            set
+            {
+                showSchoolPhoneError = value;
+                OnPropertyChanged("ShowSchoolPhoneError");
+            }
+        }
+
+        private string schoolPhone;
+
+        public string SchoolPhone
+        {
+            get => schoolPhone;
+            set
+            {
+                schoolPhone = value;
+                ValidateLastName();
+                OnPropertyChanged("SchoolPhone");
+            }
+        }
+
+        private string schoolPhoneError;
+
+        public string SchoolPhoneError
+        {
+            get => schoolPhoneError;
+            set
+            {
+                schoolPhoneError = value;
+                OnPropertyChanged("SchoolPhoneError");
+            }
+        }
+
+        private void ValidateSchoolPhone()
+        {
+            this.ShowSchoolPhoneError = string.IsNullOrEmpty(SchoolPhone) || SchoolPhone.Length != 10;
+
+        }
+        #endregion
+
+        #region Photo
+
+        private string photoURL;
+
+        public string PhotoURL
+        {
+            get => photoURL;
+            set
+            {
+                photoURL = value;
+                OnPropertyChanged("PhotoURL");
+            }
+        }
+
+        private string localPhotoPath;
+
+        public string LocalPhotoPath
+        {
+            get => localPhotoPath;
+            set
+            {
+                localPhotoPath = value;
+                OnPropertyChanged("LocalPhotoPath");
+            }
+        }
+        
+        //This method open the file picker to select a photo
+        private async void OnUploadPhoto()
+        {
+            try
+            {
+                var result = await MediaPicker.Default.CapturePhotoAsync(new MediaPickerOptions
+                {
+                    Title = "Please select a photo",
+                });
+
+                if (result != null)
+                {
+                    // The user picked a file
+                    this.LocalPhotoPath = result.FullPath;
+                    this.PhotoURL = result.FullPath;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+        }
+
+        private void UpdatePhotoURL(string virtualPath)
+        {
+            Random r = new Random();
+            PhotoURL = proxy.GetImagesBaseAddress() + virtualPath + "?v=" + r.Next();
+            LocalPhotoPath = "";
+        }
+
+        #endregion
+
+        //Define a command for the register button
+
+        //Define a method that will be called when the register button is clicked
+        public async void OnRegister()
+        {
+            ValidateFirstName();
+            ValidateLastName();
+            ValidateEmail();
+            ValidatePassword();
+
+            if (!ShowFirstNameError && !ShowLastNameError && !ShowEmailError && !ShowPasswordError)
+            {
+                //Create a new AppUser object with the data from the registration form
+                var newManager = new Manager
+                {
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    ManagerEmail = Email,
+                    ManagerPass = Password,
+                };
+
+                //Call the Register method on the proxy to register the new user
+                InServerCall = true;
+                newManager = await proxy.RegisterManager(newManager);
+                InServerCall = false;
+
+                //If the registration was successful, navigate to the login page
+                if (newManager != null)
+                {
+                    //UPload profile imae if needed
+                    if (!string.IsNullOrEmpty(LocalPhotoPath))
+                    {
+                        await proxy.LoginAsync(new LoginInfo { Email = newManager.ManagerEmail, Password = newManager.ManagerPass});
+                        Manager? updatedManager = await proxy.UploadProfileImage(LocalPhotoPath);
+                        if (updatedManager == null)
+                        {
+                            InServerCall = false;
+                            await Application.Current.MainPage.DisplayAlert("Registration", "User Data Was Saved BUT Profile image upload failed", "ok");
+                        }
+                    }
+                    InServerCall = false;
+
+                    ((App)(Application.Current)).MainPage.Navigation.PopAsync();
+                }
+                else
+                {
+
+                    //If the registration failed, display an error message
+                    string errorMsg = "Registration failed. Please try again.";
+                    await Application.Current.MainPage.DisplayAlert("Registration", errorMsg, "ok");                  
+                }
+            }
+        }
+
+        //Define a method that will be called upon pressing the cancel button
+        public void OnCancel()
+        {
+            //Navigate back to the login page
+            ((App)(Application.Current)).MainPage.Navigation.PopAsync();
+        }
+
     }
 }

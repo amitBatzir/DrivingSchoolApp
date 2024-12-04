@@ -1,5 +1,4 @@
-﻿using Android.OS;
-using DrivingSchoolApp.Services;
+﻿using DrivingSchoolApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,34 +19,34 @@ using System.Xml;
         public Command Teacher { get; }
         public Command Manager { get; }
 
-        public RegisterStudentViewModel(DrivingSchoolAppWebAPIProxy proxy)
-        {
-            this.proxy = proxy;
-            RegisterCommand = new Command(OnRegister);
-            CancelCommand = new Command(OnCancel);
-            ShowPasswordCommand = new Command(OnShowPassword);
-            UploadPhotoCommand = new Command(OnUploadPhoto);
-            PhotoURL = proxy.GetDefaultProfilePhotoUrl();
-            LocalPhotoPath = "";
-            IsPassword = true;
-            NameError = "Name is required";
-            LastNameError = "Last name is required";
-            EmailError = "Email is required";
-            PasswordError = "Password must be at least 2 characters long and contain letters and numbers";
-            LessonLengthError = "The lesngth is supposed to be 45 minutes or 60 minutes";
-            SchoolNameError = "Check that you chose a school";
-            LanguageError = "Check that you chose a language";
+        //public RegisterStudentViewModel(DrivingSchoolAppWebAPIProxy proxy)
+        //{
+        //    this.proxy = proxy;
+        //    RegisterCommand = new Command(OnRegister);
+        //    CancelCommand = new Command(OnCancel);
+        //    ShowPasswordCommand = new Command(OnShowPassword);
+        //    UploadPhotoCommand = new Command(OnUploadPhoto);
+        //    PhotoURL = proxy.GetDefaultProfilePhotoUrl();
+        //    LocalPhotoPath = "";
+        //    IsPassword = true;
+        //    NameError = "Name is required";
+        //    LastNameError = "Last name is required";
+        //    EmailError = "Email is required";
+        //    PasswordError = "Password must be at least 2 characters long and contain letters and numbers";
+        //    LessonLengthError = "The lesngth is supposed to be 45 minutes or 60 minutes";
+        //    SchoolNameError = "Check that you chose a school";
+        //    LanguageError = "Check that you chose a language";
 
-            // ask ofer what it means
-            DateTime date = DateTime.Now;
-            this.Date = date.AddDays(-1);
-            MaxDate = date;
+        //    // ask ofer what it means
+        //    DateTime date = DateTime.Now;
+        //    this.Date = date.AddDays(-1);
+        //    MaxDate = date;
 
-            //// ask ofer what it means
-            DateTime dateOfBirthMinus16Years = DateTime.Now.AddYears(-16).AddMonths(-9);
-            this.DateOfBirth = dateOfBirthMinus16Years.AddDays(-1);
-            MaxDateOfBirth = dateOfBirthMinus16Years;
-        }
+        //    //// ask ofer what it means
+        //    DateTime dateOfBirthMinus16Years = DateTime.Now.AddYears(-16).AddMonths(-9);
+        //    this.DateOfBirth = dateOfBirthMinus16Years.AddDays(-1);
+        //    MaxDateOfBirth = dateOfBirthMinus16Years;
+        //}
 
 
 
@@ -562,6 +561,7 @@ using System.Xml;
             }
         }
         #endregion
+
 
 
     }

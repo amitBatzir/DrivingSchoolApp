@@ -111,10 +111,10 @@ namespace DrivingSchoolApp.Services
 
 
         #region Register
-        //This methos call the Register web API on the server and return the AppUser object with the given ID
-        //or null if the call fails
+        //This methos call the Register web API on the server and return the AppUser object with the given ID   
+       //or null if the call fails
 
-        // student register action
+        // Studentnager register action
         public async Task<Student?> RegisterStudent(Student student)
         {
             //Set URI to the specific function API
@@ -217,9 +217,49 @@ namespace DrivingSchoolApp.Services
                 return null;
             }
         }
-        #endregion
+        //This method call the UpdateUser web API on the server and return true if the call was successful
+        //or false if the call fails
+      
+        //This method call the UploadProfileImage web API on the server and return the AppUser object with the given URL
+        //of the profile image or null if the call fails
+        //when registering a user it is better first to call the register command and right after that call this function
+        public async Task<Manager?> UploadProfileImage(string imagePath)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}uploadprofileimage";
+            try
+            {
+                //Create the form data
+                MultipartFormDataContent form = new MultipartFormDataContent();
+                var fileContent = new ByteArrayContent(File.ReadAllBytes(imagePath));
+                form.Add(fileContent, "file", imagePath);
+                //Call the server API
+                HttpResponseMessage response = await client.PostAsync(url, form);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Manager? result = JsonSerializer.Deserialize<Manager>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
-    
+        #endregion
 
         //public async Task<Manager?> IsExist(Manager manager, string schoolName)
         //{
@@ -253,8 +293,7 @@ namespace DrivingSchoolApp.Services
         //    {
         //        return null;
         //    }
-        //}
-
-
     }
+
+
 }
