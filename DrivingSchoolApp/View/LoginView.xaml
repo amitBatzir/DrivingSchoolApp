@@ -4,8 +4,11 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:models="DrivingSchoolApp.ViewModels" 
+    xmlns:viewmodels="clr-namespace:DrivingSchoolApp.ViewModels"
     Title="התחברות"
-    FlowDirection="RightToLeft">
+    FlowDirection="RightToLeft"
+    x:DataType="viewmodels:LoginViewModel">
+    
     <VerticalStackLayout Padding="20" Spacing="15">
 
         <Entry

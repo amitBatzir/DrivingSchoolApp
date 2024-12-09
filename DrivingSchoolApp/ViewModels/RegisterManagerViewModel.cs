@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DrivingSchoolApp.Models;
 using DrivingSchoolApp.Services;
+using DrivingSchoolApp.View;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DrivingSchoolApp.ViewModels
 {
@@ -17,9 +20,10 @@ namespace DrivingSchoolApp.ViewModels
         public Command Student { get; }
         public Command Teacher { get; }
         public Command Manager { get; }
-
-        public RegisterManagerViewModel(DrivingSchoolAppWebAPIProxy proxy)
+        private IServiceProvider serviceProvider;
+        public RegisterManagerViewModel(DrivingSchoolAppWebAPIProxy proxy, IServiceProvider serviceProvider)
         {
+            this.serviceProvider = serviceProvider;
             this.proxy = proxy;
             RegisterCommand = new Command(OnRegister);
             CancelCommand = new Command(OnCancel);
@@ -28,56 +32,37 @@ namespace DrivingSchoolApp.ViewModels
             PhotoURL = proxy.GetDefaultProfilePhotoUrl();
             LocalPhotoPath = "";
             IsPassword = true;
-            FirstNameError = "Name is required";
-            LastNameError = "Last name is required";
-            EmailError = "Email is required";
-            PasswordError = "Password must be at least 2 characters long and contain letters and numbers";
-            SchoolNameError = "Check that you chose a school";
-
+            Managers = new ObservableCollection<Manager>();
+            LoadManagers();
+            ManagerPhoneError = "בדוק שכתבת את מספר הטלפון הנכון";
+            SchoolAddressError = "השדה של כתובת בית הספר ריקה";
+            FirstNameError = "שם פרטי נדרש";
+            LastNameError = "שם משפחה נדרש";
+            EmailError = "אימייל נדרש";
+            PasswordError = "סיסמה אמורה להיות לפחות 3 תווים ולהכיל אותיות ומספרים"; /* "Password must be at least 2 characters long and contain letters and numbers";*/
+            SchoolNameError = "בדוק שבחרת בית ספר";
+            SchoolPhoneError = "בדוק שכתבת את מספר הטלפון הנכון";
         }
 
-        #region SchoolName // picker
-        private bool showSchoolNameError;
-
-        public bool ShowSchoolNameError
+        private async void LoadManagers()
         {
-            get => showSchoolNameError;
-            set
+            List<Manager> managerList = await proxy.GetSchools();
+            foreach (Manager manager in managerList)
             {
-                showFirstNameError = value;
-                OnPropertyChanged("ShowSchoolNameError");
+                Managers.Add(manager);
             }
         }
+        private ObservableCollection<Manager> managers;
 
-        private string schoolName;
-
-        public string SchoolName
+        public ObservableCollection<Manager> Managers
         {
-            get => schoolName;
+            get => managers;
             set
             {
-                schoolName = value;
-                ValidateSchoolName();
-                OnPropertyChanged("SchoolName");
+                managers = value;
+                OnPropertyChanged("Managers");
             }
         }
-
-        private string schoolNameError;
-
-        public string SchoolNameError
-        {
-            get => schoolNameError;
-            set
-            {
-                schoolNameError = value;
-                OnPropertyChanged("SchoolNameError");
-            }
-        }
-        private void ValidateSchoolName()
-        {
-            this.ShowSchoolNameError = string.IsNullOrEmpty(SchoolName);
-        }
-        #endregion
 
         #region FirstName // entry
         private bool showFirstNameError;
@@ -214,7 +199,7 @@ namespace DrivingSchoolApp.ViewModels
                 //check if email is in the correct format using regular expression
                 if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
                 {
-                    EmailError = "Email is not valid";
+                    EmailError = "אימייל לא תקין";
                     ShowEmailError = true;
                 }
                 else
@@ -225,7 +210,7 @@ namespace DrivingSchoolApp.ViewModels
             }
             else
             {
-                EmailError = "Email is required";
+                EmailError = "אימייל נדרש";
             }
         }
         #endregion
@@ -324,7 +309,7 @@ namespace DrivingSchoolApp.ViewModels
             set
             {
                 managerPhone = value;
-                ValidateLastName();
+               ValidateMangagerPhone();
                 OnPropertyChanged("ManagerPhone");
             }
         }
@@ -369,7 +354,7 @@ namespace DrivingSchoolApp.ViewModels
             set
             {
                 schoolPhone = value;
-                ValidateLastName();
+                ValidateSchoolPhone();
                 OnPropertyChanged("SchoolPhone");
             }
         }
@@ -390,6 +375,137 @@ namespace DrivingSchoolApp.ViewModels
         {
             this.ShowSchoolPhoneError = string.IsNullOrEmpty(SchoolPhone) || SchoolPhone.Length != 10;
 
+        }
+        #endregion
+
+        #region SchoolName // picker
+        private bool showSchoolNameError;
+
+        public bool ShowSchoolNameError
+        {
+            get => showSchoolNameError;
+            set
+            {
+                showSchoolNameError = value;
+                OnPropertyChanged("ShowSchoolNameError");
+            }
+        }
+
+        private string schoolName;
+
+        public string SchoolName
+        {
+            get => schoolName;
+            set
+            {
+                schoolName = value;
+                ValidateSchoolName();
+                OnPropertyChanged("SchoolName");
+            }
+        }
+
+        private string schoolNameError;
+
+        public string SchoolNameError
+        {
+            get => schoolNameError;
+            set
+            {
+                schoolNameError = value;
+                OnPropertyChanged("SchoolNameError");
+            }
+        }
+        private void ValidateSchoolName()
+        {
+            this.ShowSchoolNameError = string.IsNullOrEmpty(SchoolName);
+        }
+        #endregion
+
+        #region SchoolAdress // entry
+        private bool showSchoolAddressError;
+
+        public bool ShowSchoolAddressError
+        {
+            get => showSchoolAddressError;
+            set
+            {
+                showSchoolAddressError = value;
+                OnPropertyChanged("ShowSchoolAddressError");
+            }
+        }
+
+        private string schoolAddress;
+
+        public string SchoolAddress
+        {
+            get => schoolAddress;
+            set
+            {
+                schoolAddress = value;
+                ValidateSchoolAddress();
+                OnPropertyChanged("SchoolAddress");
+            }
+        }
+
+        private string schoolAddressError;
+
+        public string SchoolAddressError
+        {
+            get => schoolAddressError;
+            set
+            {
+                schoolAddressError = value;
+                OnPropertyChanged("SchoolAddressError");
+            }
+        }
+
+        private void ValidateSchoolAddress()
+        {
+            this.ShowSchoolAddressError = string.IsNullOrEmpty(SchoolAddress);
+        }
+        #endregion
+
+        #region ManagerId // entry
+        private bool showManagerIdError;
+
+        public bool ShowManagerIdError
+        {
+            get => showManagerIdError;
+            set
+            {
+                showManagerIdError = value;
+                OnPropertyChanged("ShowManagerIdError");
+            }
+        }
+
+        private string managerId;
+
+        public string ManagerId
+        {
+            get => managerId;
+            set
+            {
+                managerId = value;
+                ValidateSchoolAddress();
+                OnPropertyChanged("ManagerId");
+            }
+        }
+
+        private string managerIdError;
+
+        public string ManagerIdError
+        {
+            get => managerIdError;
+            set
+            {
+                managerIdError = value;
+                OnPropertyChanged("ManagerIdError");
+            }
+        }
+
+        private void ValidateManagerId()
+        {
+            this.ShowManagerIdError = string.IsNullOrEmpty(ManagerId) || ManagerId.Length != 9;
         }
         #endregion
 
@@ -451,25 +567,47 @@ namespace DrivingSchoolApp.ViewModels
 
         #endregion
 
-        //Define a command for the register button
 
-        //Define a method that will be called when the register button is clicked
-        public async void OnRegister()
-        {
+
+        //Define a command for the register button
+        private bool ValidateForm()
+        { // פעולה שבודקת האם הפרטים של המשתמש נכונים ותקינים בעזרת פעולות עזר
+            ValidateSchoolName();
             ValidateFirstName();
             ValidateLastName();
             ValidateEmail();
             ValidatePassword();
-
-            if (!ShowFirstNameError && !ShowLastNameError && !ShowEmailError && !ShowPasswordError)
+            ValidateMangagerPhone();
+            ValidateSchoolPhone();
+            ValidateSchoolAddress();
+            ValidateManagerId();
+            if (ShowManagerIdError || ShowEmailError || ShowSchoolAddressError || ShowFirstNameError || ShowPasswordError || ShowSchoolNameError || ShowLastNameError || ShowManagerPhoneError || ShowSchoolPhoneError)
             {
-                //Create a new AppUser object with the data from the registration form
+                return false;
+            }
+            return true;
+        }
+
+        //Define a method that will be called when the register button is clicked
+        public async void OnRegister()
+        {
+
+
+            if (ValidateForm())
+            {
+                //Create a new Manager object with the data from the registration form
                 var newManager = new Manager
                 {
                     FirstName = FirstName,
                     LastName = LastName,
                     ManagerEmail = Email,
                     ManagerPass = Password,
+                    ManagerStatus = 1,
+                    SchoolAddress = SchoolAddress,
+                    ManagerPhone = ManagerPhone,
+                    SchoolPhone = SchoolPhone,
+                    Schoolname = SchoolName,
+                    ManagerId = ManagerId,
                 };
 
                 //Call the Register method on the proxy to register the new user
@@ -493,7 +631,10 @@ namespace DrivingSchoolApp.ViewModels
                     }
                     InServerCall = false;
 
-                    ((App)(Application.Current)).MainPage.Navigation.PopAsync();
+                    await Application.Current.MainPage.DisplayAlert("הפעולה הצליח", "הנתונים נרשמו, תוכל להיכנס למערכת לאחר אישור מנהל המערכת", "בסדר");
+                    LoginView login = serviceProvider.GetService<LoginView>();
+                    //homePageViewModel.Refresh(); //Refresh data and user in the homepageViewModel as it is a singleton
+                    ((App)Application.Current).MainPage = login;
                 }
                 else
                 {

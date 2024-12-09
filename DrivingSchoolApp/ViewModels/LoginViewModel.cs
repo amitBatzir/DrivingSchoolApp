@@ -118,11 +118,9 @@ namespace DrivingSchoolApp.ViewModels
                     ErrorMsg = "";
                     //Navigate to the main page
                     AppShell shell = serviceProvider.GetService<AppShell>();
-                    HomePageViewModel homePageViewModel = serviceProvider.GetService<HomePageViewModel>();
-                    //homePageViewModel.Refresh(); //Refresh data and user in the homepageViewModel as it is a singleton
                     ((App)Application.Current).MainPage = shell;
                     Shell.Current.FlyoutIsPresented = false; //close the flyout
-                    Shell.Current.GoToAsync("Home"); //Navigate to the Home Page tab page
+                    
                 }
             }
             if (UserType == UserTypes.TEACHER)
@@ -141,11 +139,9 @@ namespace DrivingSchoolApp.ViewModels
                     ErrorMsg = "";
                     //Navigate to the main page
                     AppShell shell = serviceProvider.GetService<AppShell>();
-                    HomePageViewModel homePageViewModel = serviceProvider.GetService<HomePageViewModel>();
-                    //homePageViewModel.Refresh(); //Refresh data and user in the homepageViewModel as it is a singleton
                     ((App)Application.Current).MainPage = shell;
                     Shell.Current.FlyoutIsPresented = false; //close the flyout
-                    Shell.Current.GoToAsync("Home"); //Navigate to the Home Page tab pa
+                    
                 }
             }
             if (UserType == UserTypes.MANAGER)

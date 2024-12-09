@@ -216,10 +216,44 @@ namespace DrivingSchoolApp.Services
             {
                 return null;
             }
+
+        }
+
+        public async Task<List<Manager>> GetSchools()
+        {
+
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getSchools";
+            //Check status
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Manager>? result = JsonSerializer.Deserialize<List<Manager>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
         //This method call the UpdateUser web API on the server and return true if the call was successful
         //or false if the call fails
-      
+
         //This method call the UploadProfileImage web API on the server and return the AppUser object with the given URL
         //of the profile image or null if the call fails
         //when registering a user it is better first to call the register command and right after that call this function
@@ -260,6 +294,7 @@ namespace DrivingSchoolApp.Services
         }
 
         #endregion
+
 
         //public async Task<Manager?> IsExist(Manager manager, string schoolName)
         //{
