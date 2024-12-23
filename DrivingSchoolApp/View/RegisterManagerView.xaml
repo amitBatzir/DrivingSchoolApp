@@ -121,7 +121,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="שם בית הספר" />
+                    <Label Grid.Column="0" Text="הכנס את שם בית הספר" />
                     <Label
                         Grid.Column="1"
                         IsVisible="{Binding ShowSchoolNameError}"
@@ -242,13 +242,15 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Button
+                    <Button 
+                        Style="{StaticResource buttonStyle}"
                         Grid.Column="0"
                         Command="{Binding RegisterCommand}"
                         IsEnabled="{Binding NotInServerCall}"
                         Text="הרשמה" />
 
                     <Button
+                        Style="{StaticResource buttonStyle}"
                         Grid.Column="1"
                         Command="{Binding CancelCommand}"
                         IsEnabled="{Binding NotInServerCall}"

@@ -21,7 +21,7 @@
             </Style>
             <Style x:Key="entryStyle" TargetType="Entry">
                 <Setter Property="HorizontalOptions" Value="Fill" />
-                <Setter Property="TextColor" Value="PowderBlue" />
+                <Setter Property="TextColor" Value="Black" />
             </Style>
             <Style x:Key="buttonStyle" TargetType="Button">
                 <Setter Property="HorizontalOptions" Value="Fill" />

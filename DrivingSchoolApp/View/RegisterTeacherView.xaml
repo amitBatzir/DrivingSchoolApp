@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrivingSchoolApp.View.RegisterTeacherView"
+             Title="הרשמת מורה"
+            FlowDirection="RightToLeft">
+
+    <ScrollView Margin="20">
+        <Grid>
+            
+            <VerticalStackLayout Padding="20" IsEnabled="{Binding NotInServerCall}">
+                <!--  Photo  -->
+                <Frame
+         Margin="10"
+         Padding="5"
+         BorderColor="Black">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                 x:Name="theImageBug"
+                 HeightRequest="150"
+                 Source="{Binding PhotoURL}" />
+                        <Label
+                 Grid.Row="0"
+                 HorizontalOptions="Center"
+                 Text="לחצו פה לקחת תמונה!"
+                 TextColor="PowderBlue"
+                 VerticalOptions="End">
+
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding UploadPhotoCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                        <Label
+                 Grid.Row="1"
+                 HorizontalOptions="Center"
+                 Text="לחץ פה להעלות תמונה!"
+                 TextColor="PowderBlue"
+                 VerticalOptions="End">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding UploadPhotoCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Frame>
+
+            </VerticalStackLayout>
+            
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

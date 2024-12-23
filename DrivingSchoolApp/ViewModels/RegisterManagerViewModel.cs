@@ -31,38 +31,18 @@ namespace DrivingSchoolApp.ViewModels
             UploadPhotoCommand = new Command(OnUploadPhoto);
             PhotoURL = proxy.GetDefaultProfilePhotoUrl();
             LocalPhotoPath = "";
-            IsPassword = true;
-            Managers = new ObservableCollection<Manager>();
-            LoadManagers();
-            ManagerPhoneError = "בדוק שכתבת את מספר הטלפון הנכון";
+            IsPassword = true;          
+            ManagerPhoneError = "בדקו שכתבתם את מספר הטלפון הנכון";
             SchoolAddressError = "השדה של כתובת בית הספר ריקה";
             FirstNameError = "שם פרטי נדרש";
             LastNameError = "שם משפחה נדרש";
             EmailError = "אימייל נדרש";
             PasswordError = "סיסמה אמורה להיות לפחות 3 תווים ולהכיל אותיות ומספרים"; /* "Password must be at least 2 characters long and contain letters and numbers";*/
-            SchoolNameError = "בדוק שבחרת בית ספר";
-            SchoolPhoneError = "בדוק שכתבת את מספר הטלפון הנכון";
+            SchoolNameError = "בדקו שבחרתם בית ספר";
+            SchoolPhoneError = " בדקו שכתבתם את מספר הטלפון הנכון";
         }
 
-        private async void LoadManagers()
-        {
-            List<Manager> managerList = await proxy.GetSchools();
-            foreach (Manager manager in managerList)
-            {
-                Managers.Add(manager);
-            }
-        }
-        private ObservableCollection<Manager> managers;
-
-        public ObservableCollection<Manager> Managers
-        {
-            get => managers;
-            set
-            {
-                managers = value;
-                OnPropertyChanged("Managers");
-            }
-        }
+       
 
         #region FirstName // entry
         private bool showFirstNameError;
@@ -486,7 +466,7 @@ namespace DrivingSchoolApp.ViewModels
             set
             {
                 managerId = value;
-                ValidateSchoolAddress();
+                ValidateManagerId();
                 OnPropertyChanged("ManagerId");
             }
         }
@@ -542,7 +522,7 @@ namespace DrivingSchoolApp.ViewModels
             {
                 var result = await MediaPicker.Default.CapturePhotoAsync(new MediaPickerOptions
                 {
-                    Title = "Please select a photo",
+                    Title = "בבקשה בחר תמונה",
                 });
 
                 if (result != null)
@@ -626,12 +606,12 @@ namespace DrivingSchoolApp.ViewModels
                         if (updatedManager == null)
                         {
                             InServerCall = false;
-                            await Application.Current.MainPage.DisplayAlert("Registration", "User Data Was Saved BUT Profile image upload failed", "ok");
+                            await Application.Current.MainPage.DisplayAlert("הרשמה", "הנתונים שלך נרשמו אבל העלאת תמונה הפרופיל נכשלה", "OK");
                         }
                     }
                     InServerCall = false;
 
-                    await Application.Current.MainPage.DisplayAlert("הפעולה הצליח", "הנתונים נרשמו, תוכל להיכנס למערכת לאחר אישור מנהל המערכת", "בסדר");
+                    await Application.Current.MainPage.DisplayAlert("הפעולה הצליחה", "הנתונים נרשמו, תוכל/י להיכנס למערכת לאחר אישור מנהל המערכת", "OK");
                     LoginView login = serviceProvider.GetService<LoginView>();
                     //homePageViewModel.Refresh(); //Refresh data and user in the homepageViewModel as it is a singleton
                     ((App)Application.Current).MainPage = login;
@@ -640,8 +620,8 @@ namespace DrivingSchoolApp.ViewModels
                 {
 
                     //If the registration failed, display an error message
-                    string errorMsg = "Registration failed. Please try again.";
-                    await Application.Current.MainPage.DisplayAlert("Registration", errorMsg, "ok");                  
+                    string errorMsg = "ההרשמה נכשלה, בבקשה נסה שוב";
+                    await Application.Current.MainPage.DisplayAlert("הרשמה", errorMsg, "OK");                  
                 }
             }
         }

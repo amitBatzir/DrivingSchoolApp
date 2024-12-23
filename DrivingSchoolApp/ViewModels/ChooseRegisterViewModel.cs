@@ -20,13 +20,22 @@ namespace DrivingSchoolApp.ViewModels
         {
             this.serviceProvider = serviceProvider;
             ChoseManager = new Command(OnChoseManager);
+            ChoseTeacher = new Command(OnChoseTeacher);
         }
         public ICommand ChoseManager { get; }
         private void OnChoseManager()
         { 
-            // Navigate to the Register View page
+            // Navigate to the manager Register View page
             ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<RegisterManagerView>());
         }
+
+        public ICommand ChoseTeacher { get; }
+        private void OnChoseTeacher()
+        {
+            // Navigate to the teacher Register View page
+            ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<RegisterTeacherView>());
+        }
+
 
 
 
