@@ -38,6 +38,7 @@ namespace DrivingSchoolApp
             builder.Services.AddTransient<RegisterManagerView>();
             builder.Services.AddTransient<RegisterTeacherView>();
             builder.Services.AddTransient<AppShell>();
+
             return builder;
         }
 

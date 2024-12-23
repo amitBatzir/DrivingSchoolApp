@@ -174,9 +174,6 @@
                     Style="{StaticResource entryStyle}"
                     Text="{Binding Password}" />
 
-                
-                
-                
 
                 <!--  Manager Phone  -->
 
@@ -193,7 +190,7 @@
                         Text="{Binding ManagerPhoneError}" />
                 </Grid>
                 <Entry
-                    Placeholder="הכנס את מספר טלפונך האישי"
+                    Placeholder="הכנס את מספר הטלפון האישי"
                     Style="{StaticResource entryStyle}"
                     Text="{Binding ManagerPhone}" />
 
