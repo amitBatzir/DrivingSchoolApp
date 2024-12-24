@@ -112,8 +112,10 @@ namespace DrivingSchoolApp.Services
 
         #region Register
         //This methos call the Register web API on the server and return the AppUser object with the given ID   
-       //or null if the call fails
+        //or null if the call fails
 
+
+        #region Student
         // Studentnager register action
         public async Task<Student?> RegisterStudent(Student student)
         {
@@ -148,6 +150,9 @@ namespace DrivingSchoolApp.Services
                 return null;
             }
         }
+        #endregion
+
+        #region Teacher
         // Teacher register action
         public async Task<Teacher?> RegisterTeacher(Teacher teacher)
         {
@@ -183,6 +188,46 @@ namespace DrivingSchoolApp.Services
             }
         }
 
+        public async Task<Teacher?> UploadProfileImageTeacher(string imagePath)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}UploadProfileImage";
+            try
+            {
+                //Create the form data
+                MultipartFormDataContent form = new MultipartFormDataContent();
+                var fileContent = new ByteArrayContent(File.ReadAllBytes(imagePath));
+                form.Add(fileContent, "file", imagePath);
+                //Call the server API
+                HttpResponseMessage response = await client.PostAsync(url, form);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Teacher? result = JsonSerializer.Deserialize<Teacher>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+        #endregion
+
+        #region Manager
         // Manager register action
         public async Task<Manager?> RegisterManager(Manager manager)
         {
@@ -218,45 +263,6 @@ namespace DrivingSchoolApp.Services
             }
 
         }
-
-        public async Task<List<Manager>> GetSchools()
-        {
-
-            //Set URI to the specific function API
-            string url = $"{this.baseUrl}getSchools";
-            //Check status
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(url);
-                //Check status
-                if (response.IsSuccessStatusCode)
-                {
-                    //Extract the content as string
-                    string resContent = await response.Content.ReadAsStringAsync();
-                    //Desrialize result
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
-                    List<Manager>? result = JsonSerializer.Deserialize<List<Manager>>(resContent, options);
-                    return result;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-        //This method call the UpdateUser web API on the server and return true if the call was successful
-        //or false if the call fails
-
-        //This method call the UploadProfileImage web API on the server and return the AppUser object with the given URL
-        //of the profile image or null if the call fails
-        //when registering a user it is better first to call the register command and right after that call this function
         public async Task<Manager?> UploadProfileImage(string imagePath)
         {
             //Set URI to the specific function API
@@ -293,6 +299,47 @@ namespace DrivingSchoolApp.Services
             }
         }
 
+        #endregion
+        public async Task<List<Manager>> GetSchools()
+        {
+
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getSchools";
+            //Check status
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Manager>? result = JsonSerializer.Deserialize<List<Manager>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        //This method call the UpdateUser web API on the server and return true if the call was successful
+        //or false if the call fails
+
+        //This method call the UploadProfileImage web API on the server and return the AppUser object with the given URL
+        //of the profile image or null if the call fails
+        //when registering a user it is better first to call the register command and right after that call this function
+      
         #endregion
 
 

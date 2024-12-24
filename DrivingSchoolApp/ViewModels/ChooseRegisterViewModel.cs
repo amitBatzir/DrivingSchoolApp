@@ -15,12 +15,15 @@ namespace DrivingSchoolApp.ViewModels
 {
     public class ChooseRegisterViewModel
     {
+        public Command CancelCommand { get; }
+
         private IServiceProvider serviceProvider;
         public ChooseRegisterViewModel(IServiceProvider serviceProvider)
         {
-            this.serviceProvider = serviceProvider;
-            ChoseManager = new Command(OnChoseManager);
-            ChoseTeacher = new Command(OnChoseTeacher);
+          this.serviceProvider = serviceProvider;
+        ChoseManager = new Command(OnChoseManager);
+         ChoseTeacher = new Command(OnChoseTeacher);
+          CancelCommand = new Command(OnCancel);
         }
         public ICommand ChoseManager { get; }
         private void OnChoseManager()
@@ -36,6 +39,12 @@ namespace DrivingSchoolApp.ViewModels
             ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<RegisterTeacherView>());
         }
 
+
+        public void OnCancel()
+        {
+            //Navigate back to the login page
+            ((App)(Application.Current)).MainPage.Navigation.PopAsync();
+        }
 
 
 

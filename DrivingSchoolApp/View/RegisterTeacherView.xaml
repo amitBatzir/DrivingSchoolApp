@@ -30,20 +30,20 @@
                         <Label
                  Grid.Row="0"
                  HorizontalOptions="Center"
-                 Text="לחצו פה לקחת תמונה!"
+                 Text="לחצו פה לצלם תמונה!"
                  TextColor="PowderBlue"
                  VerticalOptions="End">
 
 
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding UploadPhotoCommand}" />
+                                <TapGestureRecognizer Command="{Binding TakePhotoCommand}" />
                             </Label.GestureRecognizers>
                         </Label>
 
                         <Label
                  Grid.Row="1"
                  HorizontalOptions="Center"
-                 Text="לחץ פה להעלות תמונה!"
+                 Text="לחץ פה להעלות מהגלריה תמונה!"
                  TextColor="PowderBlue"
                  VerticalOptions="End">
                             <Label.GestureRecognizers>
@@ -130,8 +130,8 @@
        Placeholder="הכנס אימייל"
        Style="{StaticResource entryStyle}"
        Text="{Binding Email}" />
-        <!--id-->
-                    
+      
+                <!--id-->   
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -158,11 +158,14 @@
                     <Label Grid.Column="0" Text="בחר מגדר" />
                     <Label
                      Grid.Column="1" />
-                    </Grid>
+                </Grid>
                 <HorizontalStackLayout>
+                  
                     <RadioButton
+                    IsChecked="True"
                     Content="זכר"
                      Value="0" />
+
                     <!--GroupName="UserType"-->
     
                 <RadioButton
@@ -184,6 +187,7 @@
                 
                 <HorizontalStackLayout> 
                 <RadioButton
+                 IsChecked="True"
                  Content="אשראי"
                  Value="0" />
                 <!--GroupName="UserType"-->
@@ -198,14 +202,26 @@
                  Value="2" />
                     <!--GroupName="UserType"-->
                 </HorizontalStackLayout>
+
+                <Button 
+     Style="{StaticResource buttonStyle}"
+     Grid.Column="0"
+     Command="{Binding RegisterCommand}"
+     IsEnabled="{Binding NotInServerCall}"
+     Text="הרשמה" />
+
+
+                <Button
+ Style="{StaticResource buttonStyle}"
+ Grid.Column="1"
+ Command="{Binding CancelCommand}"
+ IsEnabled="{Binding NotInServerCall}"
+ Text="ביטול" />
+
             </VerticalStackLayout>
 
 
-            <ActivityIndicator
-    HorizontalOptions="Center"
-    IsRunning="{Binding InServerCall}"
-    VerticalOptions="Center"
-    Color="Red" />
+     
 
         </Grid>
     </ScrollView>

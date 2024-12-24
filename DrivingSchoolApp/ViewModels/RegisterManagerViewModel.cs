@@ -571,8 +571,6 @@ namespace DrivingSchoolApp.ViewModels
         //Define a method that will be called when the register button is clicked
         public async void OnRegister()
         {
-
-
             if (ValidateForm())
             {
                 //Create a new Manager object with the data from the registration form

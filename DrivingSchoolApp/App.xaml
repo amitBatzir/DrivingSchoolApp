@@ -31,6 +31,14 @@
                 <!--<Setter Property="BackgroundColor" Value="{StaticResource MainColor}" />-->
                 <!--<Setter Property="BorderColor" Value="{StaticResource MainColor}" />-->
             </Style>
+            <Style x:Key="ErrorbuttonStyle" TargetType="Button">
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="BackgroundColor" Value="Black" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Margin" Value="100" />
+                <!--<Setter Property="BackgroundColor" Value="{StaticResource MainColor}" />-->
+                <!--<Setter Property="BorderColor" Value="{StaticResource MainColor}" />-->
+            </Style>
         </ResourceDictionary>
 
     </Application.Resources>

@@ -15,6 +15,12 @@ namespace DrivingSchoolApp.ViewModels
     {
         private DrivingSchoolAppWebAPIProxy proxy;
         private IServiceProvider serviceProvider;
+        public Command CancelCommand { get; }
+        public Command RegisterCommand { get; }
+        public Command UploadPhotoCommand { get; }
+        public Command TakePhotoCommand { get; }
+        //public Command RegisterCommand { get; }
+
         public RegisterTeacherViewModel(DrivingSchoolAppWebAPIProxy proxy, IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
@@ -25,7 +31,13 @@ namespace DrivingSchoolApp.ViewModels
             LocalPhotoPath = "";
 
             ShowPasswordCommand = new Command(OnShowPassword);
+            CancelCommand = new Command(OnCancel);
+            RegisterCommand = new Command(OnRegister);
+            UploadPhotoCommand = new Command(OnUploadPhoto);
+           TakePhotoCommand = new Command(OnTakePhoto);
 
+
+            //RegisterCommand = new Command(OnRegister);
             //Managers = new ObservableCollection<Manager>();
             //LoadManagers();
 
@@ -35,7 +47,7 @@ namespace DrivingSchoolApp.ViewModels
             PasswordError = "סיסמה אמורה להיות לפחות 3 תווים ולהכיל אותיות ומספרים";
             SchoolNameError = "בדקו שבחרתם בית ספר";
             IdError = "בדקו שהכנסת את מספר הזהות הנכון";
-            PhoneNumberError = "בדקו שהכנסתם את מספר הטלפון הנכון";
+            PhoneNumberError = "בדקו שהכנסתם את מספר הטלפון הנכון";        
         }
 
 
@@ -352,6 +364,7 @@ namespace DrivingSchoolApp.ViewModels
         #endregion
 
         #region WayToPay
+       
         private string wayToPay;
 
         public string WayToPay
@@ -363,6 +376,9 @@ namespace DrivingSchoolApp.ViewModels
                 OnPropertyChanged("WayToPay");
             }
         }
+      
+
+
         #endregion
 
         #region PhoneNumber
@@ -411,6 +427,7 @@ namespace DrivingSchoolApp.ViewModels
         #endregion
 
         #region Gender
+       
         private string gender;
 
         public string Gender
@@ -421,7 +438,9 @@ namespace DrivingSchoolApp.ViewModels
                 gender = value;
                 OnPropertyChanged("Gender");
             }
-        }
+        }      
+
+
         #endregion
 
         #region Photo
@@ -451,7 +470,7 @@ namespace DrivingSchoolApp.ViewModels
         }
 
         //This method open the file picker to select a photo
-        private async void OnUploadPhoto()
+        private async void OnTakePhoto()
         {
             try
             {
@@ -472,13 +491,36 @@ namespace DrivingSchoolApp.ViewModels
             }
 
         }
+        //This method open the file picker to select a photo
+        private async void OnUploadPhoto()
+        {
+            try
+            {
+                var result = await MediaPicker.Default.CapturePhotoAsync(new MediaPickerOptions
+                {
+                    Title = "בבקשה תבחר תמונה",
+                });
 
-        private void UpdatePhotoURL(string virtualPath)
+                if (result != null)
+                {
+                    // The user picked a file
+                    this.LocalPhotoPath = result.FullPath;
+                    this.PhotoURL = result.FullPath;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+            private void UpdatePhotoURL(string virtualPath)
         {
             Random r = new Random();
             PhotoURL = proxy.GetImagesBaseAddress() + virtualPath + "?v=" + r.Next();
             LocalPhotoPath = "";
         }
+
+
 
         #endregion
 
@@ -502,6 +544,86 @@ namespace DrivingSchoolApp.ViewModels
         //        OnPropertyChanged("Managers");
         //    }
         //}
+
+
+        private bool ValidateForm()
+        { // פעולה שבודקת האם הפרטים של המשתמש נכונים ותקינים בעזרת פעולות עזר
+            ValidateSchoolName();
+            ValidateFirstName();
+            ValidateLastName();
+            ValidateEmail();
+            ValidatePassword();
+            ValidatePhoneNumber();
+            ValidateId();
+            if (ShowIdError || ShowEmailError || ShowFirstNameError || ShowPasswordError || ShowSchoolNameError || ShowLastNameError || ShowPhoneNumberError )
+            {
+                return false;
+            }
+            return true;
+        }
+
+        //Define a method that will be called when the register button is clicked
+        public async void OnRegister()
+        {
+      
+            if (ValidateForm())
+            {
+                //Create a new Manager object with the data from the registration form
+                var newTeacher = new Teacher
+                {
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    TeacherEmail = Email,
+                    TeacherPass = Password,
+                    TeacherStatus = 1,
+                    PhoneNumber = PhoneNumber,
+                    SchoolName = SchoolName,
+                    TeacherId = Id,
+                };
+
+                //Call the Register method on the proxy to register the new user
+                InServerCall = true;
+                newTeacher = await proxy.RegisterTeacher(newTeacher);
+                InServerCall = false;
+
+                //If the registration was successful, navigate to the login page
+                if (newTeacher != null)
+                {
+                    //UPload profile imae if needed
+                    if (!string.IsNullOrEmpty(LocalPhotoPath))
+                    {
+                        await proxy.LoginAsync(new LoginInfo { Email = newTeacher.TeacherEmail, Password = newTeacher.TeacherPass });
+                        Teacher? updatedTeacher = await proxy.UploadProfileImageTeacher(LocalPhotoPath);
+                        if (updatedTeacher == null)
+                        {
+                            InServerCall = false;
+                            await Application.Current.MainPage.DisplayAlert("הרשמה", "הנתונים שלך נרשמו אבל העלאת תמונה הפרופיל נכשלה", "OK");
+                        }
+                    }
+                    InServerCall = false;
+
+                    await Application.Current.MainPage.DisplayAlert("הפעולה הצליחה", "הנתונים נרשמו, תוכל/י להיכנס למערכת לאחר אישור מנהל המערכת", "OK");
+                    LoginView login = serviceProvider.GetService<LoginView>();
+                    //homePageViewModel.Refresh(); //Refresh data and user in the homepageViewModel as it is a singleton
+                    ((App)Application.Current).MainPage = login;
+                }
+                else
+                {
+
+                    //If the registration failed, display an error message
+                    string errorMsg = "ההרשמה נכשלה, בבקשה נסה שוב";
+                    await Application.Current.MainPage.DisplayAlert("הרשמה", errorMsg, "OK");
+                }
+            }
+        }
+
+
+
+        public void OnCancel()
+        {
+            //Navigate back to the login page
+            ((App)(Application.Current)).MainPage.Navigation.PopAsync();
+        }
 
     }
 }

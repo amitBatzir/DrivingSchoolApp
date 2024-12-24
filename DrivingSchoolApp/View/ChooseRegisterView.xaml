@@ -21,5 +21,13 @@ IsEnabled="{Binding NotInServerCall}"
  Style="{StaticResource buttonStyle}"
 Text="מנהל בית ספר לנהיגה" />
 
+        <Button    
+            Style="{StaticResource ErrorbuttonStyle}"
+      Grid.Column="1"
+      Command="{Binding CancelCommand}"
+      IsEnabled="{Binding NotInServerCall}"
+      Text="ביטול"/>
+
+
     </VerticalStackLayout>
 </ContentPage>
