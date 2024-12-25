@@ -514,15 +514,15 @@ namespace DrivingSchoolApp.ViewModels
                 OnPropertyChanged("LocalPhotoPath");
             }
         }
-        
+
         //This method open the file picker to select a photo
-        private async void OnUploadPhoto()
+        private async void OnTakePhoto()
         {
             try
             {
                 var result = await MediaPicker.Default.CapturePhotoAsync(new MediaPickerOptions
                 {
-                    Title = "בבקשה בחר תמונה",
+                    Title = "בבקשה תצלם/י תמונה",
                 });
 
                 if (result != null)
@@ -537,6 +537,27 @@ namespace DrivingSchoolApp.ViewModels
             }
 
         }
+        //This method open the file picker to select a photo
+        private async void OnUploadPhoto()
+        {
+            try
+            {
+                var result = await MediaPicker.Default.PickPhotoAsync(new MediaPickerOptions
+                {
+                    Title = "בבקשה תבחר/י תמונה",
+                });
+
+                if (result != null)
+                {
+                    // The user picked a file
+                    this.LocalPhotoPath = result.FullPath;
+                    this.PhotoURL = result.FullPath;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
 
         private void UpdatePhotoURL(string virtualPath)
         {
@@ -544,6 +565,8 @@ namespace DrivingSchoolApp.ViewModels
             PhotoURL = proxy.GetImagesBaseAddress() + virtualPath + "?v=" + r.Next();
             LocalPhotoPath = "";
         }
+
+
 
         #endregion
 

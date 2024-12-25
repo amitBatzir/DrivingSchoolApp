@@ -19,7 +19,6 @@ namespace DrivingSchoolApp.ViewModels
         public Command RegisterCommand { get; }
         public Command UploadPhotoCommand { get; }
         public Command TakePhotoCommand { get; }
-        //public Command RegisterCommand { get; }
 
         public RegisterTeacherViewModel(DrivingSchoolAppWebAPIProxy proxy, IServiceProvider serviceProvider)
         {
@@ -36,10 +35,8 @@ namespace DrivingSchoolApp.ViewModels
             UploadPhotoCommand = new Command(OnUploadPhoto);
            TakePhotoCommand = new Command(OnTakePhoto);
 
-
-            //RegisterCommand = new Command(OnRegister);
-            //Managers = new ObservableCollection<Manager>();
-            //LoadManagers();
+            Managers = new ObservableCollection<Manager>();
+            LoadManagers();
 
             FirstNameError = "שם פרטי נדרש";
             LastNameError = "שם משפחה נדרש";
@@ -476,7 +473,7 @@ namespace DrivingSchoolApp.ViewModels
             {
                 var result = await MediaPicker.Default.CapturePhotoAsync(new MediaPickerOptions
                 {
-                    Title = "בבקשה בחר תמונה",
+                    Title = "בבקשה תצלם/י תמונה",
                 });
 
                 if (result != null)
@@ -496,9 +493,9 @@ namespace DrivingSchoolApp.ViewModels
         {
             try
             {
-                var result = await MediaPicker.Default.CapturePhotoAsync(new MediaPickerOptions
+                var result = await MediaPicker.Default.PickPhotoAsync(new MediaPickerOptions
                 {
-                    Title = "בבקשה תבחר תמונה",
+                    Title = "בבקשה תבחר/י תמונה",
                 });
 
                 if (result != null)
@@ -525,37 +522,100 @@ namespace DrivingSchoolApp.ViewModels
         #endregion
 
 
-        //private async void LoadManagers()
-        //{
-        //    List<Manager> managerList = await proxy.GetSchools();
-        //    foreach (Manager manager in managerList)
-        //    {
-        //        Managers.Add(manager);
-        //    }
-        //}
-        //private ObservableCollection<Manager> managers;
+        private async void LoadManagers()
+        {
+            List<Manager> managerList = await proxy.GetSchools();
+            foreach (Manager manager in managerList)
+            {
+                Managers.Add(manager);
+            }
+        }
+        private async void LoadSchools(ObservableCollection<Manager> managers)
+        {           
+            foreach (Manager m in managers)
+            {
+                Schools.Add(m.Schoolname);
+            }
+        }
+        private ObservableCollection<Manager> managers;
 
-        //public ObservableCollection<Manager> Managers
-        //{
-        //    get => managers;
-        //    set
-        //    {
-        //        managers = value;
-        //        OnPropertyChanged("Managers");
-        //    }
-        //}
+        public ObservableCollection<Manager> Managers
+        {
+            get => managers;
+            set
+            {
+                managers = value;
+                OnPropertyChanged("Managers");
+            }
+        } 
 
+        private ObservableCollection<string> schools;
+
+        public ObservableCollection<string> Schools
+        {
+            get => schools;
+            set
+            {
+                LoadSchools(Managers);
+                OnPropertyChanged("Schools");
+            }
+        }
+    
+
+        #region Single Selected School
+
+        private bool showSelectedSchoolError;
+        public bool ShowSelectedSchoolError
+        {
+            get => showSelectedSchoolError;
+            set
+            {
+                showSelectedSchoolError = value;
+                OnPropertyChanged("ShowSelectedSchoolError");
+            }
+        }
+        private string selectedSchool;
+        public string SelectedSchool
+        {
+            get
+            {
+                return this.selectedSchool;
+            }
+            set
+            {
+                selectedSchool = value;
+                ValidateSelectedSchool();
+                OnPropertyChanged("SelectedSchool");
+            }
+        }
+        private string selectedSchoolError;
+
+        public string SelectedSchoolError
+        {
+            get => selectedSchoolError;
+            set
+            {
+                selectedSchoolError = value;
+                OnPropertyChanged("SelectedSchoolError");
+            }
+        }
+
+        private void ValidateSelectedSchool()
+        {
+            this.ShowSelectedSchoolError = string.IsNullOrEmpty(SelectedSchool);
+        }
+        #endregion
 
         private bool ValidateForm()
         { // פעולה שבודקת האם הפרטים של המשתמש נכונים ותקינים בעזרת פעולות עזר
-            ValidateSchoolName();
+            //ValidateSchoolName();
             ValidateFirstName();
             ValidateLastName();
             ValidateEmail();
             ValidatePassword();
             ValidatePhoneNumber();
             ValidateId();
-            if (ShowIdError || ShowEmailError || ShowFirstNameError || ShowPasswordError || ShowSchoolNameError || ShowLastNameError || ShowPhoneNumberError )
+            if (ShowIdError || ShowEmailError || ShowFirstNameError || ShowPasswordError || ShowLastNameError || ShowPhoneNumberError )
             {
                 return false;
             }

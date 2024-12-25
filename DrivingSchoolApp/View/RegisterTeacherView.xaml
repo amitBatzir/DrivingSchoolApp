@@ -32,7 +32,8 @@
                  HorizontalOptions="Center"
                  Text="לחצו פה לצלם תמונה!"
                  TextColor="PowderBlue"
-                 VerticalOptions="End">
+                 VerticalOptions="End"
+                   Margin="10">
 
 
                             <Label.GestureRecognizers>
@@ -53,9 +54,21 @@
                     </Grid>
                 </Frame>
 
-                <!--Choose school-->
+          
+                <!--Select School-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="בחרו בית ספר" />
+                    <Picker ItemsSource="{Binding Schools}"
+                            />
+                <!--ItemDisplayBinding="{Binding Name}"-->
 
+               
 
+                    <!--First Name-->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -131,6 +144,24 @@
        Style="{StaticResource entryStyle}"
        Text="{Binding Email}" />
       
+                <!--Phone Number-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="מספר טלפון" />
+                    <Label
+     Grid.Column="1"
+     IsVisible="{Binding ShowPhoneNumberError}"
+     Style="{StaticResource labelErrorStyle}"
+     Text="{Binding PhoneNumberError}" />
+                </Grid>
+                <Entry
+     Placeholder="הכנס מספר טלפון"
+     Style="{StaticResource entryStyle}"
+     Text="{Binding PhoneNumber}" />
+
                 <!--id-->   
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -203,25 +234,36 @@
                     <!--GroupName="UserType"-->
                 </HorizontalStackLayout>
 
-                <Button 
-     Style="{StaticResource buttonStyle}"
-     Grid.Column="0"
-     Command="{Binding RegisterCommand}"
-     IsEnabled="{Binding NotInServerCall}"
-     Text="הרשמה" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
+                        <Button 
+         Style="{StaticResource buttonStyle}"
+         Grid.Column="0"
+         Command="{Binding RegisterCommand}"
+         IsEnabled="{Binding NotInServerCall}"
+         Text="הרשמה" />
 
-                <Button
- Style="{StaticResource buttonStyle}"
- Grid.Column="1"
- Command="{Binding CancelCommand}"
- IsEnabled="{Binding NotInServerCall}"
- Text="ביטול" />
+                        <Button
+         Style="{StaticResource buttonStyle}"
+         Grid.Column="1"
+         Command="{Binding CancelCommand}"
+         IsEnabled="{Binding NotInServerCall}"
+         Text="ביטול" />
 
+                    </Grid>
             </VerticalStackLayout>
 
+            <ActivityIndicator
+     HorizontalOptions="Center"
+     IsRunning="{Binding InServerCall}"
+     VerticalOptions="Center"
+     Color="Red" />
 
-     
+
 
         </Grid>
     </ScrollView>

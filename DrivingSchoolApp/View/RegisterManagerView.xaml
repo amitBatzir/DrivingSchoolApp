@@ -34,9 +34,10 @@
                         <Label
                             Grid.Row="0"
                             HorizontalOptions="Center"
-                            Text="לחצו פה לקחת תמונה!"
+                            Text="לחצו פה לצלם תמונה!"
                             TextColor="PowderBlue"
-                            VerticalOptions="End">
+                            VerticalOptions="End"
+                            Margin="10">
 
 
                             <Label.GestureRecognizers>
@@ -244,7 +245,8 @@
                         Grid.Column="0"
                         Command="{Binding RegisterCommand}"
                         IsEnabled="{Binding NotInServerCall}"
-                        Text="הרשמה" />
+                        Text="הרשמה" 
+                        />
 
                     <Button
                         Style="{StaticResource buttonStyle}"

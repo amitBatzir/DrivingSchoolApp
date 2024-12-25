@@ -19,6 +19,9 @@ namespace DrivingSchoolApp.Models
         public string ManagerPhone { get; set; } = null!;
         public string SchoolPhone { get; set; } = null!;
         public string Schoolname { get; set; } = null!;
+        public string ProfilePic { get; set; } = null!;
+
+
         public Manager() { }
        
     }
