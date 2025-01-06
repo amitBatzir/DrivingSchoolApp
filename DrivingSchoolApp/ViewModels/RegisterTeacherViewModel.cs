@@ -38,13 +38,16 @@ namespace DrivingSchoolApp.ViewModels
             Managers = new ObservableCollection<Manager>();
             LoadManagers();
 
+            Gender = "0";
+            WayToPay = "0";
             FirstNameError = "שם פרטי נדרש";
             LastNameError = "שם משפחה נדרש";
             EmailError = "אימייל נדרש";
             PasswordError = "סיסמה אמורה להיות לפחות 3 תווים ולהכיל אותיות ומספרים";
-            SchoolNameError = "בדקו שבחרתם בית ספר";
+            SelectedManagerError = "בדקו שבחרתם בית ספר";
             IdError = "בדקו שהכנסת את מספר הזהות הנכון";
             PhoneNumberError = "בדקו שהכנסתם את מספר הטלפון הנכון";        
+
         }
 
 
@@ -272,49 +275,7 @@ namespace DrivingSchoolApp.ViewModels
         }
         #endregion
 
-        #region SchoolName
-        private bool showSchoolNameError;
-
-        public bool ShowSchoolNameError
-        {
-            get => showSchoolNameError;
-            set
-            {
-                showSchoolNameError = value;
-                OnPropertyChanged("ShowSchoolNameError");
-            }
-        }
-
-        private string schoolName;
-
-        public string SchoolName
-        {
-            get => schoolName;
-            set
-            {
-                schoolName = value;
-                ValidateSchoolName();
-                OnPropertyChanged("SchoolName");
-            }
-        }
-
-        private string schoolNameError;
-
-        public string SchoolNameError
-        {
-            get => schoolNameError;
-            set
-            {
-                schoolNameError = value;
-                OnPropertyChanged("SchoolNameError");
-            }
-        }
-        private void ValidateSchoolName()
-        {
-            this.ShowSchoolNameError = string.IsNullOrEmpty(SchoolName);
-        }
-
-        #endregion
+       
 
         #region ID
         private bool showIdError;
@@ -529,14 +490,9 @@ namespace DrivingSchoolApp.ViewModels
             {
                 Managers.Add(manager);
             }
+            
         }
-        private async void LoadSchools(ObservableCollection<Manager> managers)
-        {           
-            foreach (Manager m in managers)
-            {
-                Schools.Add(m.Schoolname);
-            }
-        }
+       
         private ObservableCollection<Manager> managers;
 
         public ObservableCollection<Manager> Managers
@@ -549,60 +505,50 @@ namespace DrivingSchoolApp.ViewModels
             }
         } 
 
-        private ObservableCollection<string> schools;
-
-        public ObservableCollection<string> Schools
-        {
-            get => schools;
-            set
-            {
-                LoadSchools(Managers);
-                OnPropertyChanged("Schools");
-            }
-        }
+        
     
 
-        #region Single Selected School
+        #region Single Selected Manager
 
-        private bool showSelectedSchoolError;
-        public bool ShowSelectedSchoolError
+        private bool showSelectedManagerError;
+        public bool ShowSelectedManagerError
         {
-            get => showSelectedSchoolError;
+            get => showSelectedManagerError;
             set
             {
-                showSelectedSchoolError = value;
-                OnPropertyChanged("ShowSelectedSchoolError");
+                showSelectedManagerError = value;
+                OnPropertyChanged("ShowSelectedManagerError");
             }
         }
-        private string selectedSchool;
-        public string SelectedSchool
+        private Manager selectedManager;
+        public Manager SelectedManager
         {
             get
             {
-                return this.selectedSchool;
+                return this.selectedManager;
             }
             set
             {
-                selectedSchool = value;
-                ValidateSelectedSchool();
-                OnPropertyChanged("SelectedSchool");
+                selectedManager = value;
+                ValidateSelectedManager();
+                OnPropertyChanged("SelectedManager");
             }
         }
-        private string selectedSchoolError;
+        private string selectedManagerError;
 
-        public string SelectedSchoolError
+        public string SelectedManagerError
         {
-            get => selectedSchoolError;
+            get => selectedManagerError;
             set
             {
-                selectedSchoolError = value;
-                OnPropertyChanged("SelectedSchoolError");
+                selectedManagerError = value;
+                OnPropertyChanged("SelectedManagerError");
             }
         }
 
-        private void ValidateSelectedSchool()
+        private void ValidateSelectedManager()
         {
-            this.ShowSelectedSchoolError = string.IsNullOrEmpty(SelectedSchool);
+            this.ShowSelectedManagerError = SelectedManager == null;
         }
         #endregion
 
@@ -637,8 +583,10 @@ namespace DrivingSchoolApp.ViewModels
                     TeacherPass = Password,
                     TeacherStatus = 1,
                     PhoneNumber = PhoneNumber,
-                    SchoolName = SchoolName,
+                    SchoolName = SelectedManager.Schoolname,
+                    ManagerId = SelectedManager.UserManagerId,
                     TeacherId = Id,
+                    Gender = Gender
                 };
 
                 //Call the Register method on the proxy to register the new user
@@ -676,6 +624,8 @@ namespace DrivingSchoolApp.ViewModels
                 }
             }
         }
+
+
 
 
 

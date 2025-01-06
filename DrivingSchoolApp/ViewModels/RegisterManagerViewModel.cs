@@ -39,6 +39,7 @@ namespace DrivingSchoolApp.ViewModels
             EmailError = "אימייל נדרש";
             PasswordError = "סיסמה אמורה להיות לפחות 3 תווים ולהכיל אותיות ומספרים"; /* "Password must be at least 2 characters long and contain letters and numbers";*/
             SchoolNameError = "בדקו שבחרתם בית ספר";
+            ManagerIdError = "בדקו שכתבתם את מספר תעודת הזהות הנכון";
             SchoolPhoneError = " בדקו שכתבתם את מספר הטלפון הנכון";
         }
 
