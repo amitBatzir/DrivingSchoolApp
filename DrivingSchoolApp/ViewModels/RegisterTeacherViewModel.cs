@@ -40,6 +40,7 @@ namespace DrivingSchoolApp.ViewModels
 
             Gender = "0";
             WayToPay = "0";
+            DrivingTechnic = "0";
             FirstNameError = "שם פרטי נדרש";
             LastNameError = "שם משפחה נדרש";
             EmailError = "אימייל נדרש";
@@ -275,8 +276,6 @@ namespace DrivingSchoolApp.ViewModels
         }
         #endregion
 
-       
-
         #region ID
         private bool showIdError;
 
@@ -379,7 +378,7 @@ namespace DrivingSchoolApp.ViewModels
 
         private void ValidatePhoneNumber()
         {
-            this.ShowPhoneNumberError = string.IsNullOrEmpty(PhoneNumber) || PhoneNumber.Length != 10;
+            this.ShowPhoneNumberError = string.IsNullOrEmpty(PhoneNumber) || (PhoneNumber.Length != 10 && PhoneNumber.Length != 9);
 
         }
         #endregion
@@ -482,6 +481,20 @@ namespace DrivingSchoolApp.ViewModels
 
         #endregion
 
+        #region DrivingTechnic
+
+        private string drivingTechnic;
+
+        public string DrivingTechnic
+        {
+            get => drivingTechnic;
+            set
+            {
+                drivingTechnic = value;
+                OnPropertyChanged("DrivingTechnic");
+            }
+        }
+        #endregion
 
         private async void LoadManagers()
         {
@@ -586,7 +599,9 @@ namespace DrivingSchoolApp.ViewModels
                     SchoolName = SelectedManager.Schoolname,
                     ManagerId = SelectedManager.UserManagerId,
                     TeacherId = Id,
-                    Gender = Gender
+                    Gender = Gender,
+                    WayToPay = WayToPay,
+                    DrivingTechnic = DrivingTechnic,
                 };
 
                 //Call the Register method on the proxy to register the new user

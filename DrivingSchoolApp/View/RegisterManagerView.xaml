@@ -171,6 +171,7 @@
                         Text="{Binding PasswordError}" />
                 </Grid>
                 <Entry
+                    IsPassword="True"
                     Placeholder="הכנס סיסמה"
                     Style="{StaticResource entryStyle}"
                     Text="{Binding Password}" />

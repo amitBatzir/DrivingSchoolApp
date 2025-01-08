@@ -300,6 +300,8 @@ namespace DrivingSchoolApp.Services
         }
 
         #endregion
+
+        // פעולה שמחזירה לי מהשרת רשימה של מנהלים ועל ידי כך בתי ספר
         public async Task<List<Manager>> GetSchools()
         {
 
@@ -333,15 +335,75 @@ namespace DrivingSchoolApp.Services
             }
         }
 
-        //This method call the UpdateUser web API on the server and return true if the call was successful
-        //or false if the call fails
+        // פעולה שמחזירה לי רשימה של מורים מבית ספר ספציפי
+        public async Task<List<Teacher>> GetTeacherOfSchool()
+        {
 
-        //This method call the UploadProfileImage web API on the server and return the AppUser object with the given URL
-        //of the profile image or null if the call fails
-        //when registering a user it is better first to call the register command and right after that call this function
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getTeacherOfSchool";
+            //Check status
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Teacher>? result = JsonSerializer.Deserialize<List<Teacher>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        // פעולה שמחזירה לי רשימה של חבילות של בית ספר ספציפי
+        public async Task<List<Package>> GetPackageOfSchool()
+        {
+
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getPackageOfSchool";
+            //Check status
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Package>? result = JsonSerializer.Deserialize<List<Package>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
 
         #endregion
-
-      
     }
 }

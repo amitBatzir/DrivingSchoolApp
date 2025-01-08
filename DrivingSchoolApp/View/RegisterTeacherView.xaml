@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DrivingSchoolApp.View.RegisterTeacherView"
-             Title="הרשמת מורה לנהיגה"
-            FlowDirection="RightToLeft">
+<ContentPage
+    x:Class="DrivingSchoolApp.View.RegisterTeacherView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="הרשמת מורה לנהיגה"
+    FlowDirection="RightToLeft">
 
     <ScrollView Margin="20">
         <Grid>
@@ -11,9 +12,9 @@
             <VerticalStackLayout Padding="20" IsEnabled="{Binding NotInServerCall}">
                 <!--  Photo  -->
                 <Frame
-         Margin="10"
-         Padding="5"
-         BorderColor="Black">
+                    Margin="10"
+                    Padding="5"
+                    BorderColor="Black">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
@@ -24,16 +25,16 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Image
-                 x:Name="theImageBug"
-                 HeightRequest="150"
-                 Source="{Binding PhotoURL}" />
+                            x:Name="theImageBug"
+                            HeightRequest="150"
+                            Source="{Binding PhotoURL}" />
                         <Label
-                 Grid.Row="0"
-                 HorizontalOptions="Center"
-                 Text="לחצו פה לצלם תמונה!"
-                 TextColor="PowderBlue"
-                 VerticalOptions="End"
-                   Margin="10">
+                            Grid.Row="0"
+                            Margin="10"
+                            HorizontalOptions="Center"
+                            Text="לחצו פה לצלם תמונה!"
+                            TextColor="PowderBlue"
+                            VerticalOptions="End">
 
 
                             <Label.GestureRecognizers>
@@ -42,11 +43,11 @@
                         </Label>
 
                         <Label
-                 Grid.Row="1"
-                 HorizontalOptions="Center"
-                 Text="לחץ פה להעלות מהגלריה תמונה!"
-                 TextColor="PowderBlue"
-                 VerticalOptions="End">
+                            Grid.Row="1"
+                            HorizontalOptions="Center"
+                            Text="לחץ פה להעלות מהגלריה תמונה!"
+                            TextColor="PowderBlue"
+                            VerticalOptions="End">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding UploadPhotoCommand}" />
                             </Label.GestureRecognizers>
@@ -54,20 +55,23 @@
                     </Grid>
                 </Frame>
 
-          
-                <!--Select School-->
+
+                <!--  Select School  -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Text="בחרו בית ספר" />
-                    <Picker ItemsSource="{Binding Managers}" ItemDisplayBinding="{Binding Schoolname}" SelectedItem="{Binding SelectedManager}"/>
-                    <!--ItemDisplayBinding="{Binding Name}"-->
+                    <Picker
+                        ItemDisplayBinding="{Binding Schoolname}"
+                        ItemsSource="{Binding Managers}"
+                        SelectedItem="{Binding SelectedManager}" />
+                    <!--  ItemDisplayBinding="{Binding Name}"  -->
 
                 </Grid>
 
-                <!--First Name-->
+                <!--  First Name  -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -75,19 +79,19 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Text="שם פרטי" />
                     <Label
-         Grid.Column="1"
-         IsVisible="{Binding ShowFirstNameError}"
-         Style="{StaticResource labelErrorStyle}"
-         Text="{Binding FirstNameError}" />
+                        Grid.Column="1"
+                        IsVisible="{Binding ShowFirstNameError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding FirstNameError}" />
                 </Grid>
                 <Entry
-     Placeholder="הכנס שם פרטי"
-     Style="{StaticResource entryStyle}"
-     Text="{Binding FirstName}" />
+                    Placeholder="הכנס שם פרטי"
+                    Style="{StaticResource entryStyle}"
+                    Text="{Binding FirstName}" />
 
 
 
-                <!--Last name-->
+                <!--  Last name  -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -95,55 +99,56 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Text="שם משפחה" />
                     <Label
-         Grid.Column="1"
-         IsVisible="{Binding ShowLastNameError}"
-         Style="{StaticResource labelErrorStyle}"
-         Text="{Binding LastNameError}" />
-        </Grid>
-        <Entry
-     Placeholder="הכנס שם משפחה"
-     Style="{StaticResource entryStyle}"
-     Text="{Binding LastName}" />
+                        Grid.Column="1"
+                        IsVisible="{Binding ShowLastNameError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding LastNameError}" />
+                </Grid>
+                <Entry
+                    Placeholder="הכנס שם משפחה"
+                    Style="{StaticResource entryStyle}"
+                    Text="{Binding LastName}" />
 
 
 
-        <!--password-->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="סיסמה" />
-            <Label
-         Grid.Column="1"
-         IsVisible="{Binding ShowPasswordError}"
-         Style="{StaticResource labelErrorStyle}"
-         Text="{Binding PasswordError}" />
-        </Grid>
-        <Entry
-     Placeholder="הכנס סיסמה"
-     Style="{StaticResource entryStyle}"
-     Text="{Binding Password}" />
+                <!--  password  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="סיסמה" />
+                    <Label
+                        Grid.Column="1"
+                        IsVisible="{Binding ShowPasswordError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding PasswordError}" />
+                </Grid>
+                <Entry
+                    IsPassword="True"
+                    Placeholder="הכנס סיסמה"
+                    Style="{StaticResource entryStyle}"
+                    Text="{Binding Password}" />
 
-        <!--email-->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" Text="אימייל" />
-            <Label
-           Grid.Column="1"
-           IsVisible="{Binding ShowEmailError}"
-           Style="{StaticResource labelErrorStyle}"
-           Text="{Binding EmailError}" />
-        </Grid>
-        <Entry
-       Placeholder="הכנס אימייל"
-       Style="{StaticResource entryStyle}"
-       Text="{Binding Email}" />
-      
-                <!--Phone Number-->
+                <!--  email  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="אימייל" />
+                    <Label
+                        Grid.Column="1"
+                        IsVisible="{Binding ShowEmailError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding EmailError}" />
+                </Grid>
+                <Entry
+                    Placeholder="הכנס אימייל"
+                    Style="{StaticResource entryStyle}"
+                    Text="{Binding Email}" />
+
+                <!--  Phone Number  -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -151,117 +156,145 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Text="מספר טלפון" />
                     <Label
-     Grid.Column="1"
-     IsVisible="{Binding ShowPhoneNumberError}"
-     Style="{StaticResource labelErrorStyle}"
-     Text="{Binding PhoneNumberError}" />
+                        Grid.Column="1"
+                        IsVisible="{Binding ShowPhoneNumberError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding PhoneNumberError}" />
                 </Grid>
                 <Entry
-     Placeholder="הכנס מספר טלפון"
-     Style="{StaticResource entryStyle}"
-     Text="{Binding PhoneNumber}" />
+                    Placeholder="הכנס מספר טלפון"
+                    Style="{StaticResource entryStyle}"
+                    Text="{Binding PhoneNumber}" />
 
-                <!--id-->   
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Text="תעודת זהות" />
+                <!--  id  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="תעודת זהות" />
                     <Label
-                Grid.Column="1"
-                IsVisible="{Binding ShowIdError}"
-                Style="{StaticResource labelErrorStyle}"
-                Text="{Binding IdError}" />
+                        Grid.Column="1"
+                        IsVisible="{Binding ShowIdError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding IdError}" />
                 </Grid>
                 <Entry
-                Placeholder="הכנס תעודת זהות"
-                Style="{StaticResource entryStyle}"
-                Text="{Binding Id}" />   
-                
-            <!--gender-->
+                    Placeholder="הכנס תעודת זהות"
+                    Style="{StaticResource entryStyle}"
+                    Text="{Binding Id}" />
+
+                <!--DrivingTechnic-->
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="בחר שיטת לימוד" />
+                    <Label Grid.Column="1" />
+                </Grid>
+                <HorizontalStackLayout RadioButtonGroup.GroupName="DrivingTechnicGroup" RadioButtonGroup.SelectedValue="{Binding DrivingTechnic}">
+
+                    <RadioButton
+         Content="ידני"
+         GroupName="DrivingTechnicGroup"
+         IsChecked="True"
+         Value="0" />
+
+
+
+                    <RadioButton
+         Content="אוטומטי"
+         GroupName="DrivingTechnicGroup"
+         Value="1" />
+
+                    <RadioButton
+         Content="גם וגם"
+         GroupName="DrivingTechnicGroup"
+         Value="2" />
+                </HorizontalStackLayout>
+
+
+                <!--  gender  -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Text="בחר מגדר" />
-                    <Label
-                     Grid.Column="1" />
+                    <Label Grid.Column="1" />
                 </Grid>
                 <HorizontalStackLayout RadioButtonGroup.GroupName="GenderGroup" RadioButtonGroup.SelectedValue="{Binding Gender}">
-                  
-                    <RadioButton
-                    IsChecked="True"
-                    Content="זכר"
-                     Value="0" GroupName="GenderGroup"/>
 
-                    
-    
-                <RadioButton
-                 Content="נקבה"
-                  Value="1" GroupName="GenderGroup"/>
-                    
+                    <RadioButton
+                        Content="זכר"
+                        GroupName="GenderGroup"
+                        IsChecked="True"
+                        Value="0" />
+
+
+
+                    <RadioButton
+                        Content="נקבה"
+                        GroupName="GenderGroup"
+                        Value="1" />
+
                 </HorizontalStackLayout>
 
-                <!--way to pay-->
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Text="בחר דרך תשלום" />
-                <Label
-                 Grid.Column="1" />
-                 </Grid>
+                <!--  way to pay  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="בחר דרך תשלום" />
+                    <Label Grid.Column="1" />
+                </Grid>
 
                 <HorizontalStackLayout RadioButtonGroup.GroupName="WayToPayGroup" RadioButtonGroup.SelectedValue="{Binding WayToPay}">
                     <RadioButton
-                 IsChecked="True"
-                 Content="אשראי"
-                 Value="0" />
-                <!--GroupName="UserType"-->
+                        Content="אשראי"
+                        IsChecked="True"
+                        Value="0" />
+                    <!--  GroupName="UserType"  -->
 
-                  <RadioButton
-                 Content="מזומן"
-                  Value="1" />
-            <!--GroupName="UserType"-->
+                    <RadioButton Content="מזומן" Value="1" />
+                    <!--  GroupName="UserType"  -->
 
-                <RadioButton
-                 Content="גם וגם"
-                 Value="2" />
-                    <!--GroupName="UserType"-->
+                    <RadioButton Content="גם וגם" Value="2" />
+                    <!--  GroupName="UserType"  -->
                 </HorizontalStackLayout>
 
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                        <Button 
-         Style="{StaticResource buttonStyle}"
-         Grid.Column="0"
-         Command="{Binding RegisterCommand}"
-         IsEnabled="{Binding NotInServerCall}"
-         Text="הרשמה" />
+                    <Button
+                        Grid.Column="0"
+                        Command="{Binding RegisterCommand}"
+                        IsEnabled="{Binding NotInServerCall}"
+                        Style="{StaticResource buttonStyle}"
+                        Text="הרשמה" />
 
-                        <Button
-         Style="{StaticResource buttonStyle}"
-         Grid.Column="1"
-         Command="{Binding CancelCommand}"
-         IsEnabled="{Binding NotInServerCall}"
-         Text="ביטול" />
+                    <Button
+                        Grid.Column="1"
+                        Command="{Binding CancelCommand}"
+                        IsEnabled="{Binding NotInServerCall}"
+                        Style="{StaticResource buttonStyle}"
+                        Text="ביטול" />
 
-                    </Grid>
-               
+                </Grid>
+
             </VerticalStackLayout>
-                
+
             <ActivityIndicator
-     HorizontalOptions="Center"
-     IsRunning="{Binding InServerCall}"
-     VerticalOptions="Center"
-     Color="Red" />
+                HorizontalOptions="Center"
+                IsRunning="{Binding InServerCall}"
+                VerticalOptions="Center"
+                Color="Red" />
 
 
 

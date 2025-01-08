@@ -7,52 +7,19 @@ using System.Threading.Tasks;
 using System.Xml;
 
     namespace DrivingSchoolApp.ViewModels
-    {
+{
 
     public class RegisterStudentViewModel : ViewModelBase
     {
         private DrivingSchoolAppWebAPIProxy proxy;
-        public Command RegisterCommand { get; }
-        public Command CancelCommand { get; }
-        public Command UploadPhotoCommand { get; }
-        public Command Student { get; }
-        public Command Teacher { get; }
-        public Command Manager { get; }
+        private IServiceProvider serviceProvider;
 
-        //public RegisterStudentViewModel(DrivingSchoolAppWebAPIProxy proxy)
-        //{
-        //    this.proxy = proxy;
-        //    RegisterCommand = new Command(OnRegister);
-        //    CancelCommand = new Command(OnCancel);
-        //    ShowPasswordCommand = new Command(OnShowPassword);
-        //    UploadPhotoCommand = new Command(OnUploadPhoto);
-        //    PhotoURL = proxy.GetDefaultProfilePhotoUrl();
-        //    LocalPhotoPath = "";
-        //    IsPassword = true;
-        //    NameError = "Name is required";
-        //    LastNameError = "Last name is required";
-        //    EmailError = "Email is required";
-        //    PasswordError = "Password must be at least 2 characters long and contain letters and numbers";
-        //    LessonLengthError = "The lesngth is supposed to be 45 minutes or 60 minutes";
-        //    SchoolNameError = "Check that you chose a school";
-        //    LanguageError = "Check that you chose a language";
+        public RegisterStudentViewModel(DrivingSchoolAppWebAPIProxy proxy, IServiceProvider serviceProvider)
+        {
+            
+        }
 
-        //    // ask ofer what it means
-        //    DateTime date = DateTime.Now;
-        //    this.Date = date.AddDays(-1);
-        //    MaxDate = date;
-
-        //    //// ask ofer what it means
-        //    DateTime dateOfBirthMinus16Years = DateTime.Now.AddYears(-16).AddMonths(-9);
-        //    this.DateOfBirth = dateOfBirthMinus16Years.AddDays(-1);
-        //    MaxDateOfBirth = dateOfBirthMinus16Years;
-        //}
-
-
-
-        //Defiine properties for each field in the registration form including error messages and validation logic
-
-        #region FirstName // entry
+        #region FirstName 
         private bool showFirstNameError;
 
         public bool ShowFirstNameError
@@ -96,7 +63,7 @@ using System.Xml;
         }
         #endregion
 
-        #region LastName // entry
+        #region LastName
         private bool showLastNameError;
 
         public bool ShowLastNameError
@@ -137,72 +104,11 @@ using System.Xml;
         private void ValidateLastName()
         {
             this.ShowLastNameError = string.IsNullOrEmpty(LastName);
+
         }
         #endregion
 
-        #region Email // entry
-        private bool showEmailError;
-
-        public bool ShowEmailError
-        {
-            get => showEmailError;
-            set
-            {
-                showEmailError = value;
-                OnPropertyChanged("ShowEmailError");
-            }
-        }
-
-        private string email;
-
-        public string Email
-        {
-            get => email;
-            set
-            {
-                email = value;
-                ValidateEmail();
-                OnPropertyChanged("Email");
-            }
-        }
-
-        private string emailError;
-
-        public string EmailError
-        {
-            get => emailError;
-            set
-            {
-                emailError = value;
-                OnPropertyChanged("EmailError");
-            }
-        }
-
-        private void ValidateEmail()
-        {
-            this.ShowEmailError = string.IsNullOrEmpty(Email);
-            if (!ShowEmailError)
-            {
-                //check if email is in the correct format using regular expression
-                if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
-                {
-                    EmailError = "Email is not valid";
-                    ShowEmailError = true;
-                }
-                else
-                {
-                    EmailError = "";
-                    ShowEmailError = false;
-                }
-            }
-            else
-            {
-                EmailError = "Email is required";
-            }
-        }
-        #endregion
-
-        #region Password // entry
+        #region Password
         private bool showPasswordError;
 
         public bool ShowPasswordError
@@ -275,196 +181,72 @@ using System.Xml;
         }
         #endregion
 
-        #region SchoolName // picker
-        private bool showSchoolNameError;
+        #region Email
+        private bool showEmailError;
 
-        public bool ShowSchoolNameError
+        public bool ShowEmailError
         {
-            get => showSchoolNameError;
+            get => showEmailError;
             set
             {
-                showFirstNameError = value;
-                OnPropertyChanged("ShowSchoolNameError");
+                showEmailError = value;
+                OnPropertyChanged("ShowEmailError");
             }
         }
 
-        private string schoolName;
+        private string email;
 
-        public string SchoolName
+        public string Email
         {
-            get => schoolName;
+            get => email;
             set
             {
-                schoolName = value;
-                ValidateSchoolName();
-                OnPropertyChanged("SchoolName");
+                email = value;
+                ValidateEmail();
+                OnPropertyChanged("Email");
             }
         }
 
-        private string schoolNameError;
+        private string emailError;
 
-        public string SchoolNameError
+        public string EmailError
         {
-            get => schoolNameError;
+            get => emailError;
             set
             {
-                schoolNameError = value;
-                OnPropertyChanged("SchoolNameError");
-            }
-        }
-        private void ValidateSchoolName()
-        {
-            this.ShowSchoolNameError = string.IsNullOrEmpty(SchoolName);
-        }
-        #endregion
-
-        #region Language // picker
-        private bool showLanguageError;
-
-        public bool ShowLanguageError
-        {
-            get => showLanguageError;
-            set
-            {
-                showLanguageError = value;
-                OnPropertyChanged("ShowLanguageError");
+                emailError = value;
+                OnPropertyChanged("EmailError");
             }
         }
 
-        private string language;
-
-        public string Language
+        private void ValidateEmail()
         {
-            get => language;
-            set
+            this.ShowEmailError = string.IsNullOrEmpty(Email);
+            if (!ShowEmailError)
             {
-                language = value;
-                ValidateLanguage();
-                OnPropertyChanged("Language");
-            }
-        }
-
-        private string languageError;
-
-        public string LanguageError
-        {
-            get => languageError;
-            set
-            {
-                languageError = value;
-                OnPropertyChanged("LanguageError");
-            }
-        }
-        private void ValidateLanguage()
-        {
-            this.ShowLanguageError = string.IsNullOrEmpty(Language);
-        }
-        #endregion
-
-        #region DoneTheoryTest // radio button
-
-        private string doneTheoryTest;
-
-        public string DoneTheoryTest
-        {
-            get => doneTheoryTest;
-            set
-            {
-                doneTheoryTest = value;
-                OnPropertyChanged("DoneTheoryTest");
-            }
-        }
-        #endregion
-
-        #region DateOfTheory // picker of date
-        private DateTime date;
-        public DateTime Date
-        {
-            get => date;
-            set
-            {
-                date = value;
-                OnPropertyChanged("Date");
-            }
-        }
-
-        private DateTime maxDate;
-        public DateTime MaxDate
-        {
-            get => maxDate;
-            set
-            {
-                maxDate = value;
-                OnPropertyChanged("MaxDate");
-            }
-        }
-        #endregion
-
-        #region LessonLength // entry
-        private bool showlessonLengthError;
-
-        public bool ShowLessonLengthError
-        {
-            get => showlessonLengthError;
-            set
-            {
-                showlessonLengthError = value;
-                OnPropertyChanged("ShowLessonLengthError");
-            }
-        }
-
-        private string lessonLength;
-
-        public string LessonLength
-        {
-            get => lessonLength;
-            set
-            {
-                lessonLength = value;
-                ValidateLastName();
-                OnPropertyChanged("LessonLength");
-            }
-        }
-
-        private string lessonLengthError;
-
-        public string LessonLengthError
-        {
-            get => lessonLengthError;
-            set
-            {
-                lessonLengthError = value;
-                OnPropertyChanged("LessonLengthError");
-            }
-        }
-
-        private void ValidateLessonLength()
-        {
-            if (string.IsNullOrEmpty(lessonLength) || lessonLength.Length != 2 || !password.Any(char.IsLetter))
-            {
-                this.ShowLessonLengthError = true;
+                //check if email is in the correct format using regular expression
+                if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
+                {
+                    EmailError = "אימייל לא תקין";
+                    ShowEmailError = true;
+                }
+                else
+                {
+                    EmailError = "";
+                    ShowEmailError = false;
+                }
             }
             else
-                this.ShowLessonLengthError = false;
-        }
-        #endregion
-
-        #region HaveDocuments // radio buttons
-        private string haveDocuments;
-
-        public string HaveDocuments
-        {
-            get => haveDocuments;
-            set
             {
-                haveDocuments = value;
-                OnPropertyChanged("HaveDocuments");
+                EmailError = "אימייל נדרש";
             }
         }
         #endregion
 
-        #region DrivingTechnic // radio buttons
+        #region DrivingTechnic
+
         private string drivingTechnic;
+
         public string DrivingTechnic
         {
             get => drivingTechnic;
@@ -474,96 +256,104 @@ using System.Xml;
                 OnPropertyChanged("DrivingTechnic");
             }
         }
-
         #endregion
 
-        #region Gender // radio buttons
-        private string gender;
-        public string Gender
-        {
-            get => gender;
-            set
-            {
-                gender = value;
-                OnPropertyChanged("Gender");
-            }
-        }
-        #endregion
+        #region ID
+        private bool showIdError;
 
-        #region ID // entry
-        private bool showidError;
-        public bool ShowidError
+        public bool ShowIdError
         {
-            get => showidError;
+            get => showIdError;
             set
             {
-                showidError = value;
-                OnPropertyChanged("ShowidError");
+                showIdError = value;
+                OnPropertyChanged("ShowIdError");
             }
         }
 
         private string id;
 
-        public string ID
+        public string Id
         {
             get => id;
             set
             {
                 id = value;
-                ValidateFirstName();
-                OnPropertyChanged("ID");
+                ValidateId();
+                OnPropertyChanged("Id");
             }
         }
 
         private string idError;
 
-        public string IDError
+        public string IdError
         {
             get => idError;
             set
             {
                 idError = value;
-                OnPropertyChanged("IDError");
+                OnPropertyChanged("IdError");
             }
         }
 
-        private void ValidateID()
+        private void ValidateId()
         {
-            if (this.ShowidError = string.IsNullOrEmpty(ID) || !id.Any(char.IsLetter) || id.Length > 9)
-            {
-                this.ShowidError = true;
-            }
-            else
-                this.ShowidError = false;
+            this.ShowIdError = string.IsNullOrEmpty(Id) || Id.Length != 9;
         }
         #endregion
 
-        #region DateOfBirth // picker of date
-        private DateTime dateOfBirth;
-        public DateTime DateOfBirth
+        #region PhoneNumber
+        private bool showPhoneNumberError;
+
+        public bool ShowPhoneNumberError
         {
-            get => dateOfBirth;
+            get => showPhoneNumberError;
             set
             {
-                dateOfBirth = value;
-                OnPropertyChanged("DateOfBirth");
+                showPhoneNumberError = value;
+                OnPropertyChanged("ShowPhoneNumberError");
             }
         }
 
-        private DateTime maxDateOfBirth;
-        public DateTime MaxDateOfBirth
+        private string phoneNumber;
+
+        public string PhoneNumber
         {
-            get => maxDateOfBirth;
+            get => phoneNumber;
             set
             {
-                maxDateOfBirth = value;
-                OnPropertyChanged("MaxDateOfBirth");
+                phoneNumber = value;
+                ValidatePhoneNumber();
+                OnPropertyChanged("PhoneNumber");
             }
+        }
+
+        private string phoneNumberError;
+
+        public string PhoneNumberError
+        {
+            get => phoneNumberError;
+            set
+            {
+                phoneNumberError = value;
+                OnPropertyChanged("PhoneNumberError");
+            }
+        }
+
+        private void ValidatePhoneNumber()
+        {
+            this.ShowPhoneNumberError = string.IsNullOrEmpty(PhoneNumber) || (PhoneNumber.Length != 10 && PhoneNumber.Length != 9);
+
         }
         #endregion
-
 
 
 
     }
+
+
+
+
+
 }
+
