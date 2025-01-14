@@ -22,7 +22,8 @@ namespace DrivingSchoolApp.ViewModels
         {
           this.serviceProvider = serviceProvider;
         ChoseManager = new Command(OnChoseManager);
-         ChoseTeacher = new Command(OnChoseTeacher);
+        ChoseTeacher = new Command(OnChoseTeacher);
+        ChoseStudent = new Command(OnChoseStudent);
           CancelCommand = new Command(OnCancel);
         }
         public ICommand ChoseManager { get; }
@@ -38,7 +39,12 @@ namespace DrivingSchoolApp.ViewModels
             // Navigate to the teacher Register View page
             ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<RegisterTeacherView>());
         }
-
+        public ICommand ChoseStudent{ get; }
+        private void OnChoseStudent()
+        {
+            // Navigate to the teacher Register View page
+            ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<RegisterStudentView>());
+        }
 
         public void OnCancel()
         {

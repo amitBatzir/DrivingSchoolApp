@@ -11,10 +11,10 @@ namespace DrivingSchoolApp.Models
         public int UserStudentId { get; set; }
         public string FirstName { get; set; } = null!;
         public string LastName { get; set; } = null!;
+        public string SchoolName { get; set; } 
         public int StudentStatus { get; set; }
         public string StudentEmail { get; set; } = null!;
         public string StudentPass { get; set; } = null!;
-        public string SchoolName { get; set; } = null!;
         public string StudentLanguage { get; set; } = null!;
         public DateOnly DateOfTheory { get; set; }
         public int LengthOfLesson { get; set; }

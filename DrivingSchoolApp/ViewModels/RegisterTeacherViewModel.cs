@@ -24,7 +24,7 @@ namespace DrivingSchoolApp.ViewModels
         {
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
-            IsPassword = true;
+            //IsPassword = true;
 
             PhotoURL = proxy.GetDefaultProfilePhotoUrl();
             LocalPhotoPath = "";
@@ -521,7 +521,7 @@ namespace DrivingSchoolApp.ViewModels
         
     
 
-        #region Single Selected Manager
+        #region Selected Manager
 
         private bool showSelectedManagerError;
         public bool ShowSelectedManagerError

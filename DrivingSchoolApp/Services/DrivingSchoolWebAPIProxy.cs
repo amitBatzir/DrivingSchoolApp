@@ -150,6 +150,44 @@ namespace DrivingSchoolApp.Services
                 return null;
             }
         }
+
+        public async Task<Student?> UploadProfileImageStudent(string imagePath)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}UploadProfileImage";
+            try
+            {
+                //Create the form data
+                MultipartFormDataContent form = new MultipartFormDataContent();
+                var fileContent = new ByteArrayContent(File.ReadAllBytes(imagePath));
+                form.Add(fileContent, "file", imagePath);
+                //Call the server API
+                HttpResponseMessage response = await client.PostAsync(url, form);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Student? result = JsonSerializer.Deserialize<Student>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
         #endregion
 
         #region Teacher
@@ -187,6 +225,7 @@ namespace DrivingSchoolApp.Services
                 return null;
             }
         }
+
 
         public async Task<Teacher?> UploadProfileImageTeacher(string imagePath)
         {
