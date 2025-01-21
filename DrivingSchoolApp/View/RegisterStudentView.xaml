@@ -7,14 +7,14 @@
 
     <ScrollView Margin="20">
         <Grid>
+            <!--photo-->
             <VerticalStackLayout Padding="20" IsEnabled="{Binding NotInServerCall}">
-                <Frame
-                    <!--Photo-->
-                Margin="10"
+                <Frame 
+                    Margin="10"
                 Padding="5"
                 BorderColor="Black">
                     <Grid>
-                        <Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
@@ -33,9 +33,9 @@
                         Text="לחצו פה לצלם תמונה!"
                         TextColor="PowderBlue"
                         VerticalOptions="End">
+                        
 
-
-                            <Label.GestureRecognizers>
+                        <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding TakePhotoCommand}" />
                             </Label.GestureRecognizers>
                         </Label>
@@ -52,7 +52,7 @@
                         </Label>
                     </Grid>
                 </Frame>
-                
+     
                 <!--  First Name  -->
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -97,7 +97,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="בחרו בית ספר" />
+                    <Label Grid.Column="0" Text="בחרו בית ספר לנהיגה" />
                     <Picker
            ItemDisplayBinding="{Binding Schoolname}"
            ItemsSource="{Binding Managers}"
@@ -113,11 +113,159 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Text="בחרו מורה לנהיגה" />
-                    <Picker
+                    <Picker                       
                     ItemDisplayBinding="{Binding Schoolname}"
-                    ItemsSource="{Binding Managers}"
-                    SelectedItem="{Binding SelectedManager}" />
+                    ItemsSource="{Binding Teachers}"
+                    SelectedItem="{Binding SelectedTeacher}" />
                       </Grid>
+                <!--למה לשנות את הסקול ניים-->
+                
+                <!--// select package-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="בחרו חבילת תשלום" />
+                    <Picker
+                 ItemDisplayBinding="{Binding SchoolName}"
+                 ItemsSource="{Binding Packages}"
+                 SelectedItem="{Binding SelectedPackage}" />
+                </Grid>
+                <!--למה לשנות את הסקול ניים-->
+
+                <!--Address-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="כתובת מגורים" />
+                    <Label
+        Grid.Column="1"
+        IsVisible="{Binding ShowAddressError}"
+        Style="{StaticResource labelErrorStyle}"
+        Text="{Binding AddressError}" />
+                </Grid>
+
+                <Entry
+    Placeholder="הכנס את כתובת בית הספר"
+    Style="{StaticResource entryStyle}"
+    Text="{Binding Address}" />
+
+                <!--select language-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="בחרו שפת לימוד" > </Label>
+                </Grid>
+                <HorizontalStackLayout RadioButtonGroup.GroupName="LanGroup" RadioButtonGroup.SelectedValue="{Binding Language}">
+
+                    <RadioButton
+            Content="עברית"
+            GroupName="LanGroup"
+            IsChecked="True"
+            Value="0" />
+                    <RadioButton
+                Content="אנגלית"
+                GroupName="LanGroup"
+                Value="1" />
+                  <RadioButton
+                Content="ערבית"
+                GroupName="LanGroup"
+                Value="2" />
+                </HorizontalStackLayout>
+
+
+                <!--length of lesson-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="בחרו אורך שיעור" ></Label>
+                </Grid>
+                <HorizontalStackLayout RadioButtonGroup.GroupName="lengthlessonGroup" RadioButtonGroup.SelectedValue="{Binding LengthOfLesson}">
+
+                    <RadioButton
+Content="60 דקות"
+GroupName="lengthlessonGroup"
+IsChecked="True"
+Value="0" />
+                    <RadioButton
+    Content="45 דקות"
+    GroupName="lengthlessonGroup"
+    Value="1" />
+
+                </HorizontalStackLayout>
+                <!--Driving technic-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="בחרו שיטת לימוד נהיגה" ></Label>
+                </Grid>
+                <HorizontalStackLayout RadioButtonGroup.GroupName="DrivingTechnicGroup" RadioButtonGroup.SelectedValue="{Binding DrivingTechnic}">
+                    <RadioButton
+                Content="ידני"
+                GroupName="DrivingTechnicGroup"
+                IsChecked="True"
+                Value="0" />
+                    <RadioButton
+                Content="אוטומטי"
+                GroupName="DrivingTechnicGroup"
+                Value="1" />
+                </HorizontalStackLayout>
+
+
+  <!--  gender  -->
+  <Grid>
+      <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+      <Label Grid.Column="0" Text="בחר מגדר" />
+      <Label Grid.Column="1" />
+  </Grid>
+  <HorizontalStackLayout RadioButtonGroup.GroupName="GenderGroup" RadioButtonGroup.SelectedValue="{Binding Gender}">
+
+      <RadioButton
+          Content="זכר"
+          GroupName="GenderGroup"
+          IsChecked="True"
+          Value="0" />
+      
+      <RadioButton
+          Content="נקבה"
+          GroupName="GenderGroup"
+          Value="1" />
+
+  </HorizontalStackLayout>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button
+         Grid.Column="0"
+         Command="{Binding RegisterCommand}"
+         IsEnabled="{Binding NotInServerCall}"
+         Style="{StaticResource buttonStyle}"
+         Text="הרשמה" />
+
+                    <Button
+         Grid.Column="1"
+         Command="{Binding CancelCommand}"
+         IsEnabled="{Binding NotInServerCall}"
+         Style="{StaticResource buttonStyle}"
+         Text="ביטול" />
+
+                </Grid>
             </VerticalStackLayout>
         </Grid>
     </ScrollView>

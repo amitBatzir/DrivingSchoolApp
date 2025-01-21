@@ -97,7 +97,6 @@ namespace DrivingSchoolApp.ViewModels
             //Call the server to login
             LoginInfo loginInfo = new LoginInfo
             { 
-
                 Email = this.Email, 
                 Password = this.Password,
                 UserTypes = this.UserType
@@ -163,9 +162,13 @@ namespace DrivingSchoolApp.ViewModels
                     //HomePageViewModel homePageViewModel = serviceProvider.GetService<HomePageViewModel>();
                     //homePageViewModel.Refresh(); //Refresh data and user in the homepageViewModel as it is a singleton
                     ((App)Application.Current).MainPage = shell;
-                    //Shell.Current.FlyoutIsPresented = false; //close the flyout
+                    Shell.Current.FlyoutIsPresented = false; //close the flyout
                     //Shell.Current.GoToAsync("Home"); //Navigate to the Home Page tab pa
-                }
+               
+        
+                    await Shell.Current.GoToAsync("HomePageView");
+        
+    }
             }  
         }
 

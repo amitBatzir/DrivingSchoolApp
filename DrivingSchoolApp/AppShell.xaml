@@ -4,12 +4,26 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:DrivingSchoolApp"
-    Shell.FlyoutBehavior="Disabled"
+    FlowDirection="RightToLeft"
+Shell.FlyoutBehavior="Flyout"   
     Title="DrivingSchoolApp">
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="tabs"/>
 
     <ShellContent
-        Title="Home"
+        Title="עמוד בית"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+        
+        <ShellContent
+        Title="עמוד פרופיל"
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="profile" />
+
+        <ShellContent
+          Title="אישורי מורים"
+          ContentTemplate="{DataTemplate local:MainPage}"
+          Route="approving" />
+
+
 
 </Shell>

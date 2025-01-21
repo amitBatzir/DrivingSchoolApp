@@ -749,7 +749,8 @@ namespace DrivingSchoolApp.ViewModels
                     StudentStatus = 1,
                     PhoneNumber = PhoneNumber,
                     SchoolName = SelectedManager.Schoolname,
-                    TeacherId = SelectedManager.UserManagerId,
+                    TeacherId = SelectedTeacher.UserTeacherId,
+                    PackageId = SelectedPackage.PackageId,
                     StudentId = Id,
                     Gender = Gender,
                     DrivingTechnic = DrivingTechnic,
@@ -917,8 +918,8 @@ namespace DrivingSchoolApp.ViewModels
                 OnPropertyChanged("ShowSelectedTeacherError");
             }
         }
-        private Manager selectedTeacher;
-        public Manager SelectedTeacher
+        private Teacher selectedTeacher;
+        public Teacher SelectedTeacher
         {
             get
             {
@@ -950,6 +951,46 @@ namespace DrivingSchoolApp.ViewModels
         #endregion
 
         #region selected package
+        private bool showSelectedPackageError;
+        public bool ShowSelectedPackageError
+        {
+            get => showSelectedPackageError;
+            set
+            {
+                showSelectedPackageError = value;
+                OnPropertyChanged("ShowSelectedPackageError");
+            }
+        }
+        private Package selectedPackage;
+        public Package SelectedPackage
+        {
+            get
+            {
+                return this.selectedPackage;
+            }
+            set
+            {
+                selectedPackage = value;
+                ValidateSelectedTeacher();
+                OnPropertyChanged("SelectedPackage");
+            }
+        }
+        private string selectedPackageError;
+
+        public string SelectedPackageError
+        {
+            get => selectedPackageError;
+            set
+            {
+                selectedPackageError = value;
+                OnPropertyChanged("SelectedPackageError");
+            }
+        }
+
+        private void ValidateSelectedPackage()
+        {
+            this.ShowSelectedPackageError = SelectedPackage == null;
+        }
         #endregion
         public void OnCancel()
         {
