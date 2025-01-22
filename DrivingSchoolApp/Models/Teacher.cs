@@ -23,6 +23,13 @@ namespace DrivingSchoolApp.Models
         public string DrivingTechnic { get; set; } = null!;
         public int ManagerId { get; set; }
 
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
         public Teacher() { }
        
 

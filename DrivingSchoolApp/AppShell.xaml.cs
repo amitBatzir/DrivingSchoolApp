@@ -15,7 +15,7 @@ namespace DrivingSchoolApp
         private void RegisterRoutes()
         {
             Routing.RegisterRoute(nameof(HomePageView), typeof(HomePageView));
-
+            Routing.RegisterRoute(nameof(ProfileView), typeof(ProfileView));
         }
     }
 }

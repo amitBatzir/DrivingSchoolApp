@@ -602,6 +602,7 @@ namespace DrivingSchoolApp.ViewModels
                     Gender = Gender,
                     WayToPay = WayToPay,
                     DrivingTechnic = DrivingTechnic,
+                    ProfilePic = PhotoURL
                 };
 
                 //Call the Register method on the proxy to register the new user

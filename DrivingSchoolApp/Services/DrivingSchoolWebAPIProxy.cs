@@ -375,11 +375,11 @@ namespace DrivingSchoolApp.Services
         }
 
         // פעולה שמחזירה לי רשימה של מורים מבית ספר ספציפי
-        public async Task<List<Teacher>> GetTeacherOfSchool()
+        public async Task<List<Teacher>> GetTeacherOfSchool(int managerId)
         {
 
             //Set URI to the specific function API
-            string url = $"{this.baseUrl}getTeacherOfSchool";
+            string url = $"{this.baseUrl}getTeacherOfSchool?ManagerId={managerId}";
             //Check status
             try
             {
@@ -409,11 +409,11 @@ namespace DrivingSchoolApp.Services
         }
 
         // פעולה שמחזירה לי רשימה של חבילות של בית ספר ספציפי
-        public async Task<List<Package>> GetPackageOfSchool()
+        public async Task<List<Package>> GetPackageOfSchool(int managerId)
         {
 
             //Set URI to the specific function API
-            string url = $"{this.baseUrl}getPackageOfSchool";
+            string url = $"{this.baseUrl}getPackageOfSchool?ManagerId={managerId}";
             //Check status
             try
             {

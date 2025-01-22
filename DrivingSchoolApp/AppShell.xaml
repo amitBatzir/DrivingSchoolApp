@@ -5,25 +5,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:DrivingSchoolApp"
     FlowDirection="RightToLeft"
+    xmlns:views="clr-namespace:DrivingSchoolApp.View"
 Shell.FlyoutBehavior="Flyout"   
     Title="DrivingSchoolApp">
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="tabs"/>
 
     <ShellContent
-        Title="עמוד בית"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-        
-        <ShellContent
         Title="עמוד פרופיל"
         ContentTemplate="{DataTemplate local:MainPage}"
-        Route="profile" />
+        Route="MainPage" />
 
-        <ShellContent
+    <ShellContent
           Title="אישורי מורים"
           ContentTemplate="{DataTemplate local:MainPage}"
           Route="approving" />
 
+   
 
 
 </Shell>

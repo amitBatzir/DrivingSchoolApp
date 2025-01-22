@@ -1,49 +1,48 @@
-﻿using System;
+﻿using DrivingSchoolApp.Models;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DrivingSchoolApp.Models;
 using DrivingSchoolApp.Services;
-using DrivingSchoolApp.View;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui.Controls;
+using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Net;
+using System.Reflection;
 
 namespace DrivingSchoolApp.ViewModels
 {
-    public class RegisterManagerViewModel : ViewModelBase
+    [QueryProperty(nameof(Manager), "selectedManager")]
+
+    public class ProfileViewModel : ViewModelBase
     {
         private DrivingSchoolAppWebAPIProxy proxy;
-        public Command RegisterCommand { get; }
-        public Command CancelCommand { get; }
-        public Command UploadPhotoCommand { get; }
-        public Command Student { get; }
-        public Command Teacher { get; }
-        public Command Manager { get; }
         private IServiceProvider serviceProvider;
-        public RegisterManagerViewModel(DrivingSchoolAppWebAPIProxy proxy, IServiceProvider serviceProvider)
-        {
-            this.serviceProvider = serviceProvider;
-            this.proxy = proxy;
-            RegisterCommand = new Command(OnRegister);
-            CancelCommand = new Command(OnCancel);
-            ShowPasswordCommand = new Command(OnShowPassword);
-            UploadPhotoCommand = new Command(OnUploadPhoto);
-            PhotoURL = proxy.GetDefaultProfilePhotoUrl();
-            LocalPhotoPath = "";
-            IsPassword = true;          
-            ManagerPhoneError = "בדקו שכתבתם את מספר הטלפון הנכון";
-            SchoolAddressError = "השדה של כתובת בית הספר ריקה";
-            FirstNameError = "שם פרטי נדרש";
-            LastNameError = "שם משפחה נדרש";
-            EmailError = "אימייל נדרש";
-            PasswordError = "סיסמה אמורה להיות לפחות 3 תווים ולהכיל אותיות ומספרים"; /* "Password must be at least 2 characters long and contain letters and numbers";*/
-            SchoolNameError = "בדקו שבחרתם בית ספר";
-            ManagerIdError = "בדקו שכתבתם את מספר תעודת הזהות הנכון";
-            SchoolPhoneError = " בדקו שכתבתם את מספר הטלפון הנכון";
-        }
 
-       
+        private Manager manager;
+        public Manager Manager
+        {
+            get => manager;
+            set
+            {
+                if (manager != value)
+                {
+                    manager = value;
+                    //InItFieldsDataAsync();
+
+                    OnPropertyChanged(nameof(Manager));
+                }
+            }
+        }
+        public ProfileViewModel(DrivingSchoolAppWebAPIProxy proxy, IServiceProvider service)
+        {
+            this.proxy = proxy;
+            this.serviceProvider = service;
+            ShowPasswordCommand = new Command(OnShowPassword);
+
+        }
 
         #region FirstName // entry
         private bool showFirstNameError;
@@ -290,7 +289,7 @@ namespace DrivingSchoolApp.ViewModels
             set
             {
                 managerPhone = value;
-               ValidateMangagerPhone();
+                ValidateMangagerPhone();
                 OnPropertyChanged("ManagerPhone");
             }
         }
@@ -354,7 +353,7 @@ namespace DrivingSchoolApp.ViewModels
 
         private void ValidateSchoolPhone()
         {
-            this.ShowSchoolPhoneError = string.IsNullOrEmpty(SchoolPhone) || SchoolPhone.Length != 10  || SchoolPhone.Length != 9;
+            this.ShowSchoolPhoneError = string.IsNullOrEmpty(SchoolPhone) || SchoolPhone.Length != 10 || SchoolPhone.Length != 9;
 
         }
         #endregion
@@ -446,50 +445,6 @@ namespace DrivingSchoolApp.ViewModels
         }
         #endregion
 
-        #region ManagerId // entry
-        private bool showManagerIdError;
-
-        public bool ShowManagerIdError
-        {
-            get => showManagerIdError;
-            set
-            {
-                showManagerIdError = value;
-                OnPropertyChanged("ShowManagerIdError");
-            }
-        }
-
-        private string managerId;
-
-        public string ManagerId
-        {
-            get => managerId;
-            set
-            {
-                managerId = value;
-                ValidateManagerId();
-                OnPropertyChanged("ManagerId");
-            }
-        }
-
-        private string managerIdError;
-
-        public string ManagerIdError
-        {
-            get => managerIdError;
-            set
-            {
-                managerIdError = value;
-                OnPropertyChanged("ManagerIdError");
-            }
-        }
-
-        private void ValidateManagerId()
-        {
-            this.ShowManagerIdError = string.IsNullOrEmpty(ManagerId) || ManagerId.Length != 9;
-        }
-        #endregion
-
         #region Photo
 
         private string photoURL;
@@ -571,90 +526,24 @@ namespace DrivingSchoolApp.ViewModels
 
         #endregion
 
+        #region In it Fields with data
+        //Define a method to initialize the fields with data
 
-
-        //Define a command for the register button
-        private bool ValidateForm()
-        { // פעולה שבודקת האם הפרטים של המשתמש נכונים ותקינים בעזרת פעולות עזר
-            ValidateSchoolName();
-            ValidateFirstName();
-            ValidateLastName();
-            ValidateEmail();
-            ValidatePassword();
-            ValidateMangagerPhone();
-            ValidateSchoolPhone();
-            ValidateSchoolAddress();
-            ValidateManagerId();
-            if (ShowManagerIdError || ShowEmailError || ShowSchoolAddressError || ShowFirstNameError || ShowPasswordError || ShowSchoolNameError || ShowLastNameError || ShowManagerPhoneError || ShowSchoolPhoneError)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        //Define a method that will be called when the register button is clicked
-        public async void OnRegister()
+        private async void InItFieldsDataAsync()
         {
-            if (ValidateForm())
-            {
-                //Create a new Manager object with the data from the registration form
-                var newManager = new Manager
-                {
-                    FirstName = FirstName,
-                    LastName = LastName,
-                    ManagerEmail = Email,
-                    ManagerPass = Password,
-                    ManagerStatus = 1,
-                    SchoolAddress = SchoolAddress,
-                    ManagerPhone = ManagerPhone,
-                    SchoolPhone = SchoolPhone,
-                    Schoolname = SchoolName,
-                    ManagerId = ManagerId,
-                    ProfilePic = PhotoURL
-                };
-
-                //Call the Register method on the proxy to register the new user
-                InServerCall = true;
-                newManager = await proxy.RegisterManager(newManager);
-                InServerCall = false;
-
-                //If the registration was successful, navigate to the login page
-                if (newManager != null)
-                {
-                    //UPload profile imae if needed
-                    if (!string.IsNullOrEmpty(LocalPhotoPath))
-                    {
-                        await proxy.LoginAsync(new LoginInfo { Email = newManager.ManagerEmail, Password = newManager.ManagerPass});
-                        Manager? updatedManager = await proxy.UploadProfileImage(LocalPhotoPath);
-                        if (updatedManager == null)
-                        {
-                            InServerCall = false;
-                            await Application.Current.MainPage.DisplayAlert("הרשמה", "הנתונים שלך נרשמו אבל העלאת תמונה הפרופיל נכשלה", "OK");
-                        }
-                    }
-                    InServerCall = false;
-
-                    await Application.Current.MainPage.DisplayAlert("הפעולה הצליחה", "הנתונים נרשמו, תוכל/י להיכנס למערכת לאחר אישור מנהל המערכת", "OK");
-                    LoginView login = serviceProvider.GetService<LoginView>();
-                    //homePageViewModel.Refresh(); //Refresh data and user in the homepageViewModel as it is a singleton
-                    ((App)Application.Current).MainPage = login;
-                }
-                else
-                {
-
-                    //If the registration failed, display an error message
-                    string errorMsg = "ההרשמה נכשלה, בבקשה נסה שוב";
-                    await Application.Current.MainPage.DisplayAlert("הרשמה", errorMsg, "OK");                  
-                }
-            }
+            //FirstName = manager.FirstName;
+            //LastName = manager.LastName;
+            //Email = manager.Email;
+            //Password = user.Pass;
+            //TimeOnly time = new TimeOnly();
+            //Date = user.DateOfBirth.ToDateTime(time);
+            //PhoneNumber = user.PhoneNumber;
+            //Address = user.UserAddress;
+            //PhotoURL = user.FullProfileImagePath;
+            //Gender = (char)user.Gender;
+            //ReadPosts();
         }
-
-        //Define a method that will be called upon pressing the cancel button
-        public void OnCancel()
-        {
-            //Navigate back to the login page
-            ((App)(Application.Current)).MainPage.Navigation.PopAsync();
-        }
+        #endregion
 
     }
 }

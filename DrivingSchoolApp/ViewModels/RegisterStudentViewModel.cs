@@ -20,6 +20,7 @@ namespace DrivingSchoolApp.ViewModels
 
         public RegisterStudentViewModel(DrivingSchoolAppWebAPIProxy proxy, IServiceProvider serviceProvider)
         {
+
             this.serviceProvider = serviceProvider;
             this.proxy = proxy;
             //IsPassword = true;
@@ -37,13 +38,10 @@ namespace DrivingSchoolApp.ViewModels
             Teachers = new ObservableCollection<Teacher>();
             Packages = new ObservableCollection<Package>();
             LoadManagers();
-            LoadTeachers();
-            LoadPackages();
-
+            
             SelectedManagerError = "בדקו שבחרתם בית ספר";
 
             Gender = "0";
-            //WayToPay = "0";
             DrivingTechnic = "0";
             FirstNameError = "שם פרטי נדרש";
             LastNameError = "שם משפחה נדרש";
@@ -52,11 +50,12 @@ namespace DrivingSchoolApp.ViewModels
             IdError = "בדקו שהכנסת את מספר הזהות הנכון";
             PhoneNumberError = "בדקו שהכנסתם את מספר הטלפון הנכון";
             DateError = "הגיל שלך קטן מהגיל המינימלי הנדרש בכדי ללמוד נהיגה";
-            TheoryDateError = "תאריך הוצאת התאוריה שלך עבר או עומד לעבור 5 שנים ולכן התאוריה לא תקפה";
+            TheoryDateError = "תאריך הוצאת התאוריה שלך היה לפני 5 או יותר שנים ולכן התאוריה לא תקפה";
             NumOfLessonsError = "בדוק שהכנסתם מספר. במקרה שלא עשית שיעורים, הכנס/י 0";
             AddressError = "בדקו שהכנסתם כתובת";
-
-
+            //CurrentDate=new DateTime()
+            Date = CurrentDate;
+            TheoryDate = CurrentDate2;
         }
         public Command UploadPhotoCommand { get; }
         public Command TakePhotoCommand { get; }
@@ -441,14 +440,51 @@ namespace DrivingSchoolApp.ViewModels
             set
             {
                 dateError = value;
-                OnPropertyChanged("Date");
+                OnPropertyChanged("DateError");
             }
         }
         private void ValidateDate()
         {
-            this.ShowDateError = (Date.Year < 16 && Date.Month < 9);
+            DateTime currentDate = DateTime.Now;
+
+            // Calculate the age at the current date
+            int ageInYears = currentDate.Year - this.Date.Year;
+            if (currentDate.Month < this.Date.Month || (currentDate.Month == this.Date.Month && currentDate.Day < this.Date.Day))
+            {
+                ageInYears--; // Subtract one year if the birthday hasn't occurred yet this year
+            }
+
+            // Calculate the months difference
+            int ageInMonths = currentDate.Month - this.Date.Month;
+            if (currentDate.Month < this.Date.Month)
+            {
+                ageInMonths += 12; // Handle month wrapping when current month is earlier than the birth month
+            }
+
+            // If the person is less than 16 years and 9 months old
+            if (ageInYears < 16 || (ageInYears == 16 && ageInMonths < 9))
+            {
+                this.ShowDateError = true; 
+            }
+            else
+            {
+                this.ShowDateError = false;
+            }
+
+            
 
         }
+        private DateTime currentDate;
+        public DateTime CurrentDate
+        {
+            get => DateTime.Now; // Return the current date whenever the property is accessed
+            set
+            {
+                // You don't need to set the value since we want the property to always return DateTime.Now
+                currentDate = value;
+            }
+        }
+
 
         #endregion
 
@@ -473,7 +509,7 @@ namespace DrivingSchoolApp.ViewModels
             set
             {
                 theoryDate = value;
-                ValidateDate();
+                ValidateTheoryDate();
                 OnPropertyChanged("TheoryDate");
             }
         }
@@ -492,11 +528,40 @@ namespace DrivingSchoolApp.ViewModels
         }
         private void ValidateTheoryDate()
         {
-            int year = DateTime.Now.Year;
-            int month = DateTime.Now.Month;
-            this.ShowTheoryDateError = ((year - Date.Year) > 5 && month == Date.Month);
-        }
+                // Get the current date
+                DateTime currentDate = DateTime.Now;
 
+                // Calculate the difference in years between the current date and the exam date
+                int yearsDifference = currentDate.Year - this.TheoryDate.Year;
+
+                // If the current date is before the exam's anniversary this year, subtract one year
+                if (currentDate.Month < this.TheoryDate.Month || (currentDate.Month == this.TheoryDate.Month && currentDate.Day < this.TheoryDate.Day))
+                {
+                    yearsDifference--;
+                }
+
+                // If the exam was taken more than 5 years ago, return true
+                if( yearsDifference > 5)
+            {
+                this.ShowTheoryDateError = true;
+            }
+            else
+            {
+                this.ShowTheoryDateError = false;
+
+            }
+
+        }
+        private DateTime currentDate2;
+        public DateTime CurrentDate2
+        {
+            get => DateTime.Now; // Return the current date whenever the property is accessed
+            set
+            {
+                // You don't need to set the value since we want the property to always return DateTime.Now
+                currentDate2 = value;
+            }
+        }
         #endregion
 
         #region Number Of Lessons
@@ -544,9 +609,9 @@ namespace DrivingSchoolApp.ViewModels
         #endregion
 
         #region length of lessons
-        private string lengthOfLesson;
 
-        public string LengthOfLesson
+        private int lengthOfLesson;
+        public int LengthOfLesson
         {
             get => lengthOfLesson;
             set
@@ -575,9 +640,9 @@ namespace DrivingSchoolApp.ViewModels
         #endregion
 
         #region internal test
-        private string internaltest;
+        private bool internaltest;
 
-        public string Internaltest
+        public bool Internaltest
         {
             get => internaltest;
             set
@@ -743,7 +808,12 @@ namespace DrivingSchoolApp.ViewModels
                 var newStudent = new Student
                 {
                     FirstName = FirstName,
+                    StudentAddress = Address,
+                    StudentLanguage = Language,
                     LastName = LastName,
+                    LengthOfLesson = LengthOfLesson,
+                    CurrentLessonNum = NumOfLessons,
+                    InternalTestDone = Internaltest,
                     StudentEmail = Email,
                     StudentPass = Password,
                     StudentStatus = 1,
@@ -754,6 +824,7 @@ namespace DrivingSchoolApp.ViewModels
                     StudentId = Id,
                     Gender = Gender,
                     DrivingTechnic = DrivingTechnic,
+                    ProfilePic = PhotoURL
                 };
 
                 //Call the Register method on the proxy to register the new user
@@ -810,10 +881,14 @@ namespace DrivingSchoolApp.ViewModels
         private async void LoadManagers()
         {
             List<Manager> managerList = await proxy.GetSchools();
-            foreach (Manager manager in managerList)
+            if (managerList != null)
             {
-                Managers.Add(manager);
+                foreach (Manager manager in managerList)
+                {
+                    Managers.Add(manager);
+                }
             }
+            
 
         }
         #endregion
@@ -830,13 +905,14 @@ namespace DrivingSchoolApp.ViewModels
                 OnPropertyChanged("Teachers");
             }
         }
-        private async void LoadTeachers()
+        private async void LoadTeachers(int managerId)
         {
-            List<Teacher> teacherList = await proxy.GetTeacherOfSchool();
-            foreach (Teacher t in teacherList)
-            {
-                Teachers.Add(t);
-            }
+            List<Teacher> teacherList = await proxy.GetTeacherOfSchool(managerId);
+            if (teacherList != null)
+                foreach (Teacher t in teacherList)
+                {
+                    Teachers.Add(t);
+                }
 
         }
         #endregion
@@ -853,13 +929,14 @@ namespace DrivingSchoolApp.ViewModels
                 OnPropertyChanged("Packages");
             }
         }
-        private async void LoadPackages()
+        private async void LoadPackages(int managerId)
         {
-            List<Package> packageslist = await proxy.GetPackageOfSchool();
-            foreach (Package p in packageslist)
-            {
-                Packages.Add(p);
-            }
+            List<Package> packageslist = await proxy.GetPackageOfSchool(managerId);
+            if (packageslist != null)
+                foreach (Package p in packageslist)
+                {
+                    Packages.Add(p);
+                }
 
         }
         #endregion
@@ -886,6 +963,8 @@ namespace DrivingSchoolApp.ViewModels
             {
                 selectedManager = value;
                 ValidateSelectedManager();
+                LoadTeachers(SelectedManager.UserManagerId);
+                LoadPackages(SelectedManager.UserManagerId);
                 OnPropertyChanged("SelectedManager");
             }
         }

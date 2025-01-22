@@ -15,7 +15,7 @@ namespace DrivingSchoolApp.Models
         public int StudentStatus { get; set; }
         public string StudentEmail { get; set; } = null!;
         public string StudentPass { get; set; } = null!;
-        public string StudentLanguage { get; set; } = null!;
+        public string StudentLanguage { get; set; } 
         public DateOnly DateOfTheory { get; set; }
         public int LengthOfLesson { get; set; }
         public int TeacherId { get; set; }
