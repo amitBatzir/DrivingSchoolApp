@@ -4,9 +4,9 @@ namespace DrivingSchoolApp
 {
     public partial class AppShell : Shell
     {
-        public AppShell(/*ShellViewModel vm*/)
+        public AppShell(AppShellViewModel vm)
         {
-            //this.BindingContext = vm;
+            this.BindingContext = vm;
             InitializeComponent();
             RegisterRoutes();
         }

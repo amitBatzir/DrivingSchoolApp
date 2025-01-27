@@ -57,6 +57,8 @@ namespace DrivingSchoolApp
             builder.Services.AddTransient<ChooseRegisterViewModel>();
             builder.Services.AddTransient<RegisterManagerViewModel>();
             builder.Services.AddTransient<RegisterTeacherViewModel>();
+            builder.Services.AddTransient<AppShellViewModel>();
+
 
 
             return builder;

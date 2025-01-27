@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:DrivingSchoolApp"
     FlowDirection="RightToLeft"
     xmlns:views="clr-namespace:DrivingSchoolApp.View"
-Shell.FlyoutBehavior="Flyout"   
+    Shell.FlyoutBehavior="Flyout"   
     Title="DrivingSchoolApp">
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="tabs"/>
 
