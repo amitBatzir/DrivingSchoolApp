@@ -24,7 +24,7 @@ namespace DrivingSchoolApp.Models
         public string StudentId { get; set; } = null!;
         public DateOnly DateOfBirth { get; set; }
         public string PhoneNumber { get; set; } = null!;
-        public string CurrentLessonNum { get; set; } = null!;
+        public int CurrentLessonNum { get; set; } = 0;
         public bool InternalTestDone { get; set; }
         public string StudentAddress { get; set; } = null!;
         public string ProfilePic { get; set; } = null!;

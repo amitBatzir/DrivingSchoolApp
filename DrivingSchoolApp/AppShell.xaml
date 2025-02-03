@@ -4,23 +4,36 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:DrivingSchoolApp"
-    FlowDirection="RightToLeft"
     xmlns:views="clr-namespace:DrivingSchoolApp.View"
-    Shell.FlyoutBehavior="Flyout"   
-    Title="DrivingSchoolApp">
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="tabs"/>
+    Title="DrivingSchoolApp"
+    FlowDirection="RightToLeft"
+    Shell.FlyoutBehavior="Flyout">
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="tabs" />
 
     <ShellContent
         Title="עמוד פרופיל"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate views:ProfileView}"
+        Route="MainPage" /> 
+    <!--לשאול את עופר מה זה ה route-->
 
     <ShellContent
-          Title="אישורי מורים"
-          ContentTemplate="{DataTemplate local:MainPage}"
-          Route="approving" />
+        Title="אישורי מורים"
+        ContentTemplate="{DataTemplate views:ScheduleView}"
+        IsVisible="{Binding IsStudent}"
+        Route="approving" />
+    
+    <ShellContent   
+     Title="עמוד בית"
+     ContentTemplate="{DataTemplate views:HomePageView}"
+     Route="approving" />
+    
+    
+    
+    
 
-   
+
+
+
 
 
 </Shell>

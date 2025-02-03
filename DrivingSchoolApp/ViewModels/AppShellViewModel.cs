@@ -33,6 +33,13 @@ namespace DrivingSchoolApp.ViewModels
             }
         }
       
+        public bool IsStudent
+        {
+            get
+            {
+                return currentStudent != null;
+            }
+        }
         public AppShellViewModel(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;

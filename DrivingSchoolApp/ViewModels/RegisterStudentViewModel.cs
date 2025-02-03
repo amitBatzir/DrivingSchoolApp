@@ -53,6 +53,7 @@ namespace DrivingSchoolApp.ViewModels
             TheoryDateError = "תאריך הוצאת התאוריה שלך היה לפני 5 או יותר שנים ולכן התאוריה לא תקפה";
             NumOfLessonsError = "בדוק שהכנסתם מספר. במקרה שלא עשית שיעורים, הכנס/י 0";
             AddressError = "בדקו שהכנסתם כתובת";
+            Language = "0";
             //CurrentDate=new DateTime()
             Date = CurrentDate;
             TheoryDate = CurrentDate2;
@@ -393,7 +394,6 @@ namespace DrivingSchoolApp.ViewModels
 
         #region Language
         private string language;
-
         public string Language
         {
             get => language;
@@ -812,7 +812,7 @@ namespace DrivingSchoolApp.ViewModels
                     StudentLanguage = Language,
                     LastName = LastName,
                     LengthOfLesson = LengthOfLesson,
-                    CurrentLessonNum = NumOfLessons,
+                    CurrentLessonNum = int.Parse(NumOfLessons),
                     InternalTestDone = Internaltest,
                     StudentEmail = Email,
                     StudentPass = Password,
@@ -824,7 +824,7 @@ namespace DrivingSchoolApp.ViewModels
                     StudentId = Id,
                     Gender = Gender,
                     DrivingTechnic = DrivingTechnic,
-                    ProfilePic = PhotoURL
+                    ProfilePic = null
                 };
 
                 //Call the Register method on the proxy to register the new user

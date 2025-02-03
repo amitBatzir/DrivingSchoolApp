@@ -209,10 +209,6 @@
          GroupName="DrivingTechnicGroup"
          Value="1" />
 
-                    <RadioButton
-         Content="גם וגם"
-         GroupName="DrivingTechnicGroup"
-         Value="2" />
                 </HorizontalStackLayout>
 
 
