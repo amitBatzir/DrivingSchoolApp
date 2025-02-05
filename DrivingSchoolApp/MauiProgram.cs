@@ -37,6 +37,14 @@ namespace DrivingSchoolApp
             builder.Services.AddTransient<ChooseRegisterView>();
             builder.Services.AddTransient<RegisterManagerView>();
             builder.Services.AddTransient<RegisterTeacherView>();
+            builder.Services.AddTransient<LessonsHistoryView>();
+            builder.Services.AddTransient<ProfileView>();
+            builder.Services.AddTransient<StudentListView>();
+            builder.Services.AddTransient<TeachersListView>();
+            builder.Services.AddTransient<ApprovingStudentsView>();
+            builder.Services.AddTransient<ApprovingTeachersView>();
+            builder.Services.AddTransient<SchoolsListView>();
+            builder.Services.AddTransient<ApprovingManagersView>();
             builder.Services.AddTransient<AppShell>();
 
 
@@ -57,6 +65,14 @@ namespace DrivingSchoolApp
             builder.Services.AddTransient<ChooseRegisterViewModel>();
             builder.Services.AddTransient<RegisterManagerViewModel>();
             builder.Services.AddTransient<RegisterTeacherViewModel>();
+            builder.Services.AddTransient<LessonsHistoryViewModel>();
+            builder.Services.AddTransient<ProfileViewModel>();
+            builder.Services.AddTransient<StudentListViewModel>();
+            builder.Services.AddTransient<TeachersListViewModel>();
+            builder.Services.AddTransient<ApprovingStudentsViewModel>();
+            builder.Services.AddTransient<ApprovingTeachersViewModel>();
+            builder.Services.AddTransient<SchoolsListViewModel>();
+            builder.Services.AddTransient<ApprovingManagersViewModel>();
             builder.Services.AddTransient<AppShellViewModel>();
 
 

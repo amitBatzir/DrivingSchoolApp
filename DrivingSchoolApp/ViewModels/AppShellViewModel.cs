@@ -10,56 +10,62 @@ namespace DrivingSchoolApp.ViewModels
 {
     public class AppShellViewModel : ViewModelBase
     {
-        private Student? currentStudent;
+        private Student? currentStudent;     
 
         private Teacher? currentTeacher;
 
         private Manager? currentManager;
 
         private IServiceProvider serviceProvider;
-
-
-        private UserTypes userType;
-        public UserTypes UserType
+        public void Check()
         {
-            get => userType;
-            set
-            {
-                if (userType != value)
-                {
-                    userType = value;
-                    OnPropertyChanged(nameof(userType));
-                }
-            }
+            this.currentStudent = ((App)Application.Current).LoggedInStudent;
+            this.currentTeacher = ((App)Application.Current).LoggedInTeacher;
+            this.currentManager = ((App)Application.Current).LoggedInManager;
         }
-      
+
         public bool IsStudent
         {
             get
-            {
+            {              
                 return currentStudent != null;
             }
         }
+        public bool IsTeacher
+        {
+            get
+            {              
+                return currentTeacher != null;
+            }
+        }
+        public bool IsManager
+        {
+            get
+            {
+                return currentManager != null;
+            }
+        }
+
         public AppShellViewModel(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
 
-            if (UserType == UserTypes.STUDENT)
-            {
-                this.currentStudent = ((App)Application.Current).LoggedInStudent;
-            }
-            else if (UserType == UserTypes.TEACHER)
-            {
-                this.currentTeacher = ((App)Application.Current).LoggedInTeacher;
-            }
-            else
-            {
-                this.currentManager = ((App)Application.Current).LoggedInManager;
-            }
-           
+            //if (UserType == UserTypes.STUDENT)
+            //{
+            //this.currentStudent = ((App)Application.Current).LoggedInStudent;
+            //}
+            //else if (UserType == UserTypes.TEACHER)
+            //{
+            //    this.currentTeacher = ((App)Application.Current).LoggedInTeacher;
+            //}
+            //else
+            //{
+            //    this.currentManager = ((App)Application.Current).LoggedInManager;
+            //}
+
         }
 
-        
+
         //this command will be used for logout menu item
         public Command LogoutCommand
         {
@@ -72,11 +78,11 @@ namespace DrivingSchoolApp.ViewModels
         public void OnLogout()
         {
 
-            if (UserType == UserTypes.STUDENT)
+            if (IsStudent)
             {
                 ((App)Application.Current).LoggedInStudent = null;
             }
-            else if (UserType == UserTypes.TEACHER)
+            else if (IsManager)
             {
                 ((App)Application.Current).LoggedInTeacher = null;
             }
@@ -85,7 +91,8 @@ namespace DrivingSchoolApp.ViewModels
                 ((App)Application.Current).LoggedInManager = null;
             }
 
-            ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<LoginView>());
+                ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<LoginView>());
         }
     }
 }
+
