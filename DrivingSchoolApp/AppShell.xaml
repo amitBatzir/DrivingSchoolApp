@@ -20,7 +20,7 @@
     <ShellContent
       Title="קביעת שיעור"
       ContentTemplate="{DataTemplate views:ScheduleView}"
-      IsVisible="{Binding IsStudent}"
+      IsVisible="{Binding NotManager}"
       Route="Schedule" />
 
     <ShellContent   

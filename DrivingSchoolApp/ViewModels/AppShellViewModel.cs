@@ -45,24 +45,16 @@ namespace DrivingSchoolApp.ViewModels
                 return currentManager != null;
             }
         }
-
+        public bool NotManager
+        {
+            get
+            {
+                return currentManager == null;
+            }
+        }
         public AppShellViewModel(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
-
-            //if (UserType == UserTypes.STUDENT)
-            //{
-            //this.currentStudent = ((App)Application.Current).LoggedInStudent;
-            //}
-            //else if (UserType == UserTypes.TEACHER)
-            //{
-            //    this.currentTeacher = ((App)Application.Current).LoggedInTeacher;
-            //}
-            //else
-            //{
-            //    this.currentManager = ((App)Application.Current).LoggedInManager;
-            //}
-
         }
 
 
