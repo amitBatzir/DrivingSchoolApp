@@ -45,6 +45,7 @@ namespace DrivingSchoolApp
             builder.Services.AddTransient<ApprovingTeachersView>();
             builder.Services.AddTransient<SchoolsListView>();
             builder.Services.AddTransient<ApprovingManagersView>();
+            builder.Services.AddTransient<CommentsView>();
             builder.Services.AddTransient<AppShell>();
 
 
@@ -73,6 +74,7 @@ namespace DrivingSchoolApp
             builder.Services.AddTransient<ApprovingTeachersViewModel>();
             builder.Services.AddTransient<SchoolsListViewModel>();
             builder.Services.AddTransient<ApprovingManagersViewModel>();
+            builder.Services.AddTransient<CommentsViewModel>();
             builder.Services.AddTransient<AppShellViewModel>();
 
 

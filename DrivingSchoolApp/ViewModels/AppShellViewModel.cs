@@ -17,6 +17,13 @@ namespace DrivingSchoolApp.ViewModels
         private Manager? currentManager;
 
         private IServiceProvider serviceProvider;
+
+        public AppShellViewModel(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
+            Check();
+        }
+
         public void Check()
         {
             this.currentStudent = ((App)Application.Current).LoggedInStudent;
@@ -52,11 +59,21 @@ namespace DrivingSchoolApp.ViewModels
                 return currentManager == null;
             }
         }
-        public AppShellViewModel(IServiceProvider serviceProvider)
+        public bool NotStudent
         {
-            this.serviceProvider = serviceProvider;
+            get
+            {
+                return currentStudent == null;
+            }
         }
-
+        public bool AppManager
+        {
+            get
+            {
+               return (currentStudent == null && currentTeacher == null && currentManager == null);
+            }
+        }
+       
 
         //this command will be used for logout menu item
         public Command LogoutCommand

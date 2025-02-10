@@ -8,7 +8,7 @@
     Title="DrivingSchoolApp"
     FlowDirection="RightToLeft"
     Shell.FlyoutBehavior="Flyout">
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="tabs" />
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="tabs" >
  
     <!--לתלמיד-->
     <ShellContent
@@ -26,43 +26,62 @@
     <ShellContent   
      Title="עמוד בית"
      ContentTemplate="{DataTemplate views:HomePageView}"
-     Route="approving" />
+     Route="approving"
+     IsVisible="{Binding IsStudent}"
+        />
 
     <ShellContent   
   Title="שיעורים קודמים ועתידיים"
   ContentTemplate="{DataTemplate views:LessonsHistoryView}"
-  Route="HistoryLesson" />
+  Route="HistoryLesson" 
+  IsVisible="{Binding NotManager}"
+        />
     
     <!--מורה-->
     <ShellContent   
   Title="רשימת תלמידים"
   ContentTemplate="{DataTemplate views:StudentListView}"
-  Route="StudentList" />
+  Route="StudentList" 
+        IsVisible="{Binding NotStudent}"/>
     
     <ShellContent   
   Title="אישור תלמידים"
   ContentTemplate="{DataTemplate views:ApprovingStudentsView}"
-  Route="ApprovingStudents" />
+  Route="ApprovingStudents" 
+        IsVisible="{Binding IsTeacher}"/>
 
+    <ShellContent   
+Title="תגובות"
+ContentTemplate="{DataTemplate views:CommentsView}"
+Route="Comments" 
+      IsVisible="{Binding IsTeacher}"/>
+    
     <!--מנהל-->
     <ShellContent   
  Title="רשימת מורים"
  ContentTemplate="{DataTemplate views:TeachersListView}"
- Route="TeachersList" />
+ Route="TeachersList" 
+        IsVisible="{Binding IsManager}"/>
     <ShellContent   
  Title="אישור מורים"
  ContentTemplate="{DataTemplate views:ApprovingTeachersView}"
- Route="ApprovingTeachers" />
+ Route="ApprovingTeachers"
+   IsVisible="{Binding IsManager}"/>
+   
 
     <!--מנהל אפליקציה-->
     <ShellContent   
 Title="אישור בתי ספר"
 ContentTemplate="{DataTemplate views:ApprovingManagersView}"
-Route="ApprovingManager" />
+Route="ApprovingManager"
+ IsVisible="{Binding AppManager}"/>
+
     <ShellContent   
 Title="רשימת בתי ספר"
 ContentTemplate="{DataTemplate views:SchoolsListView}"
-Route="SchoolsList" />
+Route="SchoolsList"
+         IsVisible="{Binding AppManager}"/>
+    </FlyoutItem>
 
 </Shell>
 
@@ -71,3 +90,4 @@ Route="SchoolsList" />
         ContentTemplate="{DataTemplate views:ScheduleView}"
         IsVisible="{Binding IsStudent}"
         Route="approving" />-->
+    

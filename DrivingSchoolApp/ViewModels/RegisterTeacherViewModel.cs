@@ -626,7 +626,7 @@ namespace DrivingSchoolApp.ViewModels
                     }
                     InServerCall = false;
 
-                    await Application.Current.MainPage.DisplayAlert("הפעולה הצליחה", "הנתונים נרשמו, תוכל/י להיכנס למערכת לאחר אישור מנהל המערכת", "OK");
+                    await Application.Current.MainPage.DisplayAlert("הפעולה הצליחה", "הנתונים נרשמו, תוכל/י להיכנס למערכת לאחר אישור מנהל בית הספר", "OK");
                     LoginView login = serviceProvider.GetService<LoginView>();
                     //homePageViewModel.Refresh(); //Refresh data and user in the homepageViewModel as it is a singleton
                     ((App)Application.Current).MainPage = login;

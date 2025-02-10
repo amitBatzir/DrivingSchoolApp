@@ -1,5 +1,7 @@
-﻿using DrivingSchoolApp.View;
+﻿using Android.Media;
+using DrivingSchoolApp.View;
 using DrivingSchoolApp.ViewModels;
+using static Android.Icu.Text.CaseMap;
 namespace DrivingSchoolApp
 {
     public partial class AppShell : Shell
@@ -16,6 +18,26 @@ namespace DrivingSchoolApp
         {
             Routing.RegisterRoute(nameof(HomePageView), typeof(HomePageView));
             Routing.RegisterRoute(nameof(ProfileView), typeof(ProfileView));
+            Routing.RegisterRoute(nameof(ScheduleView), typeof(ScheduleView));
+            Routing.RegisterRoute(nameof(LessonsHistoryView), typeof(LessonsHistoryView));
+            Routing.RegisterRoute(nameof(StudentListView), typeof(StudentListView));
+            Routing.RegisterRoute(nameof(ApprovingStudentsView), typeof(ApprovingStudentsView));
+            Routing.RegisterRoute(nameof(CommentsView), typeof(CommentsView));
+            Routing.RegisterRoute(nameof(TeachersListView), typeof(TeachersListView));
+            Routing.RegisterRoute(nameof(ApprovingTeachersView), typeof(ApprovingTeachersView));
+            Routing.RegisterRoute(nameof(ApprovingManagersView), typeof(ApprovingManagersView));
+            Routing.RegisterRoute(nameof(SchoolsListView), typeof(SchoolsListView));
+            Routing.RegisterRoute(nameof(CommentsView), typeof(CommentsView));
+
         }
     }
 }
+
+
+
+
+
+
+
+   
+
