@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using DrivingSchoolApp.Models;
 
 namespace DrivingSchoolApp.Services
@@ -109,8 +110,7 @@ namespace DrivingSchoolApp.Services
         }
         #endregion
 
-
-        #region Register
+       #region Register
         //This methos call the Register web API on the server and return the AppUser object with the given ID   
         //or null if the call fails
 
@@ -302,41 +302,8 @@ namespace DrivingSchoolApp.Services
             }
 
         }
-        public async Task<Manager?> UploadProfileImage(string imagePath)
-        {
-            //Set URI to the specific function API
-            string url = $"{this.baseUrl}uploadprofileimage";
-            try
-            {
-                //Create the form data
-                MultipartFormDataContent form = new MultipartFormDataContent();
-                var fileContent = new ByteArrayContent(File.ReadAllBytes(imagePath));
-                form.Add(fileContent, "file", imagePath);
-                //Call the server API
-                HttpResponseMessage response = await client.PostAsync(url, form);
-                //Check status
-                if (response.IsSuccessStatusCode)
-                {
-                    //Extract the content as string
-                    string resContent = await response.Content.ReadAsStringAsync();
-                    //Desrialize result
-                    JsonSerializerOptions options = new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    };
-                    Manager? result = JsonSerializer.Deserialize<Manager>(resContent, options);
-                    return result;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
+       
+        
 
         #endregion
 
@@ -442,7 +409,74 @@ namespace DrivingSchoolApp.Services
             }
         }
 
-
         #endregion
+
+        #region Profile
+        //This method call the UpdateUser web API on the server and return true if the call was successful
+        //or false if the call fails
+        public async Task<bool> UpdateManager(Manager manager)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}updateManager";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(manager);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<Manager?> UploadProfileImage(string imagePath)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}uploadprofileimage";
+            try
+            {
+                //Create the form data
+                MultipartFormDataContent form = new MultipartFormDataContent();
+                var fileContent = new ByteArrayContent(File.ReadAllBytes(imagePath));
+                form.Add(fileContent, "file", imagePath);
+                //Call the server API
+                HttpResponseMessage response = await client.PostAsync(url, form);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Manager? result = JsonSerializer.Deserialize<Manager>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+       
     }
+
 }

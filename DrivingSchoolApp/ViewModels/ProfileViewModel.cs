@@ -11,40 +11,66 @@ using System.Runtime.CompilerServices;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Net;
 using System.Reflection;
-
+using System.Windows.Input;
 namespace DrivingSchoolApp.ViewModels
 {
     [QueryProperty(nameof(Manager), "selectedManager")]
 
     public class ProfileViewModel : ViewModelBase
     {
+        private Manager currentManager;
         private DrivingSchoolAppWebAPIProxy proxy;
         private IServiceProvider serviceProvider;
 
-        private Manager manager;
-        public Manager Manager
+        public ProfileViewModel(DrivingSchoolAppWebAPIProxy proxy)
         {
-            get => manager;
-            set
-            {
-                if (manager != value)
-                {
-                    manager = value;
-                    //InItFieldsDataAsync();
 
-                    OnPropertyChanged(nameof(Manager));
-                }
-            }
-        }
-        public ProfileViewModel(DrivingSchoolAppWebAPIProxy proxy, IServiceProvider service)
-        {
+            currentManager = ((App)Application.Current).LoggedInManager;
+
             this.proxy = proxy;
-            this.serviceProvider = service;
+            EditCommand = new Command(OnEdit);
+            SaveCommand = new Command(OnSave);
+
+            FirstName = currentManager.FirstName;
+            LastName = currentManager.LastName;
+            Password = currentManager.ManagerPass;
+            Email = currentManager.ManagerEmail;
+            ManagerPhone = currentManager.ManagerPhone;
+            SchoolPhone = currentManager.SchoolPhone;
+            schoolName = currentManager.Schoolname;
+            schoolAddress = currentManager.SchoolAddress;
+            managerId = currentManager.ManagerId;
+
+            PhotoURL = proxy.GetImagesBaseAddress() + currentManager.ProfilePic;
+
+            EditCommand = new Command(OnEdit);
+            //CancelCommand = new Command(OnCancel);
             ShowPasswordCommand = new Command(OnShowPassword);
+            //UploadPhotoCommand = new Command(OnUploadPhoto); לעשות עם עופר
+            //UploadTakePhotoCommand = new Command(OnUploadTakePhoto);
+            PhotoURL = proxy.GetDefaultProfilePhotoUrl();
+
+            //UploadPhotoCommand = new Command(OnUploadPhoto); לעשות עם עופר
+            //UploadTakePhotoCommand = new Command(OnUploadTakePhoto); 
+
+
+            ShowPasswordCommand = new Command(OnShowPassword);
+            LocalPhotoPath = "";
+            IsPassword = true;
+            ManagerPhoneError = "בדקו שכתבתם את מספר הטלפון הנכון";
+            SchoolAddressError = "השדה של כתובת בית הספר ריקה";
+            FirstNameError = "שם פרטי נדרש";
+            LastNameError = "שם משפחה נדרש";
+            EmailError = "אימייל נדרש";
+            PasswordError = "סיסמה אמורה להיות לפחות 3 תווים ולהכיל אותיות ומספרים"; /* "Password must be at least 2 characters long and contain letters and numbers";*/
+            SchoolNameError = "בדקו שבחרתם בית ספר";
+            ManagerIdError = "בדקו שכתבתם את מספר תעודת הזהות הנכון";
+            SchoolPhoneError = " בדקו שכתבתם את מספר הטלפון הנכון";
 
         }
+        //RefreshCommand = new Command(Refresh);
 
-        #region FirstName // entry
+        #region FirstName 
         private bool showFirstNameError;
 
         public bool ShowFirstNameError
@@ -88,7 +114,7 @@ namespace DrivingSchoolApp.ViewModels
         }
         #endregion
 
-        #region LastName // entry
+        #region LastName 
         private bool showLastNameError;
 
         public bool ShowLastNameError
@@ -133,7 +159,7 @@ namespace DrivingSchoolApp.ViewModels
         }
         #endregion
 
-        #region Email // entry
+        #region Email 
         private bool showEmailError;
 
         public bool ShowEmailError
@@ -195,7 +221,7 @@ namespace DrivingSchoolApp.ViewModels
         }
         #endregion
 
-        #region Password // entry
+        #region Password 
         private bool showPasswordError;
 
         public bool ShowPasswordError
@@ -268,7 +294,7 @@ namespace DrivingSchoolApp.ViewModels
         }
         #endregion
 
-        #region ManagerPhone // entry
+        #region ManagerPhone 
         private bool showManagerPhoneError;
 
         public bool ShowManagerPhoneError
@@ -309,11 +335,10 @@ namespace DrivingSchoolApp.ViewModels
         private void ValidateMangagerPhone()
         {
             this.ShowManagerPhoneError = string.IsNullOrEmpty(ManagerPhone) || ManagerPhone.Length != 10 || ManagerPhone.Length != 9;
-
         }
         #endregion
 
-        #region SchoolPhone // entry
+        #region SchoolPhone
         private bool showSchoolPhoneError;
 
         public bool ShowSchoolPhoneError
@@ -358,7 +383,7 @@ namespace DrivingSchoolApp.ViewModels
         }
         #endregion
 
-        #region SchoolName // picker
+        #region SchoolName
         private bool showSchoolNameError;
 
         public bool ShowSchoolNameError
@@ -401,7 +426,7 @@ namespace DrivingSchoolApp.ViewModels
         }
         #endregion
 
-        #region SchoolAdress // entry
+        #region SchoolAdress 
         private bool showSchoolAddressError;
 
         public bool ShowSchoolAddressError
@@ -442,6 +467,50 @@ namespace DrivingSchoolApp.ViewModels
         private void ValidateSchoolAddress()
         {
             this.ShowSchoolAddressError = string.IsNullOrEmpty(SchoolAddress);
+        }
+        #endregion
+
+        #region ManagerId 
+        private bool showManagerIdError;
+
+        public bool ShowManagerIdError
+        {
+            get => showManagerIdError;
+            set
+            {
+                showManagerIdError = value;
+                OnPropertyChanged("ShowManagerIdError");
+            }
+        }
+
+        private string managerId;
+
+        public string ManagerId
+        {
+            get => managerId;
+            set
+            {
+                managerId = value;
+                ValidateManagerId();
+                OnPropertyChanged("ManagerId");
+            }
+        }
+
+        private string managerIdError;
+
+        public string ManagerIdError
+        {
+            get => managerIdError;
+            set
+            {
+                managerIdError = value;
+                OnPropertyChanged("ManagerIdError");
+            }
+        }
+
+        private void ValidateManagerId()
+        {
+            this.ShowManagerIdError = string.IsNullOrEmpty(ManagerId) || ManagerId.Length != 9;
         }
         #endregion
 
@@ -526,24 +595,102 @@ namespace DrivingSchoolApp.ViewModels
 
         #endregion
 
-        #region In it Fields with data
-        //Define a method to initialize the fields with data
+        #region Change
+        private bool change;
 
-        private async void InItFieldsDataAsync()
+        public bool Change
         {
-            //FirstName = manager.FirstName;
-            //LastName = manager.LastName;
-            //Email = manager.Email;
-            //Password = user.Pass;
-            //TimeOnly time = new TimeOnly();
-            //Date = user.DateOfBirth.ToDateTime(time);
-            //PhoneNumber = user.PhoneNumber;
-            //Address = user.UserAddress;
-            //PhotoURL = user.FullProfileImagePath;
-            //Gender = (char)user.Gender;
-            //ReadPosts();
+            get => change;
+            set
+            {
+                change = value;
+                OnPropertyChanged("Change");
+            }
         }
         #endregion
 
+        public Command EditCommand { get; }
+
+        public void OnEdit()
+        {
+            Change = true;
+        }
+
+        public Command SaveCommand { get; }
+
+        //Define a method that will be called when the register button is clicked
+        public async void OnSave()
+        {
+            ValidateFirstName();
+            ValidateLastName();
+            ValidatePassword();
+            ValidateEmail();
+            ValidateMangagerPhone();
+            ValidateSchoolPhone();
+            ValidateSchoolAddress();
+            ValidateSchoolName();
+            ValidateManagerId();
+
+            if (!showFirstNameError && !showLastNameError && !showPasswordError && !ShowEmailError && !ShowManagerPhoneError && !ShowSchoolPhoneError && !ShowSchoolAddressError && !ShowSchoolNameError && !ShowManagerIdError)
+            {
+                Manager manager = ((App)App.Current).LoggedInManager;
+                manager.FirstName = FirstName;
+                manager.LastName = LastName;
+                manager.ManagerEmail = Email;
+                manager.ManagerPass = ManagerPhone;
+                manager.ManagerPhone = ManagerPhone;
+                manager.SchoolPhone = SchoolPhone;
+                manager.SchoolAddress = SchoolAddress;
+                manager.ManagerId = ManagerId;
+                manager.Schoolname = SchoolName;
+
+
+                //Call the Register method on the proxy to register the new user
+                InServerCall = true;
+                bool success = await proxy.UpdateManager(manager);
+
+                Change = false;
+                //If the save was successful, navigate to the login page
+                if (success)
+                {
+                    //Upload profile imae if needed
+                    if (!string.IsNullOrEmpty(LocalPhotoPath))
+                    {
+                        Manager? updatedManager = (Manager)await proxy.UploadProfileImage(LocalPhotoPath);
+                        if (updatedManager == null)
+                        {
+                            await Shell.Current.DisplayAlert("שמור פרופיל", "נתוניך נשמרו אבל תמונת הפרופיל לא הוחלפה", "ok");
+                        }
+                        else
+                        {
+                            manager.ProfilePic = updatedManager.ProfilePic;
+                            UpdatePhotoURL(manager.ProfilePic);
+                        }
+
+                    }
+                    InServerCall = false;
+                    await Shell.Current.DisplayAlert("שמור פרופיל", "הפרופיל נשמר בהצלחה", "ok");
+                }
+                else
+                {
+                    InServerCall = false;
+                    //If the registration failed, display an error message
+                    string errorMsg = "שמירת הפרופיל נכשלה. בבקשה נסה שוב";
+                    await Shell.Current.DisplayAlert("שמור פרופיל", errorMsg, "ok");
+                }
+            }
+        }
+          public ICommand CancelCommand { get; }
+
+        public async void OnCancel()
+        {
+            await Shell.Current.GoToAsync("ProfileView");
+        }
+
     }
 }
+
+
+      
+
+

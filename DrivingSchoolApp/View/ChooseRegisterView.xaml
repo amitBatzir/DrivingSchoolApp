@@ -4,7 +4,7 @@
              x:Class="DrivingSchoolApp.View.ChooseRegisterView"
              Title="בחר איזה סוג משתמש את/ה"
     FlowDirection="RightToLeft">
-    <VerticalStackLayout Padding="20" Spacing="15">
+    <VerticalStackLayout Padding="150" Spacing="15">
         <Button
       Command="{Binding ChoseStudent}"
       IsEnabled="{Binding NotInServerCall}"
