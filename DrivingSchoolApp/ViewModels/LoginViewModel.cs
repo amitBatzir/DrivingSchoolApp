@@ -118,8 +118,8 @@ namespace DrivingSchoolApp.ViewModels
                     //Navigate to the main page
                     AppShell shell = serviceProvider.GetService<AppShell>();
                     ((App)Application.Current).MainPage = shell;
-                    Shell.Current.FlyoutIsPresented = false; //close the flyout
-                    await Shell.Current.GoToAsync("HomePageView");
+                    //Shell.Current.FlyoutIsPresented = false; //close the flyout
+                    //await Shell.Current.GoToAsync("HomePageView");
                     
                 }
             }
@@ -140,7 +140,7 @@ namespace DrivingSchoolApp.ViewModels
                     //Navigate to the main page
                     AppShell shell = serviceProvider.GetService<AppShell>();
                     ((App)Application.Current).MainPage = shell;
-                    Shell.Current.FlyoutIsPresented = false; //close the flyout
+                    //Shell.Current.FlyoutIsPresented = false; //close the flyout
                     
                 }
             }
@@ -163,8 +163,8 @@ namespace DrivingSchoolApp.ViewModels
                     HomePageViewModel homePageViewModel = serviceProvider.GetService<HomePageViewModel>();
                    /* homePageViewModel.Refresh();*/ //Refresh data and user in the homepageViewModel as it is a singleton
                     ((App)Application.Current).MainPage = shell;
-                    Shell.Current.FlyoutIsPresented = false; //close the flyout
-                    await Shell.Current.GoToAsync("ProfileView");        
+                    //Shell.Current.FlyoutIsPresented = false; //close the flyout
+                    //await Shell.Current.GoToAsync("ProfileView");        
     }
             }  
         }

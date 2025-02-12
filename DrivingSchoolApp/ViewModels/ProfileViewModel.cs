@@ -43,8 +43,8 @@ namespace DrivingSchoolApp.ViewModels
 
             PhotoURL = proxy.GetImagesBaseAddress() + currentManager.ProfilePic;
 
-            EditCommand = new Command(OnEdit);
-            //CancelCommand = new Command(OnCancel);
+            Change = false;
+            CancelCommand = new Command(OnCancel);
             ShowPasswordCommand = new Command(OnShowPassword);
             //UploadPhotoCommand = new Command(OnUploadPhoto); לעשות עם עופר
             //UploadTakePhotoCommand = new Command(OnUploadTakePhoto);
@@ -334,7 +334,7 @@ namespace DrivingSchoolApp.ViewModels
 
         private void ValidateMangagerPhone()
         {
-            this.ShowManagerPhoneError = string.IsNullOrEmpty(ManagerPhone) || ManagerPhone.Length != 10 || ManagerPhone.Length != 9;
+            this.ShowManagerPhoneError = string.IsNullOrEmpty(ManagerPhone) || (ManagerPhone.Length != 10 && ManagerPhone.Length != 9);
         }
         #endregion
 
@@ -378,7 +378,7 @@ namespace DrivingSchoolApp.ViewModels
 
         private void ValidateSchoolPhone()
         {
-            this.ShowSchoolPhoneError = string.IsNullOrEmpty(SchoolPhone) || SchoolPhone.Length != 10 || SchoolPhone.Length != 9;
+            this.ShowSchoolPhoneError = string.IsNullOrEmpty(SchoolPhone) || (SchoolPhone.Length != 10 && SchoolPhone.Length != 9);
 
         }
         #endregion
@@ -605,7 +605,12 @@ namespace DrivingSchoolApp.ViewModels
             {
                 change = value;
                 OnPropertyChanged("Change");
+                OnPropertyChanged("ShowEditButton");
             }
+        }
+        public bool ShowEditButton
+        {
+            get => !change;
         }
         #endregion
 
@@ -637,7 +642,7 @@ namespace DrivingSchoolApp.ViewModels
                 manager.FirstName = FirstName;
                 manager.LastName = LastName;
                 manager.ManagerEmail = Email;
-                manager.ManagerPass = ManagerPhone;
+                manager.ManagerPass = Password;
                 manager.ManagerPhone = ManagerPhone;
                 manager.SchoolPhone = SchoolPhone;
                 manager.SchoolAddress = SchoolAddress;

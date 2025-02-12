@@ -11,7 +11,7 @@
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="tabs" >
  
     <!--לתלמיד-->
-    <ShellContent
+        <ShellContent
         Title="עמוד פרופיל"
         ContentTemplate="{DataTemplate views:ProfileView}"
         Route="Profile" /> 

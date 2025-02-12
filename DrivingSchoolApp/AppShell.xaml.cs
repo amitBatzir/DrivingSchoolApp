@@ -1,7 +1,5 @@
-﻿using Android.Media;
-using DrivingSchoolApp.View;
+﻿using DrivingSchoolApp.View;
 using DrivingSchoolApp.ViewModels;
-using static Android.Icu.Text.CaseMap;
 namespace DrivingSchoolApp
 {
     public partial class AppShell : Shell
