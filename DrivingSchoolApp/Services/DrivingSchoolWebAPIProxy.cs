@@ -35,7 +35,6 @@ namespace DrivingSchoolApp.Services
         private static string ImageBaseAddress = "https://7dqc0f3r-5224.euw.devtunnels.ms/";
         #endregion
 
-
         public DrivingSchoolAppWebAPIProxy()
         {
             //Set client handler to support cookies!!
@@ -409,6 +408,39 @@ namespace DrivingSchoolApp.Services
             }
         }
 
+        // פעולה שמחזירה לי את כל התלמידים של בית הספר
+        public async Task<List<Student>> GetAllStudents()
+        {
+
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getAllStudents";
+            //Check status
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Student>? result = JsonSerializer.Deserialize<List<Student>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         #endregion
 
         #region Profile

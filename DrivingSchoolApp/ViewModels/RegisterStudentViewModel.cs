@@ -887,9 +887,7 @@ namespace DrivingSchoolApp.ViewModels
                 {
                     Managers.Add(manager);
                 }
-            }
-            
-
+            }          
         }
         #endregion
 

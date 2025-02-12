@@ -2,11 +2,17 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DrivingSchoolApp.View.StudentListView"
-             Title="StudentListView">
+             FlowDirection="RightToLeft"
+             Padding="15"
+             Title="רשימת תלמידים">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="רשימת התלמידים של בית הספר" />
+            <Label Grid.Column="1" Text="{Binding StudentsName}" />
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>
