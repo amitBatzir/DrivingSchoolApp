@@ -19,21 +19,21 @@ namespace DrivingSchoolApp.ViewModels
         {
             this.proxy = proxy;
             this.serviceProvider = serviceProvider;
-            Students = new ObservableCollection<Student>();
+            //Students = new ObservableCollection<Student>();
             StudentsName = new ObservableCollection<string>();
             LoadStudents();
         }
 
-        private ObservableCollection<Student> students;
-        public ObservableCollection<Student> Students
-        {
-            get => students;
-            set
-            {
-                students = value;
-                OnPropertyChanged("Students");
-            }
-        }
+        //private ObservableCollection<Student> students;
+        //public ObservableCollection<Student> Students
+        //{
+        //    get => students;
+        //    set
+        //    {
+        //        students = value;
+        //        OnPropertyChanged("Students");
+        //    }
+        //}
         private ObservableCollection<string> studentsName;
         public ObservableCollection<string> StudentsName
         {
@@ -53,10 +53,11 @@ namespace DrivingSchoolApp.ViewModels
             {
                 foreach (Student s in studentList)
                 {
-                    Students.Add(s);
+                    //Students.Add(s);
                     StudentsName.Add(s.FirstName + " " + s.LastName);
                 }
             }
         }
+
     }
 }

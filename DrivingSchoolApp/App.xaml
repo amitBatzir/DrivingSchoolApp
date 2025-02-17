@@ -11,7 +11,7 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="labelNameStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="Small" />
+               <Setter Property="FontSize" Value="Small" />
             </Style>
             <Style x:Key="labelErrorStyle" TargetType="Label">
                 <Setter Property="HorizontalOptions" Value="End" />
@@ -36,9 +36,17 @@
                 <Setter Property="BackgroundColor" Value="Black" />
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="Margin" Value="5" />
-                <!--<Setter Property="BackgroundColor" Value="{StaticResource MainColor}" />-->
-                <!--<Setter Property="BorderColor" Value="{StaticResource MainColor}" />-->
             </Style>
+            <!--<Setter Property="BackgroundColor" Value="{StaticResource MainColor}" />-->
+                <!--<Setter Property="BorderColor" Value="{StaticResource MainColor}" />-->
+                <Style x:Key="HeadLineStyle" TargetType="Label">
+                    <Setter Property="HorizontalOptions" Value="Center" />
+                    <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="25" /> 
+                <Setter Property="Margin" Value="5" />
+                </Style>
+                
         </ResourceDictionary>
 
     </Application.Resources>

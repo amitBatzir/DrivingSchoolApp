@@ -2,11 +2,42 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DrivingSchoolApp.View.TeachersListView"
-             Title="TeachersListView">
+             FlowDirection="RightToLeft"
+             Padding="15"
+             Title="רשימת מורים">
+
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+       Text="רשימת המורים של בית הספר" 
+       Style="{StaticResource HeadLineStyle}"/>
+        <!-- Headline Section -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="מספר המורים שיש הוא:" 
+                   VerticalOptions="Center" 
+                   Grid.Column="0"/>
+
+            <Label Text="{Binding TeachersName.Count}" 
+                   Grid.Column="1"/>
+        </Grid>
+
+        <!-- ListView for displaying student names -->
+        <ListView ItemsSource="{Binding TeachersName}" 
+                  Margin="0,10,0,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding .}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
     </VerticalStackLayout>
 </ContentPage>
