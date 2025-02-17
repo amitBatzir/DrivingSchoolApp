@@ -29,6 +29,13 @@ namespace DrivingSchoolApp.Models
         public string StudentAddress { get; set; } = null!;
         public string ProfilePic { get; set; } = null!;
         public int PackageId { get; set; }
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {LastName}";
+            }
+        }
         public Student() { }
     }
 }

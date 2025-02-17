@@ -19,20 +19,18 @@ namespace DrivingSchoolApp.ViewModels
         {
             this.proxy = proxy;
             this.serviceProvider = serviceProvider;
-            //Students = new ObservableCollection<Student>();
-            TeachersName = new ObservableCollection<string>();
+            Teachers = new ObservableCollection<Teacher>();
             LoadTeachers();
         }
 
-       
-        private ObservableCollection<string> teachersName;
-        public ObservableCollection<string> TeachersName
+        private ObservableCollection<Teacher> teachers;
+        public ObservableCollection<Teacher> Teachers
         {
-            get => teachersName;
+            get => teachers;
             set
             {
-                teachersName = value;
-                OnPropertyChanged("TeachersName");
+                teachers = value;
+                OnPropertyChanged("Teachers");
             }
         }
 
@@ -42,10 +40,7 @@ namespace DrivingSchoolApp.ViewModels
             List<Teacher> TeacherList = await proxy.GetTeacherOfSchool(((App)Application.Current).LoggedInManager.UserManagerId);
             if (TeacherList != null)
             {
-                foreach (Teacher t in TeacherList)
-                {
-                    TeachersName.Add(t.FirstName + " " + t.LastName);
-                }
+                Teachers = new ObservableCollection<Student>(TeacherList);
             }
         }
     }

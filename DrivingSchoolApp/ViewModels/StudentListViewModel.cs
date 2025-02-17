@@ -19,31 +19,31 @@ namespace DrivingSchoolApp.ViewModels
         {
             this.proxy = proxy;
             this.serviceProvider = serviceProvider;
-            //Students = new ObservableCollection<Student>();
+            Students = new ObservableCollection<Student>();
             StudentsName = new ObservableCollection<string>();
             LoadStudents();
         }
 
-        //private ObservableCollection<Student> students;
-        //public ObservableCollection<Student> Students
-        //{
-        //    get => students;
-        //    set
-        //    {
-        //        students = value;
-        //        OnPropertyChanged("Students");
-        //    }
-        //}
-        private ObservableCollection<string> studentsName;
-        public ObservableCollection<string> StudentsName
+        private ObservableCollection<Student> students;
+        public ObservableCollection<Student> Students
         {
-            get => studentsName;
+            get => students;
             set
             {
-                studentsName = value;
-                OnPropertyChanged("StudentsName");
+                students = value;
+                OnPropertyChanged("Students");
             }
         }
+        //private ObservableCollection<string> studentsName;
+        //public ObservableCollection<string> StudentsName
+        //{
+        //    get => studentsName;
+        //    set
+        //    {
+        //        studentsName = value;
+        //        OnPropertyChanged("StudentsName");
+        //    }
+        //}
 
         // פעולה שמחזירה לי רשימת תלמידים ושומרת אותם
         private async void LoadStudents()
@@ -51,11 +51,7 @@ namespace DrivingSchoolApp.ViewModels
             List<Student> studentList = await proxy.GetAllStudents();
             if (studentList != null)
             {
-                foreach (Student s in studentList)
-                {
-                    //Students.Add(s);
-                    StudentsName.Add(s.FirstName + " " + s.LastName);
-                }
+                Students = new ObservableCollection<Student>(studentList)
             }
         }
 
