@@ -63,7 +63,7 @@ Route="Comments"
  Route="TeachersList" 
         IsVisible="{Binding IsManager}"/>
     <ShellContent   
- Title="אישור מורים"
+ Title="מורים בהמתנה"
  ContentTemplate="{DataTemplate views:ApprovingTeachersView}"
  Route="ApprovingTeachers"
    IsVisible="{Binding IsManager}"/>

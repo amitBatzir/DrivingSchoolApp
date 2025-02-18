@@ -8,7 +8,7 @@
     FlowDirection="RightToLeft">
 
     <VerticalStackLayout>
-        <Label Style="{StaticResource HeadLineStyle}" Text="רשימת התלמידים של בית הספר" />
+        <!--    <Label Style="{StaticResource HeadLineStyle}" Text="רשימת התלמידים של בית הספר" />-->
         <!--  Headline Section  -->
         <Grid>
             <Grid.RowDefinitions>
@@ -20,12 +20,12 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Label
+            <Label  Style="{StaticResource HeadLineStyle}"
                 Grid.Column="0"
-                Text="מספר התלמידים שיש הוא:"
+                Text="מספר התלמידים שיש בבית הספר הוא:"
                 VerticalOptions="Center" />
 
-            <Label Grid.Column="1" Text="{Binding Students.Count}" />
+            <Label  Style="{StaticResource HeadLineStyle}" Grid.Column="1" Text="{Binding Students.Count}" />
         </Grid>
 
         <!--  ListView for displaying student names  -->

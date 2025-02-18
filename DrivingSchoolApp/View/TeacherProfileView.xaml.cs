@@ -2,9 +2,9 @@ using DrivingSchoolApp.ViewModels;
 
 namespace DrivingSchoolApp.View;
 
-public partial class ApprovingTeachersView : ContentPage
+public partial class TeacherProfileView : ContentPage
 {
-	public ApprovingTeachersView(ApprovingTeachersViewModel vm)
+	public TeacherProfileView(TeacherProfileViewModel vm)
 	{
 		this.BindingContext = vm;
 		InitializeComponent();

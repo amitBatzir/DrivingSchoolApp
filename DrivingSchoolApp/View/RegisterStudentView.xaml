@@ -214,7 +214,7 @@
                 </Grid>
 
                 <Entry
-                    Placeholder="הכנס את כתובת בית הספר"
+                    Placeholder="הכנס את כתובת מגוריך"
                     Style="{StaticResource entryStyle}"
                     Text="{Binding Address}" />
 
