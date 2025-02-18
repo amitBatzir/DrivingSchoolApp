@@ -20,7 +20,7 @@ namespace DrivingSchoolApp.ViewModels
             this.proxy = proxy;
             this.serviceProvider = serviceProvider;
             Students = new ObservableCollection<Student>();
-            StudentsName = new ObservableCollection<string>();
+            //StudentsName = new ObservableCollection<string>();
             LoadStudents();
         }
 
@@ -51,7 +51,7 @@ namespace DrivingSchoolApp.ViewModels
             List<Student> studentList = await proxy.GetAllStudents();
             if (studentList != null)
             {
-                Students = new ObservableCollection<Student>(studentList)
+                Students = new ObservableCollection<Student>(studentList);
             }
         }
 

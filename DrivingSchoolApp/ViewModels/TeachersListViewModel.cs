@@ -40,7 +40,7 @@ namespace DrivingSchoolApp.ViewModels
             List<Teacher> TeacherList = await proxy.GetTeacherOfSchool(((App)Application.Current).LoggedInManager.UserManagerId);
             if (TeacherList != null)
             {
-                Teachers = new ObservableCollection<Student>(TeacherList);
+                Teachers = new ObservableCollection<Teacher>(TeacherList);
             }
         }
     }
