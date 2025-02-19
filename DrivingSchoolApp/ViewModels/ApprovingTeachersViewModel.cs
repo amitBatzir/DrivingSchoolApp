@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DrivingSchoolApp.Services;
 using DrivingSchoolApp.Models;
+using System.Windows.Input;
 
 namespace DrivingSchoolApp.ViewModels
 {
@@ -19,8 +20,9 @@ namespace DrivingSchoolApp.ViewModels
             this.serviceProvider = serviceProvider;
             PendingTeachers = new ObservableCollection<Teacher>();
             LoadPendingTeachers();
-            DeclineCommand = new Command(OnRegister);
-
+           ApproveCommand = new Command<Teacher>(OnApproving);
+            DeclineCommand = new Command(OnDeclining);
+            Check = false;
         }
         private ObservableCollection<Teacher> pendingTeachers;
         public ObservableCollection<Teacher> PendingTeachers
@@ -42,6 +44,60 @@ namespace DrivingSchoolApp.ViewModels
                 PendingTeachers = new ObservableCollection<Teacher>(TeacherList);
             }
         }
+        private bool check;
+        public bool Check
+        {
+            get
+            {
+                return SelectedTeacher != null;
+            }
+            set
+            {
+                check = value;
+            }
+        }
+        private Teacher selectedTeacher;
+        public Teacher SelectedTeacher
+        {
+            get
+            {
+                return this.selectedTeacher;
+            }
+            set
+            {
+                selectedTeacher = value;
+                OnPropertyChanged("SelectedTeacher");
+            }
+        }
+        public Command ApproveCommand { get; }
+        public async void OnApproving(Teacher t)
+        {
+          bool isWorking = await proxy.ApprovingTeacher(t.UserTeacherId);
+            if (isWorking == true)
+            {
+                 await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"המורה אושר בהצלחה", "ok");
+                PendingTeachers.Remove(t);
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("שגיאה", $"קרתה שגיאה במהלך האישור", "ok");
+
+            }
+        }
+       
         public Command DeclineCommand { get; }
+        public async void OnDeclining()
+        {
+            bool isWorking = await proxy.DecliningTeacher(SelectedTeacher.UserTeacherId);
+            if (isWorking == true)
+            {
+                await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"המורה נדחה בהצלחה", "ok");
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("שגיאה", $"קרתה שגיאה במהלך האישור", "ok");
+
+            }
+        }
     }
 }

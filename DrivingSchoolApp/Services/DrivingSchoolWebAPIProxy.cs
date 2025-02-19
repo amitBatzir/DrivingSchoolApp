@@ -540,8 +540,79 @@ namespace DrivingSchoolApp.Services
                 return null;
             }
         }
-       
+        public async Task<bool> ApprovingTeacher(int TeacherId)
+        {
+            string url = $"{this.baseUrl}approvingTeacher?TeacherId={TeacherId}";
+            try
+            {
 
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> DecliningTeacher(int TeacherId)
+        {
+            string url = $"{this.baseUrl}decliningTeacher?TeacherId={TeacherId}";
+            try
+            {
+
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        //public async Task<bool> UpdateManager(Manager manager)
+        //{
+        //    //Set URI to the specific function API
+        //    string url = $"{this.baseUrl}updateManager";
+        //    try
+        //    {
+        //        //Call the server API
+        //        string json = JsonSerializer.Serialize(manager);
+        //        StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+        //        HttpResponseMessage response = await client.PostAsync(url, content);
+        //        //Check status
+        //        if (response.IsSuccessStatusCode)
+        //        {
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return false;
+        //    }
+        //}
 
 
     }

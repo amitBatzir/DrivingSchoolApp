@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace DrivingSchoolApp.ViewModels
 {
@@ -22,6 +23,7 @@ namespace DrivingSchoolApp.ViewModels
         {
             this.serviceProvider = serviceProvider;
             Check();
+            LogoutCommand = new Command(OnLogOut);
         }
 
         public void Check()
@@ -75,32 +77,18 @@ namespace DrivingSchoolApp.ViewModels
         }
        
 
-        //this command will be used for logout menu item
-        public Command LogoutCommand
-        {
-            get
-            {
-                return new Command(OnLogout);
-            }
-        }
+       
+        public ICommand LogoutCommand { get; set; }
         //this method will be trigger upon Logout button click
-        public void OnLogout()
+        public async void OnLogOut()
         {
-
-            if (IsStudent)
-            {
-                ((App)Application.Current).LoggedInStudent = null;
-            }
-            else if (IsManager)
-            {
-                ((App)Application.Current).LoggedInTeacher = null;
-            }
-            else
+            bool result = await Application.Current.MainPage.DisplayAlert("התנתקות", $"אתה בטוח שאתה רוצה להתנתק?", "אישור", "ביטול");//if the check returned not null means that the user exist, shows a message
+            if (result)
             {
                 ((App)Application.Current).LoggedInManager = null;
-            }
+                Application.Current.MainPage = new NavigationPage(serviceProvider.GetService<LoginView>());
 
-                ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<LoginView>());
+            }
         }
     }
 }

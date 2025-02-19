@@ -82,6 +82,7 @@ ContentTemplate="{DataTemplate views:SchoolsListView}"
 Route="SchoolsList"
          IsVisible="{Binding AppManager}"/>
     </FlyoutItem>
+    <MenuItem Text="התנתקות" Command="{Binding LogoutCommand}" />
 
 </Shell>
 

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DrivingSchoolApp.View.ApprovingTeachersView"
-             Title="מורים בהמתנה"
-             FlowDirection="RightToLeft">
+<ContentPage
+    x:Class="DrivingSchoolApp.View.ApprovingTeachersView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Models="clr-namespace:DrivingSchoolApp.Models"
+    xmlns:viewModel="clr-namespace:DrivingSchoolApp.ViewModels"
+    Title="מורים בהמתנה"
+    FlowDirection="RightToLeft">
     <VerticalStackLayout>
         <Grid>
             <Grid.RowDefinitions>
@@ -15,22 +18,43 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-          <!--  <Label  Style="{StaticResource HeadLineStyle}"
+            <!--  <Label  Style="{StaticResource HeadLineStyle}"
             Grid.Column="0"
             Text="מספר המורים שמחכים לאישור:"
-            VerticalOptions="Center" /> 
+            VerticalOptions="Center" />
 
-            <Label  Style="{StaticResource HeadLineStyle}" Grid.Column="1" Text="{Binding Students.Count}" />  -->
-            </Grid> 
+            <Label  Style="{StaticResource HeadLineStyle}" Grid.Column="1" Text="{Binding Students.Count}" />-->
+        </Grid>
 
         <!--  ListView for displaying teachers names  -->
-        <CollectionView Margin="10,10,0,0" ItemsSource="{Binding PendingTeachers}">
+        <CollectionView
+            x:Name="theCollectionView"
+            Margin="10,10,0,0"
+            ItemsSource="{Binding PendingTeachers}"
+            SelectedItem="{Binding SelectedTeacher}"
+            SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Label Text="{Binding FullName}" />
+                    <HorizontalStackLayout>
+                        <Label
+                            Margin="10"
+                            FontSize="15"
+                            Text="{Binding Details}" />
+
+                        <Button
+                            Command="{Binding Source={x:Reference theCollectionView}, Path=BindingContext.ApproveCommand}"
+                            CommandParameter="{Binding}"
+                            ImageSource="vi.png"
+                            IsVisible="{Binding Check}"
+                            Style="{StaticResource buttonStyle}"
+                            WidthRequest="150" />
+                    </HorizontalStackLayout>
+
                 </DataTemplate>
+
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <!--<Label Text="{Binding Details}" />-->
 
     </VerticalStackLayout>
 </ContentPage>
