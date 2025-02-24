@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using DrivingSchoolApp.Models;
 using DrivingSchoolApp.Services;
 using DrivingSchoolApp.View;
@@ -21,6 +22,7 @@ namespace DrivingSchoolApp.ViewModels
             this.serviceProvider = serviceProvider;
             Students = new ObservableCollection<Student>();
             //StudentsName = new ObservableCollection<string>();
+            ProfileCommand = new Command(OnProfile);
             LoadStudents();
         }
 
@@ -53,6 +55,12 @@ namespace DrivingSchoolApp.ViewModels
             {
                 Students = new ObservableCollection<Student>(studentList);
             }
+        }
+        public ICommand ProfileCommand { get; }
+        private void OnProfile()
+        {       
+            // Navigate to the Register View page
+            ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<StudentProfileView>());
         }
 
     }

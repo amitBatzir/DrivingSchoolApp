@@ -177,7 +177,5 @@ namespace DrivingSchoolApp.ViewModels
             // Navigate to the Register View page
             ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<ChooseRegisterView>());
         }
-
-
     }
 }

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="DrivingSchoolApp.View.StudentListView"
+     x:DataType="viewmodels:StudentListViewModel"
+    xmlns:models="DrivingSchoolApp.ViewModels" 
+     xmlns:viewmodels="clr-namespace:DrivingSchoolApp.ViewModels"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="רשימת תלמידים"
     Padding="15"
     FlowDirection="RightToLeft">
-
+    
     <VerticalStackLayout>
         <!--    <Label Style="{StaticResource HeadLineStyle}" Text="רשימת התלמידים של בית הספר" />-->
         <!--  Headline Section  -->
@@ -32,7 +35,12 @@
         <CollectionView Margin="0,10,0,0" ItemsSource="{Binding Students}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Label Text="{Binding FullName}" />
+                    <Label
+                     Text="{Binding FullName}"
+                    <Label.GestureRecognizers>
+                       <TapGestureRecognizer Command="{Binding ProfileCommand}" />
+                     </Label.GestureRecognizers>
+                    </Label>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

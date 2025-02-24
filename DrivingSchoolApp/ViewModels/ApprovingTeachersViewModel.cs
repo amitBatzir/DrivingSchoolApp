@@ -21,8 +21,8 @@ namespace DrivingSchoolApp.ViewModels
             PendingTeachers = new ObservableCollection<Teacher>();
             LoadPendingTeachers();
            ApproveCommand = new Command<Teacher>(OnApproving);
-            DeclineCommand = new Command(OnDeclining);
-            Check = false;
+            DeclineCommand = new Command<Teacher>(OnDeclining);
+                //Check = false;
         }
         private ObservableCollection<Teacher> pendingTeachers;
         public ObservableCollection<Teacher> PendingTeachers
@@ -44,58 +44,59 @@ namespace DrivingSchoolApp.ViewModels
                 PendingTeachers = new ObservableCollection<Teacher>(TeacherList);
             }
         }
-        private bool check;
-        public bool Check
-        {
-            get
-            {
-                return SelectedTeacher != null;
-            }
-            set
-            {
-                check = value;
-            }
-        }
-        private Teacher selectedTeacher;
-        public Teacher SelectedTeacher
-        {
-            get
-            {
-                return this.selectedTeacher;
-            }
-            set
-            {
-                selectedTeacher = value;
-                OnPropertyChanged("SelectedTeacher");
-            }
-        }
+        //private bool check;
+        //public bool Check
+        //{
+        //    get
+        //    {
+        //        return SelectedTeacher != null;
+        //    }
+        //    set
+        //    {
+        //        check = value;
+        //    }
+        //}
+        //private Teacher selectedTeacher;
+        //public Teacher SelectedTeacher
+        //{
+        //    get
+        //    {
+        //        return this.selectedTeacher;
+        //    }
+        //    set
+        //    {
+        //        selectedTeacher = value;
+        //        OnPropertyChanged("SelectedTeacher");
+        //    }
+        //}
         public Command ApproveCommand { get; }
         public async void OnApproving(Teacher t)
         {
           bool isWorking = await proxy.ApprovingTeacher(t.UserTeacherId);
             if (isWorking == true)
             {
-                 await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"המורה אושר בהצלחה", "ok");
+                 await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"המורה אושר בהצלחה", "אוקיי");
                 PendingTeachers.Remove(t);
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("שגיאה", $"קרתה שגיאה במהלך האישור", "ok");
+                await Application.Current.MainPage.DisplayAlert("שגיאה", $"קרתה שגיאה במהלך האישור", "אוקיי");
 
             }
         }
        
-        public Command DeclineCommand { get; }
-        public async void OnDeclining()
+        public Command DeclineCommand { get; }    
+        public async void OnDeclining(Teacher t)
         {
-            bool isWorking = await proxy.DecliningTeacher(SelectedTeacher.UserTeacherId);
+            bool isWorking = await proxy.DecliningTeacher(t.UserTeacherId);
             if (isWorking == true)
             {
-                await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"המורה נדחה בהצלחה", "ok");
+                await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"המורה נדחה בהצלחה", "אוקיי"); PendingTeachers.Remove(t);
+                PendingTeachers.Remove(t);
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("שגיאה", $"קרתה שגיאה במהלך האישור", "ok");
+                await Application.Current.MainPage.DisplayAlert("שגיאה", $"קרתה שגיאה במהלך הדחיה", "אוקיי");
 
             }
         }
