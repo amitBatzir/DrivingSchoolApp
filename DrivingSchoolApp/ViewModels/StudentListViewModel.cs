@@ -23,6 +23,7 @@ namespace DrivingSchoolApp.ViewModels
             Students = new ObservableCollection<Student>();
             //StudentsName = new ObservableCollection<string>();
             ProfileCommand = new Command(OnProfile);
+            SelectedStudent = null;
             LoadStudents();
         }
 
@@ -36,17 +37,35 @@ namespace DrivingSchoolApp.ViewModels
                 OnPropertyChanged("Students");
             }
         }
-        //private ObservableCollection<string> studentsName;
-        //public ObservableCollection<string> StudentsName
-        //{
-        //    get => studentsName;
-        //    set
-        //    {
-        //        studentsName = value;
-        //        OnPropertyChanged("StudentsName");
-        //    }
-        //}
+        private Student selectedStudent;
+        public Student SelectedStudent
+        {
+            get => selectedStudent;
+            set
+            {
+                
+                selectedStudent = value;
+                OnPropertyChanged("SelectedStudent");
 
+                if (value != null)
+                {
+                    OpenProfilePage();
+                }
+            }
+        }
+
+        //This method open the profile page and pass into the page the selected student object
+        private async void OpenProfilePage()
+        {
+            var navParam = new Dictionary<string, object>
+                {
+                    { "selectedStudent", SelectedStudent}
+                };
+            //Navigate to the task details page
+            await Shell.Current.GoToAsync(nameof(StudentProfileView), navParam);
+
+            //SelectedStudent  = null;
+        }
         // פעולה שמחזירה לי רשימת תלמידים ושומרת אותם
         private async void LoadStudents()
         {
