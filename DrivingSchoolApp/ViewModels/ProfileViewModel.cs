@@ -58,7 +58,7 @@ namespace DrivingSchoolApp.ViewModels
             LocalPhotoPath = "";
             IsPassword = true;
             ManagerPhoneError = "בדקו שכתבתם את מספר הטלפון הנכון";
-            SchoolAddressError = "השדה של כתובת בית הספר ריקה";
+            SchoolAddressError = "השדה של כתובת בית הספר ריק";
             FirstNameError = "שם פרטי נדרש";
             LastNameError = "שם משפחה נדרש";
             EmailError = "אימייל נדרש";

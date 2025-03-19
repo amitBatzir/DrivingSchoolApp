@@ -440,6 +440,31 @@ namespace DrivingSchoolApp.Services
             }
         }
 
+        public async Task<bool> UpdateTeacher(Teacher teacher)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}updateTeacher";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(teacher);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public async Task<Manager?> UploadProfileImage(string imagePath)
         {
             //Set URI to the specific function API

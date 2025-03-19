@@ -14,16 +14,29 @@
         <ShellContent
         Title="עמוד פרופיל"
         ContentTemplate="{DataTemplate views:ProfileView}"
-        Route="Profile" /> 
-    <!--לשאול את עופר מה זה ה route-->
+        Route="Profile"
+        IsVisible="{Binding IsManager}" />
 
-    <ShellContent
-      Title="קביעת שיעור"
+        <!--לשאול את עופר מה זה ה route-->
+        <ShellContent
+ Title="עמוד פרופיל"
+ ContentTemplate="{DataTemplate views:TeacherProfileView}"
+ Route="TeacherProfile"
+ IsVisible="{Binding IsTeacher}" />
+        
+        <ShellContent
+      Title="לוח זמנים"
       ContentTemplate="{DataTemplate views:ScheduleView}"
-      IsVisible="{Binding NotManager}"
+      IsVisible="{Binding IsTeacher}"
       Route="Schedule" />
+        
+        <ShellContent
+        Title="קביעת שיעור"
+        ContentTemplate="{DataTemplate views:ScheduleView}"
+        IsVisible="{Binding IsStudent}"
+        Route="Schedule" />
 
-    <ShellContent   
+        <ShellContent   
      Title="עמוד בית"
      ContentTemplate="{DataTemplate views:HomePageView}"
      Route="approving"
