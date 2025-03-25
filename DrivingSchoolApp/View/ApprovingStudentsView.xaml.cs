@@ -2,7 +2,7 @@ namespace DrivingSchoolApp.View;
 
 public partial class ApprovingStudentsView : ContentPage
 {
-	public ApprovingStudentsView()
+	public ApprovingStudentsView( )
 	{
 		InitializeComponent();
 	}

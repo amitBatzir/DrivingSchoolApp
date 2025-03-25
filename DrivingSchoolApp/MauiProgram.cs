@@ -48,6 +48,8 @@ namespace DrivingSchoolApp
             builder.Services.AddTransient<CommentsView>();
             builder.Services.AddTransient<AppShell>();
             builder.Services.AddTransient<TeacherProfileView>();
+            builder.Services.AddTransient<StudentProfileView>();
+
 
 
             return builder;
@@ -78,6 +80,7 @@ namespace DrivingSchoolApp
             builder.Services.AddTransient<CommentsViewModel>();
             builder.Services.AddTransient<AppShellViewModel>();
             builder.Services.AddTransient<TeacherProfileViewModel>();
+            builder.Services.AddTransient<StudentProfileViewModel>();
 
 
 

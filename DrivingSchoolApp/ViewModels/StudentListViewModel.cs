@@ -78,7 +78,7 @@ namespace DrivingSchoolApp.ViewModels
         public ICommand ProfileCommand { get; }
         private void OnProfile()
         {       
-            // Navigate to the Register View page
+            // Navigate to the profile View page
             ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<StudentProfileView>());
         }
 

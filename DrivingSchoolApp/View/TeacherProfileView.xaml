@@ -150,7 +150,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="המגדר שלך" />
+                    <Label  Margin="0,0,0,50" Grid.Column="0" Text="המגדר שלך" />
                     <HorizontalStackLayout RadioButtonGroup.GroupName="GenGroup" RadioButtonGroup.SelectedValue="{Binding Gender}">
 
                         <RadioButton
@@ -171,7 +171,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="טכניקת הלימוד שלך" />
+                    <Label  Margin="0,0,0,50" Grid.Column="0" Text="טכניקת הלימוד שלך" />
                         <HorizontalStackLayout RadioButtonGroup.GroupName="TechGroup" RadioButtonGroup.SelectedValue="{Binding DrivingTechnic}">
 
                             <RadioButton
@@ -193,7 +193,7 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Text="דרך התשלום שלך" />
+                            <Label Margin="0,0,0,50" Grid.Column="0" Text="דרך התשלום שלך" />
                             <HorizontalStackLayout RadioButtonGroup.GroupName="PayGroup" RadioButtonGroup.SelectedValue="{Binding WayToPay}">
 
                                 <RadioButton
@@ -205,8 +205,9 @@
                                 GroupName="PayGroup"
                                 Value="1" />
                             </HorizontalStackLayout>
+                        </Grid>
 
-                            <Grid>
+                <Grid>
                               <Grid.ColumnDefinitions>
                               <ColumnDefinition Width="*" />
                               <ColumnDefinition Width="*" />
@@ -227,7 +228,6 @@
                         Style="{StaticResource buttonStyle}"
                         Text="ביטול" />
                             </Grid>
-                        </Grid>
 
             </VerticalStackLayout>
 

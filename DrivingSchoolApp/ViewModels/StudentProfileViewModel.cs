@@ -8,5 +8,6 @@ namespace DrivingSchoolApp.ViewModels
 {
     public class StudentProfileViewModel:ViewModelBase
     {
+
     }
 }

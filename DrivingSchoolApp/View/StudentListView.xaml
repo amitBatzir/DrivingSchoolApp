@@ -35,17 +35,19 @@
         </Grid>
 
         <!--  ListView for displaying student names  -->
+
+
         <CollectionView
-            Margin="0,10,0,0"
-            ItemsSource="{Binding Students}"
-            SelectedItem="{Binding SelectedStudent}"
-            SelectionMode="Single">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Label Text="{Binding FullName}" />
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+    Margin="0,10,0,0"
+    ItemsSource="{Binding Students}"
+    SelectedItem="{Binding SelectedStudent}"
+    SelectionMode="Single">
+    <CollectionView.ItemTemplate>
+        <DataTemplate>
+            <Label Text="{Binding FullName}" />
+        </DataTemplate>
+    </CollectionView.ItemTemplate>
+</CollectionView>
 
     </VerticalStackLayout>
 </ContentPage>

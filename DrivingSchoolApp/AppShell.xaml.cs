@@ -29,6 +29,7 @@ namespace DrivingSchoolApp
             Routing.RegisterRoute(nameof(TeacherProfileView), typeof(TeacherProfileView));
 
 
+
         }
     }
 }
