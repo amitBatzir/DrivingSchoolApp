@@ -577,15 +577,15 @@ namespace DrivingSchoolApp.ViewModels
             }
         }
 
-        private string numOfLessons;
+        private int numOfLessons;
 
-        public string NumOfLessons
+        public int NumOfLessons
         {
             get => numOfLessons;
             set
             {
                 numOfLessons = value;
-                ValidateFirstName();
+                ValidateNumOfLessons();
                 OnPropertyChanged("NumOfLessons");
             }
         }
@@ -604,7 +604,7 @@ namespace DrivingSchoolApp.ViewModels
 
         private void ValidateNumOfLessons()
         {
-            this.ShowNumOfLessonsError = string.IsNullOrEmpty(NumOfLessons);
+            this.ShowNumOfLessonsError = NumOfLessons < 0;
         }
         #endregion
 
@@ -812,7 +812,7 @@ namespace DrivingSchoolApp.ViewModels
                     StudentLanguage = Language,
                     LastName = LastName,
                     LengthOfLesson = LengthOfLesson,
-                    CurrentLessonNum = int.Parse(NumOfLessons),
+                    CurrentLessonNum = NumOfLessons,
                     InternalTestDone = Internaltest,
                     StudentEmail = Email,
                     StudentPass = Password,

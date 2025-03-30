@@ -2,11 +2,410 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DrivingSchoolApp.View.StudentProfileView"
-             Title="StudentProfileView">
-    <VerticalStackLayout>
-        <Label 
-            Text="פרופיל תלמיד"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="פרופיל"
+             Padding="15"
+             FlowDirection="RightToLeft">
+    <ScrollView>
+        <VerticalStackLayout>
+            <VerticalStackLayout IsEnabled="{Binding Change}">
+                <!--  First Name  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="שם פרטי" />
+                    <Label
+                     Grid.Column="1"
+                     IsVisible="{Binding ShowFirstNameError}"
+                     Style="{StaticResource labelErrorStyle}"
+                     Text="{Binding FirstNameError}" />
+                </Grid>
+                <Entry
+                 Placeholder="הכנס שם פרטי"
+                 Style="{StaticResource entryStyle}"
+                 Text="{Binding FirstName}" />
+
+                <!--  Last Name  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="שם משפחה" />
+                    <Label
+                     Grid.Column="1"
+                     IsVisible="{Binding ShowLastNameError}"
+                     Style="{StaticResource labelErrorStyle}"
+                     Text="{Binding LastNameError}" />
+                </Grid>
+                <Entry
+                 Placeholder="הכנס שם משפחה"
+                 Style="{StaticResource entryStyle}"
+                 Text="{Binding LastName}" />
+
+
+
+                <!--   Id  -->
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="תעודת זהות" />
+                    <Label
+                     Grid.Column="1"
+                     IsVisible="{Binding ShowIdError}"
+                     Style="{StaticResource labelErrorStyle}"
+                     Text="{Binding IdError}" />
+                </Grid>
+                <Entry
+                 Placeholder="הכנס תעודת זהות"
+                 Style="{StaticResource entryStyle}"
+                 Text="{Binding Id}" />
+
+
+
+                <!--  Email  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="אימייל" />
+                    <Label
+                     Grid.Column="1"
+                     IsVisible="{Binding ShowEmailError}"
+                     Style="{StaticResource labelErrorStyle}"
+                     Text="{Binding EmailError}" />
+                </Grid>
+                <Entry
+                 Placeholder="הכנס אימייל"
+                 Style="{StaticResource entryStyle}"
+                 Text="{Binding Email}" />
+
+
+                <!--  Password  -->
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="סיסמה" />
+                    <Label
+                     Grid.Column="1"
+                     IsVisible="{Binding ShowPasswordError}"
+                     Style="{StaticResource labelErrorStyle}"
+                     Text="{Binding PasswordError}" />
+                </Grid>
+                <Entry
+                 IsPassword="True"
+                 Placeholder="הכנס סיסמה"
+                 Style="{StaticResource entryStyle}"
+                 Text="{Binding Password}" />
+
+
+                <!--   Phone  -->
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="מספר הטלפון האישי שלך" />
+                    <Label
+                     Grid.Column="1"
+                     IsVisible="{Binding ShowPhoneError}"
+                     Style="{StaticResource labelErrorStyle}"
+                     Text="{Binding PhoneError}" />
+                </Grid>
+                <Entry
+                 Placeholder="הכנס את מספר הטלפון האישי"
+                 Style="{StaticResource entryStyle}"
+                 Text="{Binding Phone}" />
+
+                <!--   Gender  -->
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label  Margin="0,0,0,50" Grid.Column="0" Text="המגדר שלך" />
+                    <HorizontalStackLayout RadioButtonGroup.GroupName="GenGroup" RadioButtonGroup.SelectedValue="{Binding Gender}">
+
+                        <RadioButton
+                  Content="זכר"
+                  GroupName="GenGroup"
+                  Value="0" />
+                        <RadioButton
+                  Content="נקבה"
+                  GroupName="GenGroup"
+                  Value="1" />
+                    </HorizontalStackLayout>
+                </Grid>
+
+                <!--  Birthday  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="הכנס תאריך לידה" />
+                    <Label
+           Grid.Column="1"
+           IsVisible="{Binding ShowDateError}"
+           Style="{StaticResource labelErrorStyle}"
+           Text="{Binding DateError}" />
+                </Grid>
+                <DatePicker
+       Date="{Binding Date}"
+       MaximumDate="{Binding CurrentDate}"
+       MinimumDate="01/01/1925" />
+
+                <!--  theory date  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="הכנס תאריך עשייה של תאוריה" />
+                    <Label
+           Grid.Column="1"
+           IsVisible="{Binding ShowTheoryDateError}"
+           Style="{StaticResource labelErrorStyle}"
+           Text="{Binding TheoryDateError}" />
+                </Grid>
+                <DatePicker
+       Date="{Binding TheoryDate}"
+       MaximumDate="{Binding CurrentDate2}"
+       MinimumDate="01/01/1925" />
+
+                <!--  Address  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="כתובת מגורים" />
+                    <Label
+           Grid.Column="1"
+           IsVisible="{Binding ShowAddressError}"
+           Style="{StaticResource labelErrorStyle}"
+           Text="{Binding AddressError}" />
+                </Grid>
+
+                <Entry
+       Placeholder="הכנס את כתובת מגוריך"
+       Style="{StaticResource entryStyle}"
+       Text="{Binding Address}" />
+
+                <!--  current lesson number  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="כמות שיעורים נוכחית שעשית" />
+                    <Label
+           Grid.Column="1"
+           IsVisible="{Binding ShowNumOfLessonsError}"
+           Style="{StaticResource labelErrorStyle}"
+           Text="{Binding NumOfLessonsError}" />
+                </Grid>
+
+                <Entry
+       Keyboard="Numeric"
+       Placeholder="אם לא עשית עדיין שיעור תכתוב 0"
+       Style="{StaticResource entryStyle}"
+       Text="{Binding NumOfLessons}" />
+
+
+                <!--  School Name --><!--
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text=" בית הספר שלך לנהיגה"
+                      />
+                 
+           
+                </Grid>
+
+                --><!--  select teacher  --><!--
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="בחרו מורה לנהיגה" />
+                    <Picker
+           ItemDisplayBinding="{Binding FullName}"
+   " />
+                </Grid>
+
+                --><!--  select package  --><!--
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="בחרו חבילת תשלום" />
+                    <Picker
+           ItemDisplayBinding="{Binding Title}"
+           ItemsSource="{Binding Packages}"
+           SelectedItem="{Binding SelectedPackage}" />
+                </Grid>-->
+
+
+
+                <!--  select language  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="בחרו שפת לימוד" />
+                </Grid>
+                <HorizontalStackLayout RadioButtonGroup.GroupName="LanGroup" RadioButtonGroup.SelectedValue="{Binding Language}">
+
+                    <RadioButton
+           Content="עברית"
+           GroupName="LanGroup"
+           IsChecked="True"
+           Value="0" />
+                    <RadioButton
+           Content="אנגלית"
+           GroupName="LanGroup"
+           Value="1" />
+                    <RadioButton
+           Content="ערבית"
+           GroupName="LanGroup"
+           Value="2" />
+                </HorizontalStackLayout>
+
+                <!--  internal test done  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="האם עשית טסט פנימי" />
+                </Grid>
+                <HorizontalStackLayout RadioButtonGroup.GroupName="InternalTestGroup" RadioButtonGroup.SelectedValue="{Binding Internaltest}">
+
+                    <RadioButton
+           Content="כן"
+           GroupName="InternalTestGroup"
+           IsChecked="True"
+           Value="0" />
+                    <RadioButton
+           Content="לא"
+           GroupName="InternalTestGroup"
+           Value="1" />
+                </HorizontalStackLayout>
+
+                <!--  length of lesson  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="בחרו אורך שיעור" />
+                </Grid>
+                <HorizontalStackLayout RadioButtonGroup.GroupName="lengthlessonGroup" RadioButtonGroup.SelectedValue="{Binding LengthOfLesson}">
+
+                    <RadioButton
+           Content="60 דקות"
+           GroupName="lengthlessonGroup"
+           IsChecked="True"
+           Value="0" />
+                    <RadioButton
+           Content="45 דקות"
+           GroupName="lengthlessonGroup"
+           Value="1" />
+
+                </HorizontalStackLayout>
+
+                <!--  Driving technic  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="בחרו שיטת לימוד נהיגה" />
+                </Grid>
+                <HorizontalStackLayout RadioButtonGroup.GroupName="DrivingTechnicGroup" RadioButtonGroup.SelectedValue="{Binding DrivingTechnic}">
+                    <RadioButton
+           Content="ידני"
+           GroupName="DrivingTechnicGroup"
+           IsChecked="True"
+           Value="0" />
+                    <RadioButton
+           Content="אוטומטי"
+           GroupName="DrivingTechnicGroup"
+           Value="1" />
+                </HorizontalStackLayout>
+
+
+                <!--  gender  -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="בחר מגדר" />
+                    <Label Grid.Column="1" />
+                </Grid>
+                <HorizontalStackLayout RadioButtonGroup.GroupName="GenderGroup" RadioButtonGroup.SelectedValue="{Binding Gender}">
+
+                    <RadioButton
+           Content="זכר"
+           GroupName="GenderGroup"
+           IsChecked="True"
+           Value="0" />
+
+                    <RadioButton
+           Content="נקבה"
+           GroupName="GenderGroup"
+           Value="1" />
+
+                </HorizontalStackLayout>
+
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button
+                        Grid.Column="0"
+                        Command="{Binding SaveCommand}"
+                        IsEnabled="{Binding NotInServerCall}"
+                        IsVisible="{Binding Change}"
+                        Style="{StaticResource buttonStyle}"
+                        Text="שמירה" />
+                    <Button
+                        Grid.Column="1"
+                        Command="{Binding CancelCommand}"
+                        IsEnabled="{Binding NotInServerCall}"
+                        IsVisible="{Binding Change}"
+                        Style="{StaticResource buttonStyle}"
+                        Text="ביטול" />
+                </Grid>
+
+            </VerticalStackLayout>
+
+            <Button
+                Command="{Binding EditCommand}"
+                IsVisible="{Binding ShowEditButton}"
+                 Style="{StaticResource buttonStyle}"
+                Text="אפשר עריכה" />
+        </VerticalStackLayout>
+
+    </ScrollView>
 </ContentPage>

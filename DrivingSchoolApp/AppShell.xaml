@@ -10,12 +10,18 @@
     Shell.FlyoutBehavior="Flyout">
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="tabs" >
  
-    <!--לתלמיד-->
+ 
         <ShellContent
         Title="עמוד פרופיל"
         ContentTemplate="{DataTemplate views:ProfileView}"
         Route="Profile"
         IsVisible="{Binding IsManager}" />
+
+            <ShellContent
+         Title="עמוד פרופיל"
+         ContentTemplate="{DataTemplate views:StudentProfileView}"
+         Route="StudentProfile"
+         IsVisible="{Binding IsStudent}" />
 
         <!--לשאול את עופר מה זה ה route-->
         <ShellContent

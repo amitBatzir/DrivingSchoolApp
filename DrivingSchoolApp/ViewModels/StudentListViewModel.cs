@@ -25,6 +25,8 @@ namespace DrivingSchoolApp.ViewModels
             ProfileCommand = new Command(OnProfile);
             SelectedStudent = null;
             LoadStudents();
+
+
         }
 
         private ObservableCollection<Student> students;
@@ -81,6 +83,7 @@ namespace DrivingSchoolApp.ViewModels
             // Navigate to the profile View page
             ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<StudentProfileView>());
         }
+       
 
     }
 }
