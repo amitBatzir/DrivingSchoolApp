@@ -75,12 +75,12 @@ namespace DrivingSchoolApp.ViewModels
           bool isWorking = await proxy.ApprovingTeacher(t.UserTeacherId);
             if (isWorking == true)
             {
-                 await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"המורה אושר בהצלחה", "אוקיי");
+                 await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"המורה אושר בהצלחה", "ok");
                 PendingTeachers.Remove(t);
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("שגיאה", $"קרתה שגיאה במהלך האישור", "אוקיי");
+                await Application.Current.MainPage.DisplayAlert("שגיאה", $"קרתה שגיאה במהלך האישור", "ok");
 
             }
         }
@@ -91,12 +91,12 @@ namespace DrivingSchoolApp.ViewModels
             bool isWorking = await proxy.DecliningTeacher(t.UserTeacherId);
             if (isWorking == true)
             {
-                await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"המורה נדחה בהצלחה", "אוקיי"); PendingTeachers.Remove(t);
+                await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"המורה נדחה בהצלחה", "ok"); 
                 PendingTeachers.Remove(t);
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("שגיאה", $"קרתה שגיאה במהלך הדחיה", "אוקיי");
+                await Application.Current.MainPage.DisplayAlert("שגיאה", $"קרתה שגיאה במהלך הדחיה", "ok");
 
             }
         }

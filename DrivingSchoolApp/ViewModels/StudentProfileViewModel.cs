@@ -43,9 +43,9 @@ namespace DrivingSchoolApp.ViewModels
             Gender = currentStudent.Gender;
             Internaltest= currentStudent.InternalTestDone;
             Address = currentStudent.StudentAddress;
-            SchoolName = currentStudent.SchoolName;
-            Teacher = currentStudent.TeacherId;
-            Package = currentStudent.PackageId;
+            //SchoolName = currentStudent.SchoolName;
+            //Teacher = currentStudent.TeacherId;
+            //Package = currentStudent.PackageId;
            
             IsPassword = true;
             PhoneNumberError = "בדקו שכתבתם את מספר הטלפון הנכון";
@@ -59,6 +59,13 @@ namespace DrivingSchoolApp.ViewModels
             TheoryDateError = "התאוריה שלך אינה תקפה";
             NumOfLessonsError = "מספר השיעורים שלך אינו תקין";
             AddressError = "הכתובת שלך אינה תקינה";
+
+            //למחוק את זה אחרי שאני מבינה איך מכניסים את זה לעמוד פרופיל עם אופציה להחליף
+            SchoolName = "Ramon";
+            Teacher = 1;
+            Package = 1;
+
+
 
         }
 
@@ -810,14 +817,14 @@ namespace DrivingSchoolApp.ViewModels
             ValidateNumOfLessons();
             ValidateAddress();
 
-            if (!showFirstNameError && !showLastNameError && !showPasswordError && !ShowEmailError && !ShowPhoneNumberError && !ShowSchoolNameError && !ShowIdError && !ShowDateError && !ShowTheoryDateError && !showNumOfLessonsError && showAddressError)
+            if (!ShowFirstNameError && !ShowLastNameError && !ShowPasswordError && !ShowEmailError && !ShowPhoneNumberError && !ShowSchoolNameError && !ShowIdError && !ShowDateError && !ShowTheoryDateError && !ShowNumOfLessonsError && !ShowAddressError)
             {
                 Student student = ((App)App.Current).LoggedInStudent;
                 student.FirstName = FirstName;
                 student.LastName = LastName;
-                student.SchoolName = SchoolName;
-                student.TeacherId = Teacher;
-                student.PackageId = package;
+                student.SchoolName = "Ramon";
+                student.TeacherId = 1;
+                student.PackageId = 1;
                 student.StudentPass = Password;
                 student.StudentEmail = Email;
                 student.DrivingTechnic = DrivingTechnic;

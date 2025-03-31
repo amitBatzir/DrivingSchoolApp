@@ -636,7 +636,7 @@ namespace DrivingSchoolApp.ViewModels
             ValidateSchoolName();
             ValidateManagerId();
 
-            if (!showFirstNameError && !showLastNameError && !showPasswordError && !ShowEmailError && !ShowManagerPhoneError && !ShowSchoolPhoneError && !ShowSchoolAddressError && !ShowSchoolNameError && !ShowManagerIdError)
+            if (!ShowFirstNameError && !ShowLastNameError && !ShowPasswordError && !ShowEmailError && !ShowManagerPhoneError && !ShowSchoolPhoneError && !ShowSchoolAddressError && !ShowSchoolNameError && !ShowManagerIdError)
             {
                 Manager manager = ((App)App.Current).LoggedInManager;
                 manager.FirstName = FirstName;

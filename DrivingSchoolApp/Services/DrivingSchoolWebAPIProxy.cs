@@ -14,16 +14,16 @@ namespace DrivingSchoolApp.Services
     public class DrivingSchoolAppWebAPIProxy
     {
         #region without tunnel
-        /*
+        
         //Define the serevr IP address! (should be realIP address if you are using a device that is not running on the same machine as the server)
-        private static string serverIP = "localhost";
-        private HttpClient client;
-        private string baseUrl;
-        public static string BaseAddress = (DeviceInfo.Platform == DevicePlatform.Android &&
-            DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:5110/api/" : $"http://{serverIP}:5110/api/";
-        private static string ImageBaseAddress = (DeviceInfo.Platform == DevicePlatform.Android &&
-            DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:5110" : $"http://{serverIP}:5110";
-        */
+        //private static string serverIP = "localhost";
+        //private HttpClient client;
+        //private string baseUrl;
+        //public static string BaseAddress = (DeviceInfo.Platform == DevicePlatform.Android &&
+        //    DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:5224/api/" : $"http://{serverIP}:5224/api/";
+        //private static string ImageBaseAddress = (DeviceInfo.Platform == DevicePlatform.Android &&
+        //    DeviceInfo.DeviceType == DeviceType.Virtual) ? "http://10.0.2.2:5224" : $"http://{serverIP}:5224";
+
         #endregion
 
         #region with tunnel
@@ -526,6 +526,7 @@ namespace DrivingSchoolApp.Services
             }
         }
         #endregion
+
         // פעולה שמחזירה לי את כל התלמידים של בית הספר
         public async Task<List<Student>> GetAllStudents()
         {
@@ -559,6 +560,7 @@ namespace DrivingSchoolApp.Services
                 return null;
             }
         }
+        #region Approving Teachers
         public async Task<List<Teacher>> ShowPendingTeachers(int managerId)
         {
 
@@ -637,33 +639,89 @@ namespace DrivingSchoolApp.Services
                 return false;
             }
         }
+        #endregion
 
-        //public async Task<bool> UpdateManager(Manager manager)
-        //{
-        //    //Set URI to the specific function API
-        //    string url = $"{this.baseUrl}updateManager";
-        //    try
-        //    {
-        //        //Call the server API
-        //        string json = JsonSerializer.Serialize(manager);
-        //        StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
-        //        HttpResponseMessage response = await client.PostAsync(url, content);
-        //        //Check status
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return false;
-        //    }
-        //}
+        #region Approving Students
+        public async Task<List<Student>> ShowPendingStudent(int TeacherId)
+        {
 
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}showPendingStudent?TeacherId={TeacherId}";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Student>? result = JsonSerializer.Deserialize<List<Student>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public async Task<bool> ApprovingStudent(int StudentId)
+        {
+            string url = $"{this.baseUrl}approvingStudent?StudentId={StudentId}";
+            try
+            {
+
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> DecliningStudent(int StudentId)
+        {
+            string url = $"{this.baseUrl}decliningStudent?StudentId={StudentId}";
+            try
+            {
+
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        #endregion
 
     }
- }
+}

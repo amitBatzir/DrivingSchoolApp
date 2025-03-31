@@ -85,6 +85,8 @@ namespace DrivingSchoolApp.ViewModels
             bool result = await Application.Current.MainPage.DisplayAlert("התנתקות", $"אתה בטוח שאתה רוצה להתנתק?", "אישור", "ביטול");//if the check returned not null means that the user exist, shows a message
             if (result)
             {
+                ((App)Application.Current).LoggedInStudent = null;
+                ((App)Application.Current).LoggedInTeacher = null;
                 ((App)Application.Current).LoggedInManager = null;
                 Application.Current.MainPage = new NavigationPage(serviceProvider.GetService<LoginView>());
 

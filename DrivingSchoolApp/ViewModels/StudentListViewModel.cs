@@ -21,7 +21,6 @@ namespace DrivingSchoolApp.ViewModels
             this.proxy = proxy;
             this.serviceProvider = serviceProvider;
             Students = new ObservableCollection<Student>();
-            //StudentsName = new ObservableCollection<string>();
             ProfileCommand = new Command(OnProfile);
             SelectedStudent = null;
             LoadStudents();

@@ -580,7 +580,7 @@ namespace DrivingSchoolApp.ViewModels
             ValidateSchoolName();
             ValidateId();
 
-            if (!showFirstNameError && !showLastNameError && !showPasswordError && !ShowEmailError && !ShowPhoneError  && !ShowSchoolNameError && !ShowIdError)
+            if (!ShowFirstNameError && !ShowLastNameError && !ShowPasswordError && !ShowEmailError && !ShowPhoneError  && !ShowSchoolNameError && !ShowIdError)
             {
                 Teacher teacher = ((App)App.Current).LoggedInTeacher;
                 teacher.FirstName = FirstName;

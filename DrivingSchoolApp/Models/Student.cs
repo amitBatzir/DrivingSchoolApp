@@ -36,6 +36,13 @@ namespace DrivingSchoolApp.Models
                 return $"{FirstName} {LastName}";
             }
         }
+        public string Details
+        {
+            get
+            {
+                return "שם מלא: " + FirstName + " " + LastName + ", " + "תעודת זהות:  " + StudentId + ", " + "\nאימייל:  " + StudentEmail;
+            }
+        }
         public Student() { }
     }
 }

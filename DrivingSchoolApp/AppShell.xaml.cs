@@ -27,6 +27,8 @@ namespace DrivingSchoolApp
             Routing.RegisterRoute(nameof(CommentsView), typeof(CommentsView));
             Routing.RegisterRoute(nameof(StudentProfileView), typeof(StudentProfileView));
             Routing.RegisterRoute(nameof(TeacherProfileView), typeof(TeacherProfileView));
+            Routing.RegisterRoute(nameof(ProfileView), typeof(ProfileView));
+
 
 
 

@@ -117,35 +117,16 @@
                     <Label Grid.Column="0" Text="מספר הטלפון האישי שלך" />
                     <Label
                      Grid.Column="1"
-                     IsVisible="{Binding ShowPhoneError}"
+                     IsVisible="{Binding ShowPhoneNumberError}"
                      Style="{StaticResource labelErrorStyle}"
-                     Text="{Binding PhoneError}" />
+                     Text="{Binding PhoneNumberError}" />
                 </Grid>
                 <Entry
                  Placeholder="הכנס את מספר הטלפון האישי"
                  Style="{StaticResource entryStyle}"
-                 Text="{Binding Phone}" />
+                 Text="{Binding PhoneNumber}" />
 
-                <!--   Gender  -->
-
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label  Margin="0,0,0,50" Grid.Column="0" Text="המגדר שלך" />
-                    <HorizontalStackLayout RadioButtonGroup.GroupName="GenGroup" RadioButtonGroup.SelectedValue="{Binding Gender}">
-
-                        <RadioButton
-                  Content="זכר"
-                  GroupName="GenGroup"
-                  Value="0" />
-                        <RadioButton
-                  Content="נקבה"
-                  GroupName="GenGroup"
-                  Value="1" />
-                    </HorizontalStackLayout>
-                </Grid>
+         
 
                 <!--  Birthday  -->
                 <Grid>
