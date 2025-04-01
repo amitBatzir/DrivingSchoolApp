@@ -21,7 +21,7 @@ namespace DrivingSchoolApp.ViewModels
             this.proxy = proxy;
             this.serviceProvider = serviceProvider;
             Students = new ObservableCollection<Student>();
-            ProfileCommand = new Command(OnProfile);
+            //ProfileCommand = new Command(OnProfile);
             SelectedStudent = null;
             LoadStudents();
 
@@ -76,13 +76,12 @@ namespace DrivingSchoolApp.ViewModels
                 Students = new ObservableCollection<Student>(studentList);
             }
         }
-        public ICommand ProfileCommand { get; }
-        private void OnProfile()
-        {       
-            // Navigate to the profile View page
-            ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<StudentProfileView>());
-        }
-       
+        //public ICommand ProfileCommand { get; }
+        //private void OnProfile()
+        //{       
+        //    // Navigate to the profile View page
+        //    ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<StudentProfileView>());
+        //}    
 
     }
 }

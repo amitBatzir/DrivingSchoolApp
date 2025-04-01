@@ -10,10 +10,17 @@ using DrivingSchoolApp.Services;
 
 namespace DrivingSchoolApp.ViewModels
 {
+    [QueryProperty(nameof(CurrentStudent),"selectedStudent")]
     public class StudentProfileViewModel:ViewModelBase
     {
 
         private Student currentStudent;
+        public Student CurrentStudent { get { return currentStudent; } set
+            {
+                currentStudent = value;
+                OnPropertyChanged();
+                UpdateStudent();
+            } }
         private DrivingSchoolAppWebAPIProxy proxy;
         private IServiceProvider serviceProvider;
 
@@ -28,21 +35,21 @@ namespace DrivingSchoolApp.ViewModels
             CancelCommand = new Command(OnCancel);
             ShowPasswordCommand = new Command(OnShowPassword);
 
-            FirstName = currentStudent.FirstName;
-            LastName = currentStudent.LastName;
-            Password = currentStudent.StudentPass;
-            Email = currentStudent.StudentEmail;
-            DrivingTechnic = currentStudent.DrivingTechnic;
-            Id = currentStudent.StudentId;
-            PhoneNumber = currentStudent.PhoneNumber;
-            Language = currentStudent.StudentLanguage;
-            Date = currentStudent.DateOfBirth;
-            TheoryDate = currentStudent.DateOfTheory;
-            NumOfLessons = currentStudent.CurrentLessonNum;
-            LengthOfLesson = currentStudent.LengthOfLesson;
-            Gender = currentStudent.Gender;
-            Internaltest= currentStudent.InternalTestDone;
-            Address = currentStudent.StudentAddress;
+            //FirstName = currentStudent.FirstName;
+            //LastName = currentStudent.LastName;
+            //Password = currentStudent.StudentPass;
+            //Email = currentStudent.StudentEmail;
+            //DrivingTechnic = currentStudent.DrivingTechnic;
+            //Id = currentStudent.StudentId;
+            //PhoneNumber = currentStudent.PhoneNumber;
+            //Language = currentStudent.StudentLanguage;
+            //Date = currentStudent.DateOfBirth;
+            //TheoryDate = currentStudent.DateOfTheory;
+            //NumOfLessons = currentStudent.CurrentLessonNum;
+            //LengthOfLesson = currentStudent.LengthOfLesson;
+            //Gender = currentStudent.Gender;
+            //Internaltest= currentStudent.InternalTestDone;
+            //Address = currentStudent.StudentAddress;
             //SchoolName = currentStudent.SchoolName;
             //Teacher = currentStudent.TeacherId;
             //Package = currentStudent.PackageId;
@@ -67,6 +74,24 @@ namespace DrivingSchoolApp.ViewModels
 
 
 
+        }
+        private async void UpdateStudent()
+        {
+            FirstName = currentStudent.FirstName;
+            LastName = currentStudent.LastName;
+            Password = currentStudent.StudentPass;
+            Email = currentStudent.StudentEmail;
+            DrivingTechnic = currentStudent.DrivingTechnic;
+            Id = currentStudent.StudentId;
+            PhoneNumber = currentStudent.PhoneNumber;
+            Language = currentStudent.StudentLanguage;
+            Date = currentStudent.DateOfBirth;
+            TheoryDate = currentStudent.DateOfTheory;
+            NumOfLessons = currentStudent.CurrentLessonNum;
+            LengthOfLesson = currentStudent.LengthOfLesson;
+            Gender = currentStudent.Gender;
+            Internaltest = currentStudent.InternalTestDone;
+            Address = currentStudent.StudentAddress;
         }
 
         #region SchoolName
