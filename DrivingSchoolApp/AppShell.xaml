@@ -9,8 +9,19 @@
     FlowDirection="RightToLeft"
     Shell.FlyoutBehavior="Flyout">
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Route="tabs" >
- 
- 
+
+        <Tab Route="Lessons" Title="שיעורים" IsVisible="{Binding IsStudent}">
+            <ShellContent
+         Title="היסטוריית שיעורים"
+         ContentTemplate="{DataTemplate views:LessonsHistoryView}"
+         Route="LessonHisory" />
+
+            <ShellContent
+         Title="שיעורים עתידיים"
+         ContentTemplate="{DataTemplate views:FutureLessonsView}"
+         Route="FutureLessons" />
+        </Tab>
+      
         <ShellContent
         Title="עמוד פרופיל"
         ContentTemplate="{DataTemplate views:ProfileView}"
@@ -42,21 +53,14 @@
         IsVisible="{Binding IsStudent}"
         Route="Schedule" />
 
-        <ShellContent   
+            <ShellContent   
      Title="עמוד בית"
      ContentTemplate="{DataTemplate views:HomePageView}"
      Route="approving"
      IsVisible="{Binding IsStudent}"
         />
 
-    <ShellContent   
-  Title="שיעורים קודמים ועתידיים"
-  ContentTemplate="{DataTemplate views:LessonsHistoryView}"
-  Route="HistoryLesson" 
-  IsVisible="{Binding NotManager}"
-        />
-    
-    <!--מורה-->
+       <!--מורה-->
     <ShellContent   
   Title="רשימת תלמידים"
   ContentTemplate="{DataTemplate views:StudentListView}"

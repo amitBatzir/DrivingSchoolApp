@@ -16,6 +16,12 @@ namespace DrivingSchoolApp.Models
         public string DropOffLoc { get; set; } = null!;
         public bool DidExist { get; set; }
         public Lesson() { }
-      
+      public string Details
+        {
+            get
+            {
+                return "השיעור שלך בתאריך " + DateOfLesson;
+            }
+        }
     }
 }
