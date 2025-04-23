@@ -15,12 +15,19 @@ namespace DrivingSchoolApp.ViewModels
     {
 
         private Student currentStudent;
-        public Student CurrentStudent { get { return currentStudent; } set
+        public Student CurrentStudent 
+        { 
+            get
+            { 
+                return currentStudent;
+            } 
+            set
             {
                 currentStudent = value;
                 OnPropertyChanged();
                 UpdateStudent();
-            } }
+            }
+        }
         private DrivingSchoolAppWebAPIProxy proxy;
         private IServiceProvider serviceProvider;
 

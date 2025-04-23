@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using DrivingSchoolApp.Models;
 using DrivingSchoolApp.Services;
-using DrivingSchoolApp.View;
-using static Microsoft.Maui.ApplicationModel.Permissions;
-using System.Collections.ObjectModel;
+using DrivingSchoolApp.Models;
 
 namespace DrivingSchoolApp.ViewModels
 {
-    public class LessonsHistoryViewModel: ViewModelBase
+    public class TeacherLessonHistoryViewModel:ViewModelBase
     {
         private DrivingSchoolAppWebAPIProxy proxy;
         private IServiceProvider serviceProvider;
+        
+      
 
-
-        public LessonsHistoryViewModel(DrivingSchoolAppWebAPIProxy proxy)
+        public TeacherLessonHistoryViewModel(DrivingSchoolAppWebAPIProxy proxy)
         {
             this.proxy = proxy;
             this.serviceProvider = serviceProvider;
@@ -37,11 +34,11 @@ namespace DrivingSchoolApp.ViewModels
                 OnPropertyChanged("Lessons");
             }
         }
-       
+
         private async void LoadPreviousLessons()
         {
-            Student s = ((App)Application.Current).LoggedInStudent;
-            List<Lesson> PreviousLessonsList = await proxy.GetStudentPreviousLessons(s.UserStudentId);
+            Teacher t = ((App)Application.Current).LoggedInTeacher;
+            List<Lesson> PreviousLessonsList = await proxy.getTeacherPreviousLessons(t.UserTeacherId);
             if (PreviousLessonsList != null)
             {
                 Lessons = new ObservableCollection<Lesson>();
@@ -57,7 +54,7 @@ namespace DrivingSchoolApp.ViewModels
                     }
                     Lessons.Add(l);
                 }
-                
+
             }
         }
 
@@ -71,7 +68,6 @@ namespace DrivingSchoolApp.ViewModels
                 OnPropertyChanged("WasDone");
             }
         }
-        
 
     }
 }

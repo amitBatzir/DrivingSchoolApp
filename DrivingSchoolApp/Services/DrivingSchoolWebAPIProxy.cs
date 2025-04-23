@@ -528,11 +528,45 @@ namespace DrivingSchoolApp.Services
         #endregion
 
         #region Lessons
-        public async Task<List<Lesson>> GetPreviousLessons()
+        public async Task<List<Lesson>> GetStudentPreviousLessons(int StudentId)
+        {
+              //Set URI to the specific function API
+          string url = $"{this.baseUrl}getStudentPreviousLessons?StudentId={StudentId}";
+            //Check status
+                 try
+                {
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Lesson>? result = JsonSerializer.Deserialize<List<Lesson>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        
+
+        public async Task<List<Lesson>> GetFutureLessons()
         {
 
             //Set URI to the specific function API
-            string url = $"{this.baseUrl}getPreviousLessons";
+            string url = $"{this.baseUrl}getFutureLessons";
             //Check status
             try
             {
@@ -561,11 +595,10 @@ namespace DrivingSchoolApp.Services
             }
         }
 
-        public async Task<List<Lesson>> GetFutureLessons()
+        public async Task<List<Lesson>> getTeacherPreviousLessons(int TeacherId)
         {
-
             //Set URI to the specific function API
-            string url = $"{this.baseUrl}getFutureLessons";
+            string url = $"{this.baseUrl}getTeacherPreviousLessons?TeacherId={TeacherId}";
             //Check status
             try
             {

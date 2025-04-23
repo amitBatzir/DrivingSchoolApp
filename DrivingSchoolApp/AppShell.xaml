@@ -20,8 +20,14 @@
          Title="שיעורים עתידיים"
          ContentTemplate="{DataTemplate views:FutureLessonsView}"
          Route="FutureLessons" />
+        
         </Tab>
-      
+        <ShellContent
+  Title="היסטוריית שיעורים"
+  ContentTemplate="{DataTemplate views:TeacherLessonsHistoryView}"
+  Route="Profile"
+  IsVisible="{Binding IsTeacher}" />
+
         <ShellContent
         Title="עמוד פרופיל"
         ContentTemplate="{DataTemplate views:ProfileView}"
