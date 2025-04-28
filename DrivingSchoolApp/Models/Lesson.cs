@@ -14,7 +14,8 @@ namespace DrivingSchoolApp.Models
         public int TeacherId { get; set; }
         public string PickUpLoc { get; set; } = null!;
         public string DropOffLoc { get; set; } = null!;
-        public bool DidExist { get; set; }
+        public int StatusId { get; set; }
+        public Student? Student { get; set; }
         public Lesson() { }
       public string Details
         {
@@ -23,5 +24,12 @@ namespace DrivingSchoolApp.Models
                 return "השיעור שלך בתאריך " + DateOfLesson;
             }
         }
+    }
+
+    public class LessonStatuses
+    {
+        public int StatusId { get; set; }
+
+        public string StatusDescription { get; set; } = null!;
     }
 }

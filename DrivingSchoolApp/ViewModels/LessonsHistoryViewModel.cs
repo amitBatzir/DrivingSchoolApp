@@ -47,14 +47,14 @@ namespace DrivingSchoolApp.ViewModels
                 Lessons = new ObservableCollection<Lesson>();
                 foreach (Lesson l in PreviousLessonsList)
                 {
-                    if (l.DidExist == true)
-                    {
-                        WasDone = "התקיים";
-                    }
-                    else
-                    {
-                        WasDone = "בוטל";
-                    }
+                    //if (l.DidExist == true)
+                    //{
+                    //    WasDone = "התקיים";
+                    //}
+                    //else
+                    //{
+                    //    WasDone = "בוטל";
+                    //}
                     Lessons.Add(l);
                 }
                 

@@ -24,8 +24,8 @@
         </Tab>
         <ShellContent
   Title="היסטוריית שיעורים"
-  ContentTemplate="{DataTemplate views:TeacherLessonsHistoryView}"
-  Route="Profile"
+  ContentTemplate="{DataTemplate views:TeacherLessonHistoryView}"
+  Route="TeacherLessonHistory"
   IsVisible="{Binding IsTeacher}" />
 
         <ShellContent

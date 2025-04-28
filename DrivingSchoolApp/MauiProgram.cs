@@ -85,7 +85,8 @@ namespace DrivingSchoolApp
             builder.Services.AddTransient<TeacherProfileViewModel>();
             builder.Services.AddTransient<StudentProfileViewModel>();
             builder.Services.AddTransient<FutureLessonsViewModel>();
-            builder.Services.AddTransient<TeacherLessonHistoryView>();
+            builder.Services.AddTransient<TeacherLessonHistoryViewModel>();
+            
 
 
             return builder;

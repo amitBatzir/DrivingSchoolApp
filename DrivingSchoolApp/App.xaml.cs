@@ -17,6 +17,8 @@ namespace DrivingSchoolApp
         public Student? LoggedInStudent { get; set; }
         public Teacher? LoggedInTeacher { get; set; }
         public Manager? LoggedInManager { get; set; }
+
+        public List<LessonStatuses> LessonStatuses { get; set; }
       
         private DrivingSchoolAppWebAPIProxy proxy;
         public App(IServiceProvider serviceProvider, DrivingSchoolAppWebAPIProxy proxy)
@@ -26,6 +28,13 @@ namespace DrivingSchoolApp
             LoggedInStudent = null;
             LoggedInTeacher = null;
             LoggedInManager = null;
+
+            LessonStatuses = new List<LessonStatuses>();
+            LessonStatuses.Add(new Models.LessonStatuses() { StatusId = 1, StatusDescription = "Pending" });
+            LessonStatuses.Add(new Models.LessonStatuses() { StatusId = 2, StatusDescription = "Scheduled" });
+            LessonStatuses.Add(new Models.LessonStatuses() { StatusId = 3, StatusDescription = "Done" });
+            LessonStatuses.Add(new Models.LessonStatuses() { StatusId = 4, StatusDescription = "Declined" });
+            LessonStatuses.Add(new Models.LessonStatuses() { StatusId = 5, StatusDescription = "Canceled" });
             //Start with the Login View
             MainPage = new NavigationPage(serviceProvider.GetService<LoginView>());
         }
