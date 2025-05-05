@@ -20,6 +20,7 @@ namespace DrivingSchoolApp.ViewModels
             this.proxy = proxy;
             this.serviceProvider = serviceProvider;
             Lessons = new ObservableCollection<Lesson>();
+            AddLessonCommand = new Command(OnAddLessonCommand);
             LoadFutureLessons();
         }
         private ObservableCollection<Lesson> lessons;
@@ -39,6 +40,11 @@ namespace DrivingSchoolApp.ViewModels
             {
                 Lessons = new ObservableCollection<Lesson>(FutureLessonsList);
             }
+        }
+        public Command AddLessonCommand{get; set;}
+        private async void OnAddLessonCommand()
+        {
+            await Shell.Current.GoToAsync("AddNewLessonView");
         }
     }
 }

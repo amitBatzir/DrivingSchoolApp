@@ -4,7 +4,7 @@
              x:Class="DrivingSchoolApp.View.TeacherLessonHistoryView"
                         Padding="15"
              FlowDirection="RightToLeft"       
-             BackgroundColor="#F2F4F7">
+              BackgroundColor="PowderBlue">
 
     <VerticalStackLayout Spacing="20">
 

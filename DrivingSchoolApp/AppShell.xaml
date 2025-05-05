@@ -53,11 +53,6 @@
       IsVisible="{Binding IsTeacher}"
       Route="Schedule" />
         
-        <ShellContent
-        Title="קביעת שיעור"
-        ContentTemplate="{DataTemplate views:ScheduleView}"
-        IsVisible="{Binding IsStudent}"
-        Route="Schedule" />
 
             <ShellContent   
      Title="עמוד בית"
