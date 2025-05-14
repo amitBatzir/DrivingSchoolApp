@@ -52,6 +52,7 @@ namespace DrivingSchoolApp
             builder.Services.AddTransient<FutureLessonsView>();
             builder.Services.AddTransient<TeacherLessonHistoryView>();
             builder.Services.AddTransient<AddNewLessonView>();
+            builder.Services.AddTransient<PackagesView>();
 
 
 
@@ -88,7 +89,8 @@ namespace DrivingSchoolApp
             builder.Services.AddTransient<FutureLessonsViewModel>();
             builder.Services.AddTransient<TeacherLessonHistoryViewModel>();
             builder.Services.AddTransient<AddNewLessonViewModel>();
-            
+            builder.Services.AddTransient<PackagesViewModel>();
+
 
 
             return builder;

@@ -40,7 +40,7 @@ namespace DrivingSchoolApp.Models
         {
             get
             {
-                return "שם מלא: " + FirstName + " " + LastName + ", " + "תעודת זהות:  " + StudentId + ", " + "\nאימייל:  " + StudentEmail;
+                return "שם מלא: " + FirstName + " " + LastName + ", " + "תעודת זהות:  " + StudentId + ", " + "\nאימייל:  " + StudentEmail + "תאריך לידה:" + DateOfBirth;
             }
         }
         public Student() { }

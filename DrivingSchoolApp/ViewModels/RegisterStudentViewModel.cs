@@ -461,8 +461,8 @@ namespace DrivingSchoolApp.ViewModels
                 ageInMonths += 12; // Handle month wrapping when current month is earlier than the birth month
             }
 
-            // If the person is less than 16 years and 9 months old
-            if (ageInYears < 16 || (ageInYears == 16 && ageInMonths < 9))
+            // If the person is less than 16 years and 6 months old
+            if (ageInYears < 16 || (ageInYears == 16 && ageInMonths < 6))
             {
                 this.ShowDateError = true; 
             }
@@ -823,6 +823,8 @@ namespace DrivingSchoolApp.ViewModels
                     PackageId = SelectedPackage.PackageId,
                     StudentId = Id,
                     Gender = Gender,
+                    DateOfBirth = Date,
+                    DateOfTheory = TheoryDate,
                     DrivingTechnic = DrivingTechnic,
                     ProfilePic = null
                 };

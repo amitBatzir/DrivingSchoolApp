@@ -28,6 +28,7 @@
                 <Setter Property="BackgroundColor" Value="PowderBlue" />
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="Margin" Value="10" />
+                
                 <!--<Setter Property="BackgroundColor" Value="{StaticResource MainColor}" />-->
                 <!--<Setter Property="BorderColor" Value="{StaticResource MainColor}" />-->
             </Style>
@@ -46,7 +47,13 @@
                 <Setter Property="FontSize" Value="15" /> 
                 <Setter Property="Margin" Value="5" />
                 </Style>
-                
+            <Style x:Key="ProfilebuttonStyle" TargetType="Button">
+                <Setter Property="HorizontalOptions" Value="Fill" />
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="Margin" Value="10" />
+            </Style>
+
         </ResourceDictionary>
 
     </Application.Resources>

@@ -8,20 +8,37 @@
     FlowDirection="RightToLeft">
     <VerticalStackLayout Spacing="20">
 
-        <!--  Page Title  -->
-        <Label
-            FontAttributes="Bold"
-            FontSize="20"
-            HorizontalOptions="Center"
-            Text="  שיעורים עתידיים"
-            TextColor="#2C3E50" />
-        <!--  Lessons List  -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <Button
-            Command="{Binding AddLessonCommand}"
-            ImageSource="plus.png"
-            Text="קבע שיעור" />
+            <!--  Page Title  -->
+            <Label
+                FontAttributes="Bold"
+                FontSize="20"
+                HorizontalOptions="Center"
+                Text="  שיעורים עתידיים"
+                TextColor="#2C3E50" 
+                Grid.Column="1"/>
+            <!--  Lessons List  -->
 
+            <Button
+                Command="{Binding AddLessonCommand}"
+                ImageSource="plus.png"
+                Style="{StaticResource buttonStyle}"
+                HorizontalOptions="Start"
+                HeightRequest="75"
+                WidthRequest="75"
+                Text="קבע שיעור"
+                Grid.Column="0"/>
+
+        </Grid>
+        
         <CollectionView ItemsSource="{Binding Lessons}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>

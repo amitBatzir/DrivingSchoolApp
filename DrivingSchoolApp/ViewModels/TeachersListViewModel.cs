@@ -11,7 +11,7 @@ using DrivingSchoolApp;
 
 namespace DrivingSchoolApp.ViewModels
 {
-    public class TeachersListViewModel:ViewModelBase
+    public class TeachersListViewModel : ViewModelBase
     {
         private DrivingSchoolAppWebAPIProxy proxy;
         private IServiceProvider serviceProvider;
@@ -34,6 +34,32 @@ namespace DrivingSchoolApp.ViewModels
             }
         }
 
+        private Teacher selectedTeacher;
+        public Teacher SelectedTeacher
+        {
+            get
+            {
+                return selectedTeacher;
+            }
+            set
+            {
+                selectedTeacher = value;
+                OnSingleSelection(selectedTeacher);
+                OnPropertyChanged();
+            }
+        }
+        private async void OnSingleSelection(Teacher t)
+        {
+            if (t != null)
+            {
+                var navParam = new Dictionary<string, object>
+                {
+                    {"selectedTeacher",t}
+                };
+                await Shell.Current.GoToAsync("TeacherProfileView", navParam);
+                SelectedTeacher = null;
+            }
+        }
         // פעולה שמחזירה לי רשימת מורים ושומרת אותם
         private async void LoadTeachers()
         {
@@ -43,5 +69,7 @@ namespace DrivingSchoolApp.ViewModels
                 Teachers = new ObservableCollection<Teacher>(TeacherList);
             }
         }
+
     }
 }
+
