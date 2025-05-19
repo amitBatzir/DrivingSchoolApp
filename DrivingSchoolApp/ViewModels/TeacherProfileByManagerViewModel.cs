@@ -51,17 +51,7 @@ namespace DrivingSchoolApp.ViewModels
         }
 
         #region FirstName 
-        private bool showFirstNameError;
-
-        public bool ShowFirstNameError
-        {
-            get => showFirstNameError;
-            set
-            {
-                showFirstNameError = value;
-                OnPropertyChanged("ShowFirstNameError");
-            }
-        }
+      
 
         private string firstname;
 
@@ -71,42 +61,17 @@ namespace DrivingSchoolApp.ViewModels
             set
             {
                 firstname = value;
-                ValidateFirstName();
                 OnPropertyChanged("FirstName");
             }
         }
 
-        private string firstnameError;
+        
 
-        public string FirstNameError
-        {
-            get => firstnameError;
-            set
-            {
-                firstnameError = value;
-                OnPropertyChanged("FirstNameError");
-            }
-        }
-
-        private void ValidateFirstName()
-        {
-            this.ShowFirstNameError = string.IsNullOrEmpty(FirstName);
-        }
+        
         #endregion
 
         #region LastName 
-        private bool showLastNameError;
-
-        public bool ShowLastNameError
-        {
-            get => showLastNameError;
-            set
-            {
-                showLastNameError = value;
-                OnPropertyChanged("ShowLastNameError");
-            }
-        }
-
+       
         private string lastName;
 
         public string LastName
@@ -115,42 +80,13 @@ namespace DrivingSchoolApp.ViewModels
             set
             {
                 lastName = value;
-                ValidateLastName();
                 OnPropertyChanged("LastName");
             }
         }
-
-        private string lastNameError;
-
-        public string LastNameError
-        {
-            get => lastNameError;
-            set
-            {
-                lastNameError = value;
-                OnPropertyChanged("LastNameError");
-            }
-        }
-
-        private void ValidateLastName()
-        {
-            this.ShowLastNameError = string.IsNullOrEmpty(LastName);
-
-        }
+       
         #endregion
 
-        #region Email 
-        private bool showEmailError;
-
-        public bool ShowEmailError
-        {
-            get => showEmailError;
-            set
-            {
-                showEmailError = value;
-                OnPropertyChanged("ShowEmailError");
-            }
-        }
+        #region Email     
 
         private string email;
 
@@ -159,61 +95,14 @@ namespace DrivingSchoolApp.ViewModels
             get => email;
             set
             {
-                email = value;
-                ValidateEmail();
+                email = value;               
                 OnPropertyChanged("Email");
-            }
-        }
-
-        private string emailError;
-
-        public string EmailError
-        {
-            get => emailError;
-            set
-            {
-                emailError = value;
-                OnPropertyChanged("EmailError");
-            }
-        }
-
-        private void ValidateEmail()
-        {
-            this.ShowEmailError = string.IsNullOrEmpty(Email);
-            if (!ShowEmailError)
-            {
-                //check if email is in the correct format using regular expression
-                if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
-                {
-                    EmailError = "אימייל לא תקין";
-                    ShowEmailError = true;
-                }
-                else
-                {
-                    EmailError = "";
-                    ShowEmailError = false;
-                }
-            }
-            else
-            {
-                EmailError = "אימייל נדרש";
             }
         }
         #endregion
 
         #region Phone 
-        private bool showPhoneError;
-
-        public bool ShowPhoneError
-        {
-            get => showPhoneError;
-            set
-            {
-                showPhoneError = value;
-                OnPropertyChanged("ShowPhoneError");
-            }
-        }
-
+       
         private string phone;
 
         public string Phone
@@ -222,27 +111,11 @@ namespace DrivingSchoolApp.ViewModels
             set
             {
                 phone = value;
-                ValidatePhone();
                 OnPropertyChanged("Phone");
             }
         }
 
-        private string phoneError;
-
-        public string PhoneError
-        {
-            get => phoneError;
-            set
-            {
-                phoneError = value;
-                OnPropertyChanged("PhoneError");
-            }
-        }
-
-        private void ValidatePhone()
-        {
-            this.ShowPhoneError = string.IsNullOrEmpty(Phone) || (Phone.Length != 10 && Phone.Length != 9);
-        }
+      
         #endregion
 
         #region WayToPay 

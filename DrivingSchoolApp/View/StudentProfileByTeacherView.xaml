@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrivingSchoolApp.View.StudentProfileByTeacherView"
+             Title="פרופיל תלמיד"
+             Padding="15"
+             FlowDirection="RightToLeft"
+             BackgroundColor="PowderBlue">
+    <ScrollView>
+        <VerticalStackLayout Spacing="20">
+
+            <!-- Profile Card -->
+            <Frame CornerRadius="12"
+                   BackgroundColor="White"
+                   HasShadow="True"
+                   Padding="20">
+                <VerticalStackLayout Spacing="15">
+
+                    <!-- First Name -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="השם הפרטי של התלמיד" FontAttributes="Bold" />
+                        <Label Text="{Binding FirstName}" Style="{StaticResource entryStyle}" />
+                    </VerticalStackLayout>
+
+                    <!-- Last Name -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="שם המשפחה של התלמיד" FontAttributes="Bold" />
+                        <Label Text="{Binding LastName}" Style="{StaticResource entryStyle}" />
+                    </VerticalStackLayout>
+
+                    <!-- Email -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="האימייל של התלמיד" FontAttributes="Bold" />
+                        <Label Text="{Binding Email}" Style="{StaticResource entryStyle}" />
+                    </VerticalStackLayout>
+                    
+                    <!-- Driving Technic -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="צורת הנהיגה שהתלמיד לומד " FontAttributes="Bold" />
+                        <Label Text="{Binding DrivingTechnic}" Style="{StaticResource entryStyle}" />
+                    </VerticalStackLayout>
+                    
+                    <!-- Phone -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="מספר הטלפון האישי של התלמיד" FontAttributes="Bold" />
+                        <Label Text="{Binding PhoneNumber}" Style="{StaticResource entryStyle}" />
+                    </VerticalStackLayout>
+
+                    <!-- Language -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="שפת הלמידה של התלמיד" FontAttributes="Bold" />
+                        <Label Text="{Binding Language}" Style="{StaticResource entryStyle}" />
+                    </VerticalStackLayout>
+
+                    <!-- Date of birth -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="תאריך הלידה של התלמיד" FontAttributes="Bold" />
+                        <Label Text="{Binding Date, Converter={StaticResource GenderConverter}}" Style="{StaticResource entryStyle}" />
+                    </VerticalStackLayout>
+
+                    <!-- Theory Date -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="תאריך התיאוריה של התלמיד" FontAttributes="Bold" />
+                        <Label Text="{Binding TheoryDate, Converter={StaticResource GenderConverter}}" Style="{StaticResource entryStyle}" />
+                    </VerticalStackLayout>
+
+                    <!-- NumOfLessons -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="מספר השיעורים הנוכחי שהתלמיד ביצע" FontAttributes="Bold" />
+                        <Label Text="{Binding NumOfLessons, Converter={StaticResource GenderConverter}}" Style="{StaticResource entryStyle}" />
+                    </VerticalStackLayout>
+
+                    <!-- LengthOfLesson -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="אורך השיעורים של התלמיד" FontAttributes="Bold" />
+                        <Label Text="{Binding LengthOfLesson, Converter={StaticResource GenderConverter}}" Style="{StaticResource entryStyle}" />
+                    </VerticalStackLayout>
+
+                    <!-- Gender -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="המגדר של התלמיד" FontAttributes="Bold" />
+                        <Label Text="{Binding Gender, Converter={StaticResource GenderConverter}}" Style="{StaticResource entryStyle}" />
+                    </VerticalStackLayout>
+
+
+                    <!-- Internal test -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="האם התלמיד ביצע טסט פנימי" FontAttributes="Bold" />
+                        <Label Text="{Binding Internaltest, Converter={StaticResource GenderConverter}}" Style="{StaticResource entryStyle}" />
+                    </VerticalStackLayout>
+
+                    <!-- Address -->
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="כתובת המגורים של התלמיד" FontAttributes="Bold" />
+                        <Label Text="{Binding Address, Converter={StaticResource GenderConverter}}" Style="{StaticResource entryStyle}" />
+                    </VerticalStackLayout>
+                    
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
+
+
+

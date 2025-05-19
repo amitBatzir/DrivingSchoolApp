@@ -36,15 +36,15 @@ namespace DrivingSchoolApp.ViewModels
                 }
             }
 
-            //Events = events;
+            Events = events;
             
 
         }
         private DrivingSchoolAppWebAPIProxy proxy;
 
-        /*private EventCollection events;
-        public EventCollection Events 
-        { 
+        private EventCollection events;
+        public EventCollection Events
+        {
             get
             {
                 return events;
@@ -54,11 +54,11 @@ namespace DrivingSchoolApp.ViewModels
                 this.events = value;
                 OnPropertyChanged();
             }
-        }*/
+        }
         public ScheduleViewModel(DrivingSchoolAppWebAPIProxy proxy)
         {
             this.proxy = proxy;
-            //Events = new EventCollection();
+            Events = new EventCollection();
             ReadLessons();
         }
     }

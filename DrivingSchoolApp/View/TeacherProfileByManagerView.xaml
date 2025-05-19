@@ -19,43 +19,43 @@
 
                     <!-- First Name -->
                     <VerticalStackLayout Spacing="5">
-                        <Label Text="שם פרטי" FontAttributes="Bold" />
+                        <Label Text="השם הפרטי של המורה" FontAttributes="Bold" />
                         <Label Text="{Binding FirstName}" Style="{StaticResource entryStyle}" />
                     </VerticalStackLayout>
 
                     <!-- Last Name -->
                     <VerticalStackLayout Spacing="5">
-                        <Label Text="שם משפחה" FontAttributes="Bold" />
+                        <Label Text="שם המשפחה של המורה" FontAttributes="Bold" />
                         <Label Text="{Binding LastName}" Style="{StaticResource entryStyle}" />
                     </VerticalStackLayout>
 
                     <!-- Email -->
                     <VerticalStackLayout Spacing="5">
-                        <Label Text="אימייל" FontAttributes="Bold" />
+                        <Label Text="האימייל של המורה" FontAttributes="Bold" />
                         <Label Text="{Binding Email}" Style="{StaticResource entryStyle}" />
                     </VerticalStackLayout>
 
                     <!-- Phone -->
                     <VerticalStackLayout Spacing="5">
-                        <Label Text="מספר הטלפון האישי שלך" FontAttributes="Bold" />
+                        <Label Text="מספר הטלפון האישי של המורה" FontAttributes="Bold" />
                         <Label Text="{Binding Phone}" Style="{StaticResource entryStyle}" />
                     </VerticalStackLayout>
 
                     <!-- Gender -->
                     <VerticalStackLayout Spacing="5">
-                        <Label Text="המגדר שלך" FontAttributes="Bold" />
+                        <Label Text="המגדר של המורה" FontAttributes="Bold" />
                         <Label Text="{Binding Gender, Converter={StaticResource GenderConverter}}" Style="{StaticResource entryStyle}" />
                     </VerticalStackLayout>
 
                     <!-- Driving Technique -->
                     <VerticalStackLayout Spacing="5">
-                        <Label Text="טכניקת הלימוד שלך" FontAttributes="Bold" />
+                        <Label Text="טכניקת הלימוד של המורה" FontAttributes="Bold" />
                         <Label Text="{Binding DrivingTechnic, Converter={StaticResource TechniqueConverter}}" Style="{StaticResource entryStyle}" />
                     </VerticalStackLayout>
 
                     <!-- Way to Pay -->
                     <VerticalStackLayout Spacing="5">
-                        <Label Text="דרך התשלום שלך" FontAttributes="Bold" />
+                        <Label Text="דרך התשלום של המורה" FontAttributes="Bold" />
                         <Label Text="{Binding WayToPay, Converter={StaticResource PaymentConverter}}" Style="{StaticResource entryStyle}" />
                     </VerticalStackLayout>
 

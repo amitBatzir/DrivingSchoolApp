@@ -24,8 +24,21 @@ namespace DrivingSchoolApp.ViewModels
             //ProfileCommand = new Command(OnProfile);
             SelectedStudent = null;
             LoadStudents();
+            GoToProfileCommand = new Command<Student>(OnGoToProfile);
 
-
+        }
+        public ICommand GoToProfileCommand { get; }
+        public async void OnGoToProfile(Student s)
+        {
+            if (s != null)
+            {
+                var navParam = new Dictionary<string, object>
+                {
+                    {"selectedStudent",s}
+                };
+                await Shell.Current.GoToAsync("StudentProfileByTeacherView", navParam);
+                SelectedStudent = null;
+            }
         }
 
         private ObservableCollection<Student> students;
@@ -50,23 +63,24 @@ namespace DrivingSchoolApp.ViewModels
 
                 if (value != null)
                 {
-                    OpenProfilePage();
+                    OnGoToProfile(selectedStudent);
                 }
             }
         }
-
+        //private async void OnSingleSelection(Student s)
+        //{
+        //    if (s != null)
+        //    {
+        //        var navParam = new Dictionary<string, object>
+        //        {
+        //            {"selectedTeacher",t}
+        //        };
+        //        await Shell.Current.GoToAsync("TeacherProfileView", navParam);
+        //        SelectedTeacher = null;
+        //    }
+        //}
         //This method open the profile page and pass into the page the selected student object
-        private async void OpenProfilePage()
-        {
-            var navParam = new Dictionary<string, object>
-                {
-                    { "selectedStudent", SelectedStudent}
-                };
-            //Navigate to the task details page
-            await Shell.Current.GoToAsync(nameof(StudentProfileView), navParam);
 
-            //SelectedStudent  = null;
-        }
         // פעולה שמחזירה לי רשימת תלמידים ושומרת אותם
         private async void LoadStudents()
         {

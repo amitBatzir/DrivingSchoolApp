@@ -17,13 +17,40 @@ namespace DrivingSchoolApp.Models
         public int StatusId { get; set; }
         public Student? Student { get; set; }
         public Lesson() { }
-      public string Details
+        public string Details
         {
             get
             {
                 return "השיעור שלך בתאריך " + DateOfLesson;
             }
         }
+
+        public string StatusName
+        {
+            get
+            {
+                List<LessonStatuses> stauses = ((App)Application.Current).LessonStatuses;
+                LessonStatuses? status = stauses.Where(s => s.StatusId == this.StatusId).FirstOrDefault();
+                if (status == null)
+                {
+                    return "לא ידוע";
+                }
+                else
+                {
+                    return status.StatusDescription;
+                }
+            }
+        }
+
+        public bool IsPending
+        {
+            get
+            {
+                return this.StatusId == 1;
+            }
+        }
+
+
     }
 
     public class LessonStatuses

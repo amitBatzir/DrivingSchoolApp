@@ -8,7 +8,8 @@
     Title="רשימת תלמידים"
     Padding="15"
     FlowDirection="RightToLeft"
-    BackgroundColor="PowderBlue">
+    BackgroundColor="PowderBlue"
+    x:Name="ThePage">
 
     <VerticalStackLayout Spacing="20">
 
@@ -33,27 +34,43 @@
             </HorizontalStackLayout>
         </Frame>
 
-        <!-- 👦 Students List -->
+        <!--  Student List  -->
         <CollectionView
             Margin="0,10,0,0"
             ItemsSource="{Binding Students}"
-            SelectedItem="{Binding SelectedStudent}"
-            SelectionMode="Single">
+            SelectionMode="None">
+            <!--  Disable built-in selection  -->
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Padding="15"
-                           Margin="0,5"
-                           CornerRadius="10"
-                           HasShadow="True"
-                           BackgroundColor="White"
-                           BorderColor="White">
-                        <VerticalStackLayout>
-                            <Label Text="{Binding FullName}"
-                                   FontSize="15"
-                                   FontAttributes="Bold"
-                                   TextColor="#2E4053" />
-                        </VerticalStackLayout>
+                    <Frame
+                        Margin="0,5"
+                        Padding="15"
+                        BackgroundColor="White"
+                        BorderColor="White"
+                        CornerRadius="10"
+                        HasShadow="True">
+
+                        <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                HorizontalOptions="StartAndExpand"
+                                Text="{Binding FullName}"
+                                TextColor="#2E4053"
+                                VerticalOptions="Center" />
+
+                            <Button
+                                Padding="10,2"
+                                BackgroundColor="#2980B9"
+                                Command="{Binding BindingContext.GoToProfileCommand, Source={x:Reference Name=ThePage}}"
+                                CommandParameter="{Binding .}"
+                                CornerRadius="10"
+                                FontSize="12"
+                                Text="לפרופיל"
+                                TextColor="White" />
+                        </HorizontalStackLayout>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
@@ -61,6 +78,7 @@
 
     </VerticalStackLayout>
 </ContentPage>
+
 
 
 
