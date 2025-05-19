@@ -49,11 +49,52 @@ namespace DrivingSchoolApp.ViewModels
             }
         }
 
+        private string pickupLocation;
+        public string PickupLocation 
+        {
+            get { return pickupLocation; }
+            set
+            {
+                pickupLocation = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string dropoffLocation;
+        public string DropoffLocation
+        {
+            get { return dropoffLocation; }
+            set
+            {
+                dropoffLocation = value;
+                OnPropertyChanged();
+            }
+        }
+
         public Command ScheduleLessonCommand { get; set; }
 
         private async void ScheduleLesson()
         {
+            Lesson l = new Lesson()
+            {
+                DateOfLesson = SelectedPickerDate,
+                StudentId = ((App)Application.Current).LoggedInStudent.UserStudentId,
+                TeacherId = ((App)Application.Current).LoggedInStudent.TeacherId,
+                PickUpLoc = pickupLocation,
+                DropOffLoc = dropoffLocation,
+                StatusId = 1, //Pending
+            };
 
+            l = await proxy.AddLesson(l);
+            if (l != null)
+            {
+                await Shell.Current.Navigation.PopAsync();
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Error", "The Lesson was not scheduled", "ok");
+            }
+            
         }
 
         private List<Lesson> lessons;

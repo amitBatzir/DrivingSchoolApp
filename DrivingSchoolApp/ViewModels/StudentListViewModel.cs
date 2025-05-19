@@ -8,12 +8,13 @@ using System.Windows.Input;
 using DrivingSchoolApp.Models;
 using DrivingSchoolApp.Services;
 using DrivingSchoolApp.View;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace DrivingSchoolApp.ViewModels
 {
     public class StudentListViewModel : ViewModelBase
     {
+        private Manager currentManager;
+        private Teacher currentTeacher;
         private DrivingSchoolAppWebAPIProxy proxy;
         private IServiceProvider serviceProvider;
         public StudentListViewModel(DrivingSchoolAppWebAPIProxy proxy, IServiceProvider serviceProvider)
@@ -23,6 +24,9 @@ namespace DrivingSchoolApp.ViewModels
             Students = new ObservableCollection<Student>();
             //ProfileCommand = new Command(OnProfile);
             SelectedStudent = null;
+            
+            currentTeacher = ((App)Application.Current).LoggedInTeacher;
+            currentManager = ((App)Application.Current).LoggedInManager;
             LoadStudents();
             GoToProfileCommand = new Command<Student>(OnGoToProfile);
 
@@ -84,7 +88,8 @@ namespace DrivingSchoolApp.ViewModels
         // פעולה שמחזירה לי רשימת תלמידים ושומרת אותם
         private async void LoadStudents()
         {
-            List<Student> studentList = await proxy.GetAllStudents();
+            List<Student> studentList = new List<Student>();
+            studentList = await proxy.GetAllStudentsOfSchool();
             if (studentList != null)
             {
                 Students = new ObservableCollection<Student>(studentList);

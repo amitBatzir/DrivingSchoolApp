@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using DrivingSchoolApp.Models;
+using static AndroidX.Activity.Result.Contract.ActivityResultContracts;
 
 namespace DrivingSchoolApp.Services
 {
@@ -528,6 +529,40 @@ namespace DrivingSchoolApp.Services
         #endregion
 
         #region Lessons
+
+        public async Task<Lesson> AddLesson(Lesson lesson)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}AddLesson";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(lesson);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Lesson? result = JsonSerializer.Deserialize<Lesson>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         public async Task<List<Lesson>> GetStudentPreviousLessons(int StudentId)
         {
               //Set URI to the specific function API
@@ -661,11 +696,11 @@ namespace DrivingSchoolApp.Services
         #endregion
 
         // פעולה שמחזירה לי את כל התלמידים של בית הספר
-        public async Task<List<Student>> GetAllStudents()
+        public async Task<List<Student>> GetAllStudentsOfSchool()
         {
 
             //Set URI to the specific function API
-            string url = $"{this.baseUrl}getAllStudents";
+            string url = $"{this.baseUrl}getAllStudentsOfSchool";
             //Check status
             try
             {
