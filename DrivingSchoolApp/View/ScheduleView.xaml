@@ -40,17 +40,30 @@
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="20"
-                                        Text="{Binding Student.FullName}"
+                                        Text="{Binding LessonInfo}"
                                         TextColor="#333" />
-                                    <Button
-                                        IsVisible="{Binding IsPending}"
-                                        Text="Approve"
-                                        BackgroundColor="#4CAF50"
-                                        TextColor="White"
-                                        CornerRadius="20"
-                                        FontSize="14"
-                                        HeightRequest="35"
-                                        HorizontalOptions="Start" />
+
+                                    <!-- Approve and Decline Buttons -->
+                                    <HorizontalStackLayout Spacing="10"
+                                                           IsVisible="{Binding IsPending}">
+                                        <Button
+                                            Text="לאשר"
+                                            BackgroundColor="#4CAF50"
+                                            TextColor="White"
+                                            CornerRadius="20"
+                                            FontSize="14"
+                                            HeightRequest="35"
+                                            HorizontalOptions="Start" />
+                                        <Button
+                                            Text="לדחות"
+                                            BackgroundColor="#F44336"
+                                            TextColor="White"
+                                            CornerRadius="20"
+                                            FontSize="14"
+                                            HeightRequest="35"
+                                            HorizontalOptions="Start" />
+                                    </HorizontalStackLayout>
+
                                 </VerticalStackLayout>
                             </Frame>
                         </DataTemplate>

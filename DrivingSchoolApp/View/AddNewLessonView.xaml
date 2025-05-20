@@ -1,12 +1,67 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DrivingSchoolApp.View.AddNewLessonView"
-             Title="AddNewLessonView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+<ContentPage
+    x:Class="DrivingSchoolApp.View.AddNewLessonView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="קבע שיעור חדש"
+    BackgroundColor="PowderBlue"
+    FlowDirection="RightToLeft"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Date Picker -->
+            <Label Text="בחר תאריך:" FontAttributes="Bold" FontSize="16" />
+            <DatePicker
+                Date="{Binding SelectedDate}"
+                MinimumDate="{x:Static sys:DateTime.Now}" />
+
+            <!-- Available Time Slots -->
+            <Label Text="שיעורים פנויים:" FontAttributes="Bold" FontSize="16" />
+            <CollectionView
+                ItemsSource="{Binding PickerDates}"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedPickerDate}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="3" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="10" Margin="5" BackgroundColor="White">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="20" />
+                            </Border.StrokeShape>
+                            <Label
+                                Text="{Binding StringFormat='{0:HH:mm}'}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Pickup Location -->
+            <Label Text="איסוף מ:" FontAttributes="Bold" FontSize="16" />
+            <Entry Placeholder="הכנס מקום איסוף" PlaceholderColor="DarkBlue" Text="{Binding PickupLocation}" />
+
+
+            <!-- Dropoff Location -->
+            <Label Text="הורדה ב:" FontAttributes="Bold" FontSize="16"/>
+            <Entry Placeholder="הכנס מקום הורדה" PlaceholderColor="DarkBlue" Text="{Binding DropoffLocation}" />
+
+            <!-- Schedule Button -->
+            <Button
+                Text="קבע שיעור"
+                Command="{Binding ScheduleLessonCommand}"
+                BackgroundColor="#2196F3"
+                TextColor="White"
+                CornerRadius="10"
+                HeightRequest="50"
+                FontSize="16" />
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
+

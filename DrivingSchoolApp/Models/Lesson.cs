@@ -17,6 +17,8 @@ namespace DrivingSchoolApp.Models
         public int StatusId { get; set; }
         public Student? Student { get; set; }
         public Lesson() { }
+
+     
         public string Details
         {
             get
@@ -47,6 +49,13 @@ namespace DrivingSchoolApp.Models
             get
             {
                 return this.StatusId == 1;
+            }
+        }
+        public string LessonInfo
+        {
+            get
+            {
+                return Student.FullName + " " + DateOfLesson.TimeOfDay.ToString();
             }
         }
 

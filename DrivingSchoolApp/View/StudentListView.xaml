@@ -5,32 +5,35 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:models="DrivingSchoolApp.ViewModels"
     xmlns:viewmodels="clr-namespace:DrivingSchoolApp.ViewModels"
+    x:Name="ThePage"
     Title="רשימת תלמידים"
     Padding="15"
-    FlowDirection="RightToLeft"
     BackgroundColor="PowderBlue"
-    x:Name="ThePage">
+    FlowDirection="RightToLeft">
 
     <VerticalStackLayout Spacing="20">
 
-        <!-- 🧾 Headline Section -->
-        <Frame BackgroundColor="#ffffff"
-               BorderColor="White"
-               CornerRadius="12"
-               Padding="15"
-               HasShadow="True">
+        <!--  🧾 Headline Section  -->
+        <Frame
+            Padding="15"
+            BackgroundColor="#ffffff"
+            BorderColor="White"
+            CornerRadius="12"
+            HasShadow="True">
 
             <HorizontalStackLayout Spacing="10">
-                <Label Text="מספר התלמידים בבית הספר:"
-                       FontSize="18"
-                       FontAttributes="Bold"
-                       TextColor="#2C3E50"
-                       VerticalOptions="Center" />
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    Text="מספר התלמידים:"
+                    TextColor="#2C3E50"
+                    VerticalOptions="Center" />
 
-                <Label Text="{Binding Students.Count}"
-                       FontSize="18"
-                       TextColor="#34495E"
-                       VerticalOptions="Center" />
+                <Label
+                    FontSize="18"
+                    Text="{Binding Students.Count}"
+                    TextColor="#34495E"
+                    VerticalOptions="Center" />
             </HorizontalStackLayout>
         </Frame>
 
@@ -95,8 +98,10 @@
     FlowDirection="RightToLeft">
 
     <VerticalStackLayout>
-        --><!--    <Label Style="{StaticResource HeadLineStyle}" Text="רשימת התלמידים של בית הספר" />-->
-        <!--  Headline Section  --><!--
+-->
+<!--    <Label Style="{StaticResource HeadLineStyle}" Text="רשימת התלמידים של בית הספר" />-->
+<!--  Headline Section  -->
+<!--
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -119,7 +124,9 @@
                 Text="{Binding Students.Count}" />
         </Grid>
 
-        --><!--  ListView for displaying student names  --><!--
+-->
+<!--  ListView for displaying student names  -->
+<!--
 
 
         <CollectionView

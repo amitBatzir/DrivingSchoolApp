@@ -891,5 +891,52 @@ namespace DrivingSchoolApp.Services
 
         #endregion
 
+        #region approving lessons
+        public async Task<bool> Approvinglessons(int lessonId)
+        {
+            string url = $"{this.baseUrl}approvingLessons?lessonId={lessonId}";
+            try
+            {
+
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> DecliningLessons(int LessonId)
+        {
+            string url = $"{this.baseUrl}decliningLessons?lessonId={LessonId}";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
+
     }
 }

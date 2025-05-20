@@ -88,13 +88,13 @@ namespace DrivingSchoolApp.ViewModels
         // פעולה שמחזירה לי רשימת תלמידים ושומרת אותם
         private async void LoadStudents()
         {
-            List<Student> studentList = new List<Student>();
-            studentList = await proxy.GetAllStudentsOfSchool();
-            if (studentList != null)
+            List<Student> StudentList =  await proxy.GetAllStudentsOfSchool();
+            if (StudentList != null)
             {
-                Students = new ObservableCollection<Student>(studentList);
+                Students = new ObservableCollection<Student>(StudentList);
             }
         }
+        
         //public ICommand ProfileCommand { get; }
         //private void OnProfile()
         //{       
