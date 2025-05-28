@@ -13,6 +13,13 @@ namespace DrivingSchoolApp.ViewModels
 {
     public class ScheduleViewModel:ViewModelBase
     {
+        public ScheduleViewModel(DrivingSchoolAppWebAPIProxy proxy)
+        {
+            this.proxy = proxy;
+            Events = new EventCollection();
+            ReadLessons();
+        }
+
         private List<Lesson> lessons;
         private async void ReadLessons()
         {
@@ -37,8 +44,6 @@ namespace DrivingSchoolApp.ViewModels
             }
 
             Events = events;
-            
-
         }
         private DrivingSchoolAppWebAPIProxy proxy;
 
@@ -55,11 +60,6 @@ namespace DrivingSchoolApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        public ScheduleViewModel(DrivingSchoolAppWebAPIProxy proxy)
-        {
-            this.proxy = proxy;
-            Events = new EventCollection();
-            ReadLessons();
-        }
+  
     }
 }
