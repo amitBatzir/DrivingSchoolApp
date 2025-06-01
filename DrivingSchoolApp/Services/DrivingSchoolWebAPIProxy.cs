@@ -8,7 +8,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using DrivingSchoolApp.Models;
-using static AndroidX.Activity.Result.Contract.ActivityResultContracts;
 
 namespace DrivingSchoolApp.Services
 {
@@ -595,8 +594,6 @@ namespace DrivingSchoolApp.Services
             }
         }
 
-        
-
         public async Task<List<Lesson>> GetFutureLessons()
         {
 
@@ -693,10 +690,11 @@ namespace DrivingSchoolApp.Services
                 return null;
             }
         }
-        #endregion
+   
+            #endregion
 
-        // פעולה שמחזירה לי את כל התלמידים של בית הספר
-        public async Task<List<Student>> GetAllStudentsOfSchool()
+            // פעולה שמחזירה לי את כל התלמידים של בית הספר
+            public async Task<List<Student>> GetAllStudentsOfSchool()
         {
 
             //Set URI to the specific function API
@@ -892,6 +890,37 @@ namespace DrivingSchoolApp.Services
         #endregion
 
         #region approving lessons
+        public async Task<List<Lesson>> ShowPendingLessons()
+        {
+
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}ShowPendingLessons";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Lesson>? result = JsonSerializer.Deserialize<List<Lesson>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         public async Task<bool> Approvinglessons(int lessonId)
         {
             string url = $"{this.baseUrl}approvingLessons?lessonId={lessonId}";

@@ -26,6 +26,16 @@ namespace DrivingSchoolApp.Models
                 return "השיעור שלך בתאריך " + DateOfLesson;
             }
         }
+        public string DetailsForTeacher
+        {
+            get
+            {
+                if (Student == null)
+                    return "מידע על השיעור אינו זמין"; // "Student info not available"
+
+                return Student.FullName + " רוצה לקבוע שיעור בתאריך " + DateOfLesson;
+            }
+        }
 
         public string StatusName
         {

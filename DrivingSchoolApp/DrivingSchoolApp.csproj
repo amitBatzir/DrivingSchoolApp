@@ -138,6 +138,9 @@
 	  <MauiXaml Update="View\SchoolsListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\ShowPendingLessonsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\StudentListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

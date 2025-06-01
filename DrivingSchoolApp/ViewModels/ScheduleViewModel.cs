@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace DrivingSchoolApp.ViewModels
 {
@@ -18,6 +19,30 @@ namespace DrivingSchoolApp.ViewModels
             this.proxy = proxy;
             Events = new EventCollection();
             ReadLessons();
+            ShowPendingLessonCommand = new Command(OnShowPendingLessons);
+            ApproveCommand = new Command<Lesson>(OnApproving);
+            DeclineCommand = new Command<Lesson>(OnDeclining);
+            ShowLessonDetailsCommand = new Command<Lesson>(OnShowLessonDetails);
+
+
+        }
+        public Command ShowLessonDetailsCommand { get; }
+         private async void OnShowLessonDetails(Lesson lesson)
+        {
+            if (lesson == null) return;
+
+            string message = $"שיעור עם {lesson.Student?.FullName ?? "תלמיד לא ידוע"}\n" +
+                             $"תאריך: {lesson.DateOfLesson}\n" +
+                             $"מיקום איסוף: {lesson.PickUpLoc}\n" +
+                             $"מיקום הורדה: {lesson.DropOffLoc}";
+
+            await Application.Current.MainPage.DisplayAlert("פרטי שיעור", message, "סגור");
+        }
+
+        public Command ShowPendingLessonCommand { get; set; }
+        private async void OnShowPendingLessons()
+        {
+            await Shell.Current.GoToAsync("ShowPendingLessonsView");
         }
 
         private List<Lesson> lessons;
@@ -60,6 +85,37 @@ namespace DrivingSchoolApp.ViewModels
                 OnPropertyChanged();
             }
         }
-  
+        public Command ApproveCommand { get; }
+        public async void OnApproving(Lesson l)
+        {
+            bool isWorking = await proxy.Approvinglessons(l.LessonId);
+            if (isWorking == true)
+            {
+                await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"השיעור נקבע בהצלחה", "ok");
+                //PendingLessons.Remove(l);
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("שגיאה", $"קרתה שגיאה במהלך קביעת השיעור", "ok");
+
+            }
+        }
+
+        public Command DeclineCommand { get; }
+        public async void OnDeclining(Lesson l) // להבין עם עופר איך אני מורידה מרשימת השיעורים שמחכים לאישור אחרי
+        {
+            bool isWorking = await proxy.DecliningLessons(l.LessonId);
+            if (isWorking == true)
+            {
+                await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"השיעור נדחה בהצלחה", "ok");
+                //PendingLessons.Remove(l);
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("שגיאה", $"קרתה שגיאה במהלך הדחיה", "ok");
+
+            }
+        }
+
     }
 }

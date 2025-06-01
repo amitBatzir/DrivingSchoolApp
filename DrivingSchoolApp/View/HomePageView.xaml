@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:lottie="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
              x:Class="DrivingSchoolApp.View.HomePageView"
              Title="HomePageView"
-             BackgroundColor="White">
+             BackgroundColor="PowderBlue">
 
-    <VerticalStackLayout Padding="20" Spacing="20">
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
 
-        <!-- Car animation at the top -->
-        <lottie:LottieAnimationView 
-            x:Name="CarAnimation"
-            HeightRequest="150"
-            AutoPlay="True"
-            Loop="True"
-            Animation="car_animation.json" />
+        <!-- Headline at the top -->
+        <Label Grid.Row="0" Text="ברוכים הבאים לבית הספר " FontSize="28" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,20,0,10" />
+        <Label Grid.Row="0"
+               Text="{Binding SchoolName}"
+               FontSize="28"
+               HorizontalOptions="Center"
+               FontAttributes="Bold"
+               Margin="20,20,20,20" />
 
-        <!-- Scrollable questions in the middle -->
-        <ScrollView Orientation="Horizontal" HeightRequest="200">
+        <!-- Centered question scroll view -->
+        <ScrollView Grid.Row="1"
+                    Orientation="Horizontal"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    HeightRequest="200">
             <HorizontalStackLayout Spacing="15">
                 <Frame BackgroundColor="#f0f0f0" Padding="15" CornerRadius="10">
                     <Label Text="How many lessons do I need?" FontSize="16" />
@@ -31,10 +35,9 @@
                 <Frame BackgroundColor="#f0f0f0" Padding="15" CornerRadius="10">
                     <Label Text="Can I choose my instructor?" FontSize="16" />
                 </Frame>
-                <!-- Add more questions if you'd like -->
             </HorizontalStackLayout>
         </ScrollView>
 
-    </VerticalStackLayout>
+    </Grid>
 
 </ContentPage>

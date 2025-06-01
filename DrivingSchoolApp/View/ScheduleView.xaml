@@ -1,76 +1,75 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="DrivingSchoolApp.View.ScheduleView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:cal="clr-namespace:Plugin.Maui.Calendar.Controls;assembly=Plugin.Maui.Calendar"
+    xmlns:viewModels="clr-namespace:DrivingSchoolApp.ViewModels"
     x:Name="ThePage"
-    Title="Schedule">
+    Title="לוח זמנים"
+    BackgroundColor="#F7F7F7">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="20"
-            Spacing="20"
-            BackgroundColor="#F7F7F7">
+    <Grid RowDefinitions="Auto,*">
+        <!-- Top-right Pending Icon -->
+        <Grid>
+            <Button
+                Command="{Binding ShowPendingLessonCommand}"
+                ImageSource="wallclock.png"
+                HorizontalOptions="End"
+                HeightRequest="60"
+                WidthRequest="60"
+                BackgroundColor="Transparent"
+                BorderColor="Transparent"
+                BorderWidth="0"
+                Padding="0" />
+        </Grid>
 
-            <!-- Calendar Control -->
-            <Frame
-                HasShadow="True"
-                CornerRadius="10"
-                Padding="10"
-                BackgroundColor="White">
-                <cal:Calendar
-                    CalendarSectionShown="True"
-                    Events="{Binding Events}"
-                    EventsScrollViewVisible="True"
-                    SelectedDayBackgroundColor="#FF6B6B"
-                    TodayOutlineColor="#FF6B6B"
-                    BackgroundColor="Transparent">
-                    <cal:Calendar.EventTemplate>
-                        <DataTemplate>
-                            <!-- Event Card -->
-                            <Frame
-                                Margin="5"
-                                Padding="10"
-                                BackgroundColor="#FFF"
-                                BorderColor="#E0E0E0"
-                                CornerRadius="8"
-                                HasShadow="True">
-                                <VerticalStackLayout Spacing="6">
-                                    <Label
-                                        FontAttributes="Bold"
-                                        FontSize="20"
-                                        Text="{Binding LessonInfo}"
-                                        TextColor="#333" />
+        <!-- Main Content Area -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20" Spacing="20">
+                <!-- Calendar Control -->
+                <Frame HasShadow="True" CornerRadius="10" Padding="10" BackgroundColor="White">
+                    <cal:Calendar
+                        CalendarSectionShown="True"
+                        Events="{Binding Events}"
+                        EventsScrollViewVisible="True"
+                        SelectedDayBackgroundColor="#FF6B6B"
+                        TodayOutlineColor="#FF6B6B"
+                        BackgroundColor="Transparent">
+                        <cal:Calendar.EventTemplate>
+                            <DataTemplate>
+                                <!-- Event Card with Tap Gesture -->
+                                <Frame
+                                    Margin="5"
+                                    Padding="10"
+                                    BackgroundColor="#FFF"
+                                    BorderColor="#E0E0E0"
+                                    CornerRadius="8"
+                                    HasShadow="True">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            Command="{Binding BindingContext.ShowLessonDetailsCommand, Source={x:Reference ThePage}}"
+                                            CommandParameter="{Binding .}" />
+                                    </Frame.GestureRecognizers>
 
-                                    <!-- Approve and Decline Buttons -->
-                                    <HorizontalStackLayout Spacing="10"
-                                                           IsVisible="{Binding IsPending}">
-                                        <Button
-                                            Text="לאשר"
-                                            BackgroundColor="#4CAF50"
-                                            TextColor="White"
-                                            CornerRadius="20"
-                                            FontSize="14"
-                                            HeightRequest="35"
-                                            HorizontalOptions="Start" />
-                                        <Button
-                                            Text="לדחות"
-                                            BackgroundColor="#F44336"
-                                            TextColor="White"
-                                            CornerRadius="20"
-                                            FontSize="14"
-                                            HeightRequest="35"
-                                            HorizontalOptions="Start" />
-                                    </HorizontalStackLayout>
+                                    <VerticalStackLayout Spacing="6">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="20"
+                                            Text="{Binding DetailsForTeacher}"
+                                            TextColor="#333" />
 
-                                </VerticalStackLayout>
-                            </Frame>
-                        </DataTemplate>
-                    </cal:Calendar.EventTemplate>
-                </cal:Calendar>
-            </Frame>
-
-        </VerticalStackLayout>
-    </ScrollView>
+                                        <!-- Approve/Decline (optional) -->
+                                        <HorizontalStackLayout Spacing="10" IsVisible="{Binding IsPending}">
+                                            <Button Text="לאשר" BackgroundColor="#4CAF50" TextColor="White" />
+                                            <Button Text="לדחות" BackgroundColor="#F44336" TextColor="White" />
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </cal:Calendar.EventTemplate>
+                    </cal:Calendar>
+                </Frame>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

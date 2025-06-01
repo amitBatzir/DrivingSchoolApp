@@ -1,14 +1,12 @@
-using DrivingSchoolApp.Models;
 using DrivingSchoolApp.ViewModels;
 
 namespace DrivingSchoolApp.View;
 
-public partial class ScheduleView : ContentPage
+public partial class ShowPendingLessonsView : ContentPage
 {
-	public ScheduleView(ScheduleViewModel vm)
+	public ShowPendingLessonsView(ShowPendingLessonsViewModel vm)
 	{
 		this.BindingContext = vm;
 		InitializeComponent();
 	}
-
 }

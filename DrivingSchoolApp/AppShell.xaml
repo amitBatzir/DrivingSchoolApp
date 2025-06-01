@@ -12,7 +12,7 @@
 
         
         <ShellContent   
- Title="עמוד בית"
+ Title=" בית"
  ContentTemplate="{DataTemplate views:HomePageView}"
  Route="approving"
  Icon="home.png" 
@@ -78,17 +78,17 @@ Route="TeachersList"
        IsVisible="{Binding NotStudent}"/>
 
         <ShellContent   
-Title=" המתנה"
+Title=" בהמתנה"
 ContentTemplate="{DataTemplate views:ApprovingTeachersView}"
  Icon="registered.png"
 Route="ApprovingTeachers"
   IsVisible="{Binding IsManager}"/>
        
-        <ShellContent    
+        <!--<ShellContent    
 Title="היסטוריית שיעורים"
 ContentTemplate="{DataTemplate views:TeacherLessonHistoryView}"
 Route="TeacherLessonHistory"
-IsVisible="{Binding IsTeacher}" />
+IsVisible="{Binding IsTeacher}" />-->
 
         <ShellContent
       Title="לוח זמנים"
@@ -99,21 +99,13 @@ IsVisible="{Binding IsTeacher}" />
         
     
     <ShellContent   
-  Title="  המתנה"
+  Title="  בהמתנה"
   ContentTemplate="{DataTemplate views:ApprovingStudentsView}"
   Route="ApprovingStudents"
      Icon="registered.png" 
     IsVisible="{Binding IsTeacher}"/>
 
-    <ShellContent   
-Title="תגובות"
-ContentTemplate="{DataTemplate views:CommentsView}"
-Route="Comments" 
-      IsVisible="{Binding IsTeacher}"/>
 
-    
-      
-   
 
     <!--מנהל אפליקציה-->
     <ShellContent   
