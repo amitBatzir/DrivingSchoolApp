@@ -56,7 +56,7 @@
 
 
         <ShellContent   
-Title="רשימת מורים"
+Title=" מורים"
 ContentTemplate="{DataTemplate views:TeachersListView}"
 Route="TeachersList" 
        Icon="teacher.png"
@@ -71,14 +71,14 @@ Route="TeachersList"
 
 
         <ShellContent   
- Title="רשימת תלמידים"
+ Title=" תלמידים"
  ContentTemplate="{DataTemplate views:StudentListView}"
  Route="StudentList" 
        Icon="graduated.png"
        IsVisible="{Binding NotStudent}"/>
 
         <ShellContent   
-Title="מורים בהמתנה"
+Title=" המתנה"
 ContentTemplate="{DataTemplate views:ApprovingTeachersView}"
  Icon="registered.png"
 Route="ApprovingTeachers"
@@ -99,7 +99,7 @@ IsVisible="{Binding IsTeacher}" />
         
     
     <ShellContent   
-  Title=" תלמידים בהמתנה"
+  Title="  המתנה"
   ContentTemplate="{DataTemplate views:ApprovingStudentsView}"
   Route="ApprovingStudents"
      Icon="registered.png" 
