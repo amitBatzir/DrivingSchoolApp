@@ -23,7 +23,7 @@
         <CollectionView
             Margin="0,10,0,0"
             ItemsSource="{Binding Packages}"
-            SelectionMode="None">
+            SelectionMode="Single" BindingContext="SelectedPackage">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame

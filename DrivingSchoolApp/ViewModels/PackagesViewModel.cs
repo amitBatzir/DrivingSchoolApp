@@ -7,11 +7,13 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace DrivingSchoolApp.ViewModels
 {
     public class PackagesViewModel:ViewModelBase
     {
+        private Package Package;
         private DrivingSchoolAppWebAPIProxy proxy;
         private  IServiceProvider serviceProvider;
         public PackagesViewModel(DrivingSchoolAppWebAPIProxy proxy, IServiceProvider serviceProvider)
@@ -19,10 +21,21 @@ namespace DrivingSchoolApp.ViewModels
             this.proxy = proxy;
             this.serviceProvider = serviceProvider;
             Packages = new ObservableCollection<Package>();
+
             LoadPackages(((App)Application.Current).LoggedInManager.UserManagerId);
             ShowPackagetailsCommand = new Command<Package>(OnShowPackagetails);
+
+            Title="";
+            Text = "";
+
+            TitleError = "נדרש שם לחבילה";
+            TextError = "נדרש תיאור לחבילה";
+
+            Change = false;
             EditCommand = new Command(OnEdit);
             SaveCommand = new Command(OnSave);
+            CancelCommand = new Command(OnCancel);
+
 
         }
 
@@ -165,22 +178,108 @@ namespace DrivingSchoolApp.ViewModels
         }
 
         private string textError;
-        z
+        
         public string TextError
         {
-            get => titleError;
+            get => textError;
             set
             {
-                titleError = value;
-                OnPropertyChanged("TitleError");
+                textError = value;
+                OnPropertyChanged("TextError");
             }
         }
 
-        private void ValidateTitle()
+        private void ValidateText()
         {
-            this.ShowTitleError = string.IsNullOrEmpty(Title);
+            this.ShowTextError = string.IsNullOrEmpty(Text);
         }
         #endregion
+
+        #region Change
+        private bool change;
+
+        public bool Change
+        {
+            get => change;
+            set
+            {
+                change = value;
+                OnPropertyChanged("Change");
+                OnPropertyChanged("ShowEditButton");
+            }
+        }
+        public bool ShowEditButton
+        {
+            get => !change;
+        }
+        #endregion
+
+
+        public Command SaveCommand { get; }
+
+        //Define a method that will be called when the register button is clicked
+        public async void OnSave()
+        {
+
+            ValidateText();
+            ValidateTitle();
+            
+
+            if (!ShowTitleError && !ShowTextError)
+            {
+                Package p = SelectedPackage;
+                p.Title = Title;
+                p.TheText = Text;
+               
+                //Call the Register method on the proxy to register the new user
+                InServerCall = true;
+                bool success = await proxy.UpdatePackage(p);
+
+                Change = false;
+                //If the save was successful, navigate to the login page
+                if (success)
+                {
+                    // Upload profile imae if needed
+                    //if (!string.IsNullOrEmpty(LocalPhotoPath))
+                    //    {
+                    //        Teacher? updatedTeacher = (Teacher)await proxy.UploadProfileImage(LocalPhotoPath);
+                    //        if (updatedTeacher == null)
+                    //        {
+                    //            await Shell.Current.DisplayAlert("שמור פרופיל", "נתוניך נשמרו אבל תמונת הפרופיל לא הוחלפה", "ok");
+                    //        }
+                    //        else
+                    //        {
+                    //            Teacher.ProfilePic = updatedTeacher.ProfilePic;
+                    //            UpdatePhotoURL(Teacher.ProfilePic);
+                    //        }
+                    //    }
+                    InServerCall = false;
+                    await Shell.Current.DisplayAlert("שמור", "החבילה עודכנה בהצלחה", "ok");
+                }
+                else
+                {
+                    InServerCall = false;
+                    //If the registration failed, display an error message
+                    string errorMsg = "עדכון החבילה נכשל. בבקשה נסה שוב";
+                    await Shell.Current.DisplayAlert("עדכון חבילה", errorMsg, "אוקיי");
+                }
+            }
+        }
+        public ICommand CancelCommand { get; }
+
+        public async void OnCancel()
+        {
+            await Shell.Current.GoToAsync("PackagesView");
+        }
+
+        public Command EditCommand { get; }
+
+        public void OnEdit()
+        {
+            Change = true;
+        }
+
+
 
         public Command ShowPackagetailsCommand { get; }
         private async void OnShowPackagetails(Package Package)

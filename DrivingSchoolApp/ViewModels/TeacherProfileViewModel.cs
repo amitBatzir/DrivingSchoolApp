@@ -635,7 +635,7 @@ namespace DrivingSchoolApp.ViewModels
 
         public async void OnCancel()
         {
-            await Shell.Current.GoToAsync("ProfileView");
+            await Shell.Current.GoToAsync("TeacherProfileView");
         }
 
     }
