@@ -1,5 +1,7 @@
-﻿using DrivingSchoolApp.Models;
+﻿using Android.Locations;
+using DrivingSchoolApp.Models;
 using DrivingSchoolApp.Services;
+using IntelliJ.Lang.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +16,19 @@ namespace DrivingSchoolApp.ViewModels
         private List<Lesson> teacherLessons;
         private DrivingSchoolAppWebAPIProxy proxy;
         private IServiceProvider serviceProvider;
+     
+        public AddNewLessonViewModel(DrivingSchoolAppWebAPIProxy proxy, IServiceProvider serviceProvider)
+        {
+            this.proxy = proxy;
+            this.serviceProvider = serviceProvider;
+            lessons = new List<Lesson>();
+            PickerDates = new ObservableCollection<DateTime>();
+            ReadTeacherLessons();
+            PickUpLocationError = "מקום איסוף נדרש";
+            DropoffLocationError = "מקום הורדה נדרש";
+            ScheduleLessonCommand = new Command(OnScheduleLesson);
+        }
+
 
         private DateTime selectedDate;
         public DateTime SelectedDate //The date selected by user in the date picker
@@ -28,7 +43,7 @@ namespace DrivingSchoolApp.ViewModels
         }
 
         private DateTime selectedPickerDate;
-        public DateTime SelectedPickerDate //the selected date and time for the lasson
+        public DateTime SelectedPickerDate //the selected date and time for the lesson
         {
             get { return selectedPickerDate; }
             set
@@ -49,14 +64,60 @@ namespace DrivingSchoolApp.ViewModels
             }
         }
 
-        private string pickupLocation;
-        public string PickupLocation 
+        #region Pick Up Location
+        private bool showPickUpLocationError;
+
+        public bool ShowPickUpLocationError
         {
-            get { return pickupLocation; }
+            get => showPickUpLocationError;
             set
             {
-                pickupLocation = value;
+                showPickUpLocationError = value;
+                OnPropertyChanged("ShowPickUpLocationError");
+            }
+        }
+
+        private string pickUpLocation;
+        public string PickUpLocation
+        {
+            get { return pickUpLocation; }
+            set
+            {
+                pickUpLocation = value;
+                ValidatePickUpLocation();
                 OnPropertyChanged();
+            }
+        }
+
+        private string pickUpLocationError;
+
+        public string PickUpLocationError
+        {
+            get => pickUpLocationError;
+            set
+            {
+                pickUpLocationError = value;
+                OnPropertyChanged("PickUpLocationError");
+            }
+        }
+
+        private void ValidatePickUpLocation()
+        {
+            this.ShowPickUpLocationError = string.IsNullOrEmpty(PickUpLocation);
+        }
+
+        #endregion
+
+        #region Drop Off Location
+        private bool showDropoffLocationError;
+
+        public bool ShowDropoffLocationError
+        {
+            get => showDropoffLocationError;
+            set
+            {
+                showDropoffLocationError = value;
+                OnPropertyChanged("ShowDropoffLocationError");
             }
         }
 
@@ -67,21 +128,52 @@ namespace DrivingSchoolApp.ViewModels
             set
             {
                 dropoffLocation = value;
+                ValidatePDropoffLocation();
                 OnPropertyChanged();
             }
         }
 
+        private string dropoffLocationError;
+
+        public string DropoffLocationError
+        {
+            get => dropoffLocationError;
+            set
+            {
+                dropoffLocationError = value;
+                OnPropertyChanged("DropoffLocationError");
+            }
+        }
+
+        private void ValidatePDropoffLocation()
+        {
+            this.ShowDropoffLocationError = string.IsNullOrEmpty(DropoffLocation);
+        }
+
+        #endregion
+
+
+
         public Command ScheduleLessonCommand { get; set; }
 
-        private async void ScheduleLesson()
-        {
+        private async void OnScheduleLesson()
+        {       
+            ValidatePDropoffLocation();
+            ValidatePickUpLocation();
+
+            if (ShowPickUpLocationError || ShowDropoffLocationError /*|| SelectedPickerDate == default*/)
+            {
+                await Shell.Current.DisplayAlert("שגיאה", "אנא מלא את כל הפרטים", "אישור");
+                return;
+            }
+
             Lesson l = new Lesson()
             {
                 DateOfLesson = SelectedPickerDate,
                 StudentId = ((App)Application.Current).LoggedInStudent.UserStudentId,
                 TeacherId = ((App)Application.Current).LoggedInStudent.TeacherId,
-                PickUpLoc = pickupLocation,
-                DropOffLoc = dropoffLocation,
+                PickUpLoc = PickUpLocation,
+                DropOffLoc = DropoffLocation,
                 StatusId = 1, //Pending
             };
 
@@ -92,7 +184,7 @@ namespace DrivingSchoolApp.ViewModels
             }
             else
             {
-                await Shell.Current.DisplayAlert("Error", "The Lesson was not scheduled", "ok");
+                await Shell.Current.DisplayAlert("שגיאה", "בעיה בקביעת השיעור", "אוקיי");
             }
             
         }
@@ -122,14 +214,6 @@ namespace DrivingSchoolApp.ViewModels
                 }
             }
 
-        }
-        public AddNewLessonViewModel(DrivingSchoolAppWebAPIProxy proxy, IServiceProvider serviceProvider)
-        {
-            this.proxy = proxy;
-            this.serviceProvider = serviceProvider;
-            lessons = new List<Lesson>();
-            PickerDates = new ObservableCollection<DateTime>(); 
-            ReadTeacherLessons();
         }
 
     }

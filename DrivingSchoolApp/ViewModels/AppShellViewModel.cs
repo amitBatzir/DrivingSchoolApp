@@ -11,11 +11,11 @@ namespace DrivingSchoolApp.ViewModels
 {
     public class AppShellViewModel : ViewModelBase
     {
-        private Student? currentStudent;     
+        private Student? currentStudent = null;     
 
-        private Teacher? currentTeacher;
+        private Teacher? currentTeacher = null;
 
-        private Manager? currentManager;
+        private Manager? currentManager = null;
 
         private IServiceProvider serviceProvider;
 

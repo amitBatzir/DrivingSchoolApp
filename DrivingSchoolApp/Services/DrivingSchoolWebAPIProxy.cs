@@ -71,7 +71,6 @@ namespace DrivingSchoolApp.Services
                 //Check status
                 if (response.IsSuccessStatusCode)
                 {
-
                     //Extract the content as string
                     string resContent = await response.Content.ReadAsStringAsync();
                     //Desrialize result
@@ -528,11 +527,10 @@ namespace DrivingSchoolApp.Services
         #endregion
 
         #region Lessons
-
         public async Task<Lesson> AddLesson(Lesson lesson)
         {
             //Set URI to the specific function API
-            string url = $"{this.baseUrl}AddLesson";
+            string url = $"{this.baseUrl}addLesson";
             try
             {
                 //Call the server API
@@ -690,11 +688,38 @@ namespace DrivingSchoolApp.Services
                 return null;
             }
         }
-   
-            #endregion
 
-            // פעולה שמחזירה לי את כל התלמידים של בית הספר
-            public async Task<List<Student>> GetAllStudentsOfSchool()
+        #endregion
+
+        #region Package
+        public async Task<bool> UpdatePackage(Package package)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}UpdatePackage";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(package);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
+        // פעולה שמחזירה לי את כל התלמידים של בית הספר
+        public async Task<List<Student>> GetAllStudentsOfSchool()
         {
 
             //Set URI to the specific function API

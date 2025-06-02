@@ -15,6 +15,20 @@ namespace DrivingSchoolApp.Models
 
         public Package() { }
        
+       public string PackageTitle
+        {
+            get
+            {
+                return Title;
+            }
+        }
+        public string PackageText
+        {
+            get
+            {
+                return TheText;
+            }
+        }
 
 
     }

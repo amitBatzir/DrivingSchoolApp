@@ -160,7 +160,7 @@ namespace DrivingSchoolApp.ViewModels
                     ErrorMsg = "";
                     //Navigate to the main page
                     AppShell shell = serviceProvider.GetService<AppShell>();
-                    HomePageViewModel homePageViewModel = serviceProvider.GetService<HomePageViewModel>();
+                    //HomePageViewModel homePageViewModel = serviceProvider.GetService<HomePageViewModel>();
                    /* homePageViewModel.Refresh();*/ //Refresh data and user in the homepageViewModel as it is a singleton
                     ((App)Application.Current).MainPage = shell;
                     //Shell.Current.FlyoutIsPresented = false; //close the flyout

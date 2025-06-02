@@ -1050,7 +1050,7 @@ namespace DrivingSchoolApp.ViewModels
             set
             {
                 selectedPackage = value;
-                ValidateSelectedTeacher();
+                ValidateSelectedPackage();
                 OnPropertyChanged("SelectedPackage");
             }
         }

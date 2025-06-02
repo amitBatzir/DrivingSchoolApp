@@ -44,12 +44,18 @@
 
             <!-- Pickup Location -->
             <Label Text="איסוף מ:" FontAttributes="Bold" FontSize="16" />
-            <Entry Placeholder="הכנס מקום איסוף" PlaceholderColor="DarkBlue" Text="{Binding PickupLocation}" />
-
+            <Label  Grid.Column="0" IsVisible="{Binding ShowPickUpLocationError}" Style="{StaticResource labelErrorStyle}" Text="{Binding PickUpLocationError}" />
+            <Entry Placeholder="הכנס מקום איסוף" PlaceholderColor="DarkBlue" Text="{Binding PickUpLocation}" />
 
             <!-- Dropoff Location -->
             <Label Text="הורדה ב:" FontAttributes="Bold" FontSize="16"/>
+            <Label  Grid.Column="1" IsVisible="{Binding ShowDropoffLocationnError}" Style="{StaticResource labelErrorStyle}" Text="{Binding DropoffLocationError}" />
             <Entry Placeholder="הכנס מקום הורדה" PlaceholderColor="DarkBlue" Text="{Binding DropoffLocation}" />
+
+
+          
+
+
 
             <!-- Schedule Button -->
             <Button

@@ -26,6 +26,13 @@ namespace DrivingSchoolApp.Models
                 return "השיעור שלך בתאריך " + DateOfLesson;
             }
         }
+        public string SchduledLesson
+        {
+            get
+            {
+                return "שיעור עם " + Student.FullName + " בתאריך " + DateOfLesson;
+            }
+        }
         public string DetailsForTeacher
         {
             get

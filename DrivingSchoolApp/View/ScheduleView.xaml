@@ -15,11 +15,12 @@
                 Command="{Binding ShowPendingLessonCommand}"
                 ImageSource="wallclock.png"
                 HorizontalOptions="End"
-                HeightRequest="60"
-                WidthRequest="60"
+                HeightRequest="35"
+                WidthRequest="35"
                 BackgroundColor="Transparent"
                 BorderColor="Transparent"
                 BorderWidth="0"
+                Margin="15"
                 Padding="0" />
         </Grid>
 
@@ -55,13 +56,13 @@
                                         <Label
                                             FontAttributes="Bold"
                                             FontSize="20"
-                                            Text="{Binding DetailsForTeacher}"
+                                            Text="{Binding SchduledLesson}"
                                             TextColor="#333" />
 
                                         <!-- Approve/Decline (optional) -->
                                         <HorizontalStackLayout Spacing="10" IsVisible="{Binding IsPending}">
-                                            <Button Text="לאשר" BackgroundColor="#4CAF50" TextColor="White" />
-                                            <Button Text="לדחות" BackgroundColor="#F44336" TextColor="White" />
+                                            <Button Text="לאשר"   Command="{Binding BindingContext.ApproveCommand, Source={x:Reference ThePage}}" BackgroundColor="#4CAF50" TextColor="White" />
+                                            <Button Text="לדחות" Command="{Binding BindingContext.DeclineCommand, Source={x:Reference ThePage}}"  BackgroundColor="#F44336" TextColor="White" />
                                         </HorizontalStackLayout>
                                     </VerticalStackLayout>
                                 </Frame>

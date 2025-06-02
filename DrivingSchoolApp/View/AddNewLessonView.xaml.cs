@@ -19,6 +19,6 @@ public partial class AddNewLessonView : ContentPage
     {
         this.BindingContext = vm;
         InitializeComponent();
-        this.BindingContext = new AddNewLessonViewModel(proxy, serviceProvider);
+        //this.BindingContext = new AddNewLessonViewModel(proxy, serviceProvider);
     }
 }

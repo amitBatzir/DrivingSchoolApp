@@ -21,7 +21,18 @@ namespace DrivingSchoolApp.ViewModels
             LoadPendingLessons();
             ApproveCommand = new Command<Lesson>(OnApproving);
             DeclineCommand = new Command<Lesson>(OnDeclining);
+            ShowLessonDetailsCommand = new Command<Lesson>(OnShowLessonDetails);
             //Check = false;
+        }
+        public Command ShowLessonDetailsCommand { get; }
+        private async void OnShowLessonDetails(Lesson lesson)
+        {
+            if (lesson == null) return;
+
+            string message = $"מיקום איסוף: {lesson.PickUpLoc}\n" +
+                             $"מיקום הורדה: {lesson.DropOffLoc}";
+
+            await Application.Current.MainPage.DisplayAlert("פרטי שיעור", message, "סגור");
         }
         private ObservableCollection<Lesson> pendingLessons;
         public ObservableCollection<Lesson> PendingLessons
