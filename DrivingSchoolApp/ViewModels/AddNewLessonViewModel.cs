@@ -1,7 +1,5 @@
-﻿using Android.Locations;
-using DrivingSchoolApp.Models;
+﻿using DrivingSchoolApp.Models;
 using DrivingSchoolApp.Services;
-using IntelliJ.Lang.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

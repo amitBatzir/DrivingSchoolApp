@@ -279,6 +279,18 @@ namespace DrivingSchoolApp.ViewModels
             Change = true;
         }
 
+        #region is editing
+        private bool isEditing;
+        public bool IsEditing
+        {
+            get => isEditing;
+            set
+            {
+                isEditing = value;
+                OnPropertyChanged(); // Make sure Package implements INotifyPropertyChanged
+            }
+        }
+        #endregion
 
 
         public Command ShowPackagetailsCommand { get; }
