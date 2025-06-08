@@ -717,6 +717,41 @@ namespace DrivingSchoolApp.Services
                 return false;
             }
         }
+
+        public async Task<Package> addPackage(Package p)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}addPackage";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(p);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    Package? result = JsonSerializer.Deserialize<Package>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         #endregion
         // פעולה שמחזירה לי את כל התלמידים של בית הספר
         public async Task<List<Student>> GetAllStudentsOfSchool()

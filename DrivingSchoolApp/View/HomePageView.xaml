@@ -3,41 +3,113 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DrivingSchoolApp.View.HomePageView"
              Title="HomePageView"
+             FlowDirection="RightToLeft"
              BackgroundColor="PowderBlue">
 
-    <Grid RowDefinitions="Auto,*,Auto" Padding="20">
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="40"
+                             VerticalOptions="CenterAndExpand"
+                             HorizontalOptions="CenterAndExpand">
 
-        <!-- Headline at the top -->
-        <Label Grid.Row="0" Text="ברוכים הבאים לבית הספר " FontSize="28" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,20,0,10" />
-        <Label Grid.Row="0"
-               Text="{Binding SchoolName}"
-               FontSize="28"
-               HorizontalOptions="Center"
-               FontAttributes="Bold"
-               Margin="20,20,20,20" />
+            <!-- Headline section -->
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Label Text="ברוכים הבאים ל DriverSeat!"
+                       FontSize="25"
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"
+                       TextColor="#003366" />
 
-        <!-- Centered question scroll view -->
-        <ScrollView Grid.Row="1"
-                    Orientation="Horizontal"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Center"
-                    HeightRequest="200">
-            <HorizontalStackLayout Spacing="15">
-                <Frame BackgroundColor="#f0f0f0" Padding="15" CornerRadius="10">
-                    <Label Text="How many lessons do I need?" FontSize="16" />
-                </Frame>
-                <Frame BackgroundColor="#f0f0f0" Padding="15" CornerRadius="10">
-                    <Label Text="How much does a lesson cost?" FontSize="16" />
-                </Frame>
-                <Frame BackgroundColor="#f0f0f0" Padding="15" CornerRadius="10">
-                    <Label Text="What do I need to bring to my first lesson?" FontSize="16" />
-                </Frame>
-                <Frame BackgroundColor="#f0f0f0" Padding="15" CornerRadius="10">
-                    <Label Text="Can I choose my instructor?" FontSize="16" />
-                </Frame>
-            </HorizontalStackLayout>
-        </ScrollView>
+                <Label Text="{Binding SchoolName}"
+                       FontSize="24"
+                       HorizontalOptions="Center"
+                       TextColor="#003366"
+                       FontAttributes="Bold"/>
+            </VerticalStackLayout>
 
-    </Grid>
+            <!-- Q&A section -->
+            <ScrollView Orientation="Horizontal" HeightRequest="280">
+                <HorizontalStackLayout Spacing="20" Padding="10">
+
+                    <!-- Q1 -->
+                    <VerticalStackLayout WidthRequest="220" Spacing="8">
+                        <Frame BackgroundColor="White"
+                               Padding="20"
+                               CornerRadius="15"
+                               HasShadow="True"
+                               BorderColor="#cccccc">
+                            <Label Text="כמה שיעורים אני צריך?"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="#333333"
+                                   HorizontalTextAlignment="Center" />
+                        </Frame>
+                        <Label Text="18 שיעורים של שעה, או לחלופין 28 שיעורים של 40 דקות"
+                               FontSize="16"
+                               TextColor="#555555"
+                               HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+
+                    <!-- Q2 -->
+                    <VerticalStackLayout WidthRequest="220" Spacing="8">
+                        <Frame BackgroundColor="White"
+                               Padding="20"
+                               CornerRadius="15"
+                               HasShadow="True"
+                               BorderColor="#cccccc">
+                            <Label Text="כמה זמן נמשך טסט נהיגה?"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="#333333"
+                                   HorizontalTextAlignment="Center" />
+                        </Frame>
+                        <Label Text="כ-25 דקות בממוצע, כולל תמרונים ונהיגה בכביש."
+                               FontSize="16"
+                               TextColor="#555555"
+                               HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+
+                    <!-- Q3 -->
+                    <VerticalStackLayout WidthRequest="220" Spacing="8">
+                        <Frame BackgroundColor="White"
+                               Padding="20"
+                               CornerRadius="15"
+                               HasShadow="True"
+                               BorderColor="#cccccc">
+                            <Label Text="האם אפשר להתחיל ללמוד נהיגה ללא תיאוריה?"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="#333333"
+                                   HorizontalTextAlignment="Center" />
+                        </Frame>
+                        <Label Text="כן, אך אי אפשר לצאת לטסט פנימי או חיצוני ללא תיאוריה."
+                               FontSize="16"
+                               TextColor="#555555"
+                               HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+
+                    <!-- Q4 -->
+                    <VerticalStackLayout WidthRequest="220" Spacing="8">
+                        <Frame BackgroundColor="White"
+                               Padding="20"
+                               CornerRadius="15"
+                               HasShadow="True"
+                               BorderColor="#cccccc">
+                            <Label Text="מה צריך לעשות כדי להתחיל תהליך הוצאת רישיון נהיגה?"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="#333333"
+                                   HorizontalTextAlignment="Center" />
+                        </Frame>
+                        <Label Text="לעבור בדיקת ראייה, בדיקה רפואית, למלא טופס ירוק ולהירשם ללימודים"
+                               FontSize="16"
+                               TextColor="#555555"
+                               HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+
+                </HorizontalStackLayout>
+            </ScrollView>
+
+        </VerticalStackLayout>
+    </ScrollView>
 
 </ContentPage>

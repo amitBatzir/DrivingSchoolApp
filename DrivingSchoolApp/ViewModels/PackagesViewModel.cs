@@ -35,6 +35,7 @@ namespace DrivingSchoolApp.ViewModels
             EditCommand = new Command(OnEdit);
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
+            AddPackageCommand = new Command(OnAddPackageCommand);
 
 
         }
@@ -303,6 +304,10 @@ namespace DrivingSchoolApp.ViewModels
 
             await Application.Current.MainPage.DisplayAlert("פרטי החבילה", message, "סגור");
         }
-
+        public Command AddPackageCommand { get; set; }
+        private async void OnAddPackageCommand()
+        {
+            await Shell.Current.GoToAsync("AddNewPackageView");
+        }
     }
 }

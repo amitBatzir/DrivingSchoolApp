@@ -90,6 +90,9 @@
 	  <MauiXaml Update="View\AddNewLessonView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\AddNewPackageView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\ApprovingManagersView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
