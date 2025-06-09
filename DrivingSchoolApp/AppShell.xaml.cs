@@ -35,7 +35,19 @@ namespace DrivingSchoolApp
             Routing.RegisterRoute(nameof(TeacherProfileByManagerView), typeof(TeacherProfileByManagerView));
             Routing.RegisterRoute(nameof(StudentProfileByTeacherView), typeof(StudentProfileByTeacherView));
             Routing.RegisterRoute(nameof(ShowPendingLessonsView), typeof(ShowPendingLessonsView));
+           Routing.RegisterRoute(nameof(AddNewPackageView), typeof(AddNewPackageView));
 
+            ;
+
+        }
+
+        public event Action<Type> DataChanged;
+        public void Refresh(Type type)
+        {
+            if (DataChanged != null)
+            {
+                DataChanged(type);
+            }
         }
     }
 }

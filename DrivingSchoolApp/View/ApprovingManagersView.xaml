@@ -2,11 +2,64 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DrivingSchoolApp.View.ApprovingManagersView"
-             Title="ApprovingManagersView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+              Title="בתי ספר בהמתנה"
+    FlowDirection="RightToLeft"
+    BackgroundColor="PowderBlue">
+
+    <VerticalStackLayout Spacing="15" Padding="15">
+
+        <!-- Managers List -->
+        <CollectionView
+            x:Name="theCollectionView"
+            Margin="0"
+            ItemsSource="{Binding PendingManagers}"
+            SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        Margin="0,5"
+                        Padding="15"
+                        CornerRadius="10"
+                        BackgroundColor="White"
+                        HasShadow="True">
+
+                        <VerticalStackLayout Spacing="10">
+
+                            <!-- Teacher Details -->
+                            <Label 
+                                Text="{Binding Details}" 
+                                FontSize="16"
+                                TextColor="#222"
+                                FontAttributes="Bold" />
+
+                            <!-- Buttons Row -->
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                                <Button 
+                                    Command="{Binding Source={x:Reference theCollectionView}, Path=BindingContext.ApproveCommand}"
+                                    CommandParameter="{Binding}"
+                                    ImageSource="vi.png"
+                                    WidthRequest="45"
+                                    HeightRequest="45"
+                                    BackgroundColor="#E6F4EA"
+                                    CornerRadius="22"
+                                    Style="{StaticResource buttonStyle}" />
+
+                                <Button 
+                                    Command="{Binding Source={x:Reference theCollectionView}, Path=BindingContext.DeclineCommand}"
+                                    CommandParameter="{Binding}"
+                                    ImageSource="close.png"
+                                    WidthRequest="45"
+                                    HeightRequest="45"
+                                    BackgroundColor="#FDEAEA"
+                                    CornerRadius="22"
+                                    Style="{StaticResource buttonStyle}" />
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </ContentPage>
+

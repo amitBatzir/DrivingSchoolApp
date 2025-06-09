@@ -15,9 +15,9 @@
         <CollectionView
             x:Name="theCollectionView"
             Margin="0"
-            ItemsSource="{Binding PendingTeachers}"
-            SelectedItem="{Binding SelectedTeacher}"
-            SelectionMode="Single">
+            ItemsSource="{Binding PendingTeachers}">
+            <!--SelectedItem="{Binding SelectedTeacher}"
+            SelectionMode="Single"-->
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame

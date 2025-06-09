@@ -27,6 +27,7 @@
         <!-- Main Content Area -->
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Padding="20" Spacing="20">
+                <ActivityIndicator Color="Red" IsRunning="{Binding InServerCall}"></ActivityIndicator>
                 <!-- Calendar Control -->
                 <Frame HasShadow="True" CornerRadius="10" Padding="10" BackgroundColor="White">
                     <cal:Calendar
@@ -61,8 +62,8 @@
 
                                         <!-- Approve/Decline (optional) -->
                                         <HorizontalStackLayout Spacing="10" IsVisible="{Binding IsPending}">
-                                            <Button Text="לאשר"   Command="{Binding BindingContext.ApproveCommand, Source={x:Reference ThePage}}" BackgroundColor="#4CAF50" TextColor="White" />
-                                            <Button Text="לדחות" Command="{Binding BindingContext.DeclineCommand, Source={x:Reference ThePage}}"  BackgroundColor="#F44336" TextColor="White" />
+                                            <Button Text="לאשר"   Command="{Binding BindingContext.ApproveCommand, Source={x:Reference ThePage}}" CommandParameter="{Binding .}" BackgroundColor="#4CAF50" TextColor="White" />
+                                            <Button Text="לדחות" Command="{Binding BindingContext.DeclineCommand, Source={x:Reference ThePage}}"  CommandParameter="{Binding .}" BackgroundColor="#F44336" TextColor="White" />
                                         </HorizontalStackLayout>
                                     </VerticalStackLayout>
                                 </Frame>

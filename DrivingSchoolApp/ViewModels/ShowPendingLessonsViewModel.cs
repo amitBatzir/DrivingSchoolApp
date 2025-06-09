@@ -63,12 +63,15 @@ namespace DrivingSchoolApp.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"השיעור נקבע בהצלחה", "ok");
                 PendingLessons.Remove(l);
+                ((AppShell)Shell.Current).Refresh(typeof(ScheduleViewModel));
             }
             else
             {
                 await Application.Current.MainPage.DisplayAlert("שגיאה", $"קרתה שגיאה במהלך קביעת השיעור", "ok");
 
             }
+
+            
         }
 
         public Command DeclineCommand { get; }
@@ -79,6 +82,7 @@ namespace DrivingSchoolApp.ViewModels
             {
                 await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"השיעור נדחה בהצלחה", "ok");
                 PendingLessons.Remove(l);
+                ((AppShell)Shell.Current).Refresh(typeof(ScheduleViewModel));
             }
             else
             {

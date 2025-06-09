@@ -42,25 +42,25 @@ namespace DrivingSchoolApp.ViewModels
             CancelCommand = new Command(OnCancel);
             ShowPasswordCommand = new Command(OnShowPassword);
 
-            //FirstName = currentStudent.FirstName;
-            //LastName = currentStudent.LastName;
-            //Password = currentStudent.StudentPass;
-            //Email = currentStudent.StudentEmail;
-            //DrivingTechnic = currentStudent.DrivingTechnic;
-            //Id = currentStudent.StudentId;
-            //PhoneNumber = currentStudent.PhoneNumber;
-            //Language = currentStudent.StudentLanguage;
-            //Date = currentStudent.DateOfBirth;
-            //TheoryDate = currentStudent.DateOfTheory;
-            //NumOfLessons = currentStudent.CurrentLessonNum;
-            //LengthOfLesson = currentStudent.LengthOfLesson;
-            //Gender = currentStudent.Gender;
-            //Internaltest= currentStudent.InternalTestDone;
-            //Address = currentStudent.StudentAddress;
-            //SchoolName = currentStudent.SchoolName;
-            //Teacher = currentStudent.TeacherId;
-            //Package = currentStudent.PackageId;
-           
+            FirstName = currentStudent.FirstName;
+            LastName = currentStudent.LastName;
+            Password = currentStudent.StudentPass;
+            Email = currentStudent.StudentEmail;
+            DrivingTechnic = currentStudent.DrivingTechnic;
+            Id = currentStudent.StudentId;
+            PhoneNumber = currentStudent.PhoneNumber;
+            Language = currentStudent.StudentLanguage;
+            Date = currentStudent.DateOfBirth;
+            TheoryDate = currentStudent.DateOfTheory;
+            NumOfLessons = currentStudent.CurrentLessonNum;
+            LengthOfLesson = 60;
+            Gender = currentStudent.Gender;
+            Internaltest = currentStudent.InternalTestDone;
+            Address = currentStudent.StudentAddress;
+            SchoolName = currentStudent.SchoolName;
+            Teacher = currentStudent.TeacherId;
+            Package = currentStudent.PackageId;
+
             IsPassword = true;
             PhoneNumberError = "בדקו שכתבתם את מספר הטלפון הנכון";
             FirstNameError = "שם פרטי נדרש";
@@ -95,7 +95,7 @@ namespace DrivingSchoolApp.ViewModels
             Date = currentStudent.DateOfBirth;
             TheoryDate = currentStudent.DateOfTheory;
             NumOfLessons = currentStudent.CurrentLessonNum;
-            LengthOfLesson = currentStudent.LengthOfLesson;
+            LengthOfLesson = 60;
             Gender = currentStudent.Gender;
             Internaltest = currentStudent.InternalTestDone;
             Address = currentStudent.StudentAddress;
@@ -866,7 +866,7 @@ namespace DrivingSchoolApp.ViewModels
                 student.DateOfBirth = Date;
                 student.DateOfTheory = TheoryDate;
                 student.CurrentLessonNum = NumOfLessons;
-                student.LengthOfLesson = LengthOfLesson;
+                student.LengthOfLesson = 60;
                 student.Gender = Gender;
                 student.InternalTestDone = Internaltest;
                 student.StudentAddress = Address;

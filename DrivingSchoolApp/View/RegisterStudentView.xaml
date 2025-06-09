@@ -8,51 +8,8 @@
 
     <ScrollView Margin="20">
         <Grid>
-            <!--  photo  -->
             <VerticalStackLayout Padding="20" IsEnabled="{Binding NotInServerCall}">
-                <Frame
-                    Margin="10"
-                    Padding="5"
-                    BorderColor="Black">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image
-                            x:Name="theImageBug"
-                            HeightRequest="150"
-                            Source="{Binding PhotoURL}" />
-                        <Label
-                            Grid.Row="0"
-                            Margin="10"
-                            HorizontalOptions="Center"
-                            Text="לחצו פה לצלם תמונה!"
-                            TextColor="PowderBlue"
-                            VerticalOptions="End">
-
-
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding TakePhotoCommand}" />
-                            </Label.GestureRecognizers>
-                        </Label>
-
-                        <Label
-                            Grid.Row="1"
-                            HorizontalOptions="Center"
-                            Text="לחץ פה להעלות מהגלריה תמונה!"
-                            TextColor="PowderBlue"
-                            VerticalOptions="End">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding UploadPhotoCommand}" />
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </Grid>
-                </Frame>
+                
 
                 <!--  First Name  -->
                 <Grid>
@@ -328,27 +285,7 @@
                         Value="1" />
                 </HorizontalStackLayout>
 
-                <!--  length of lesson  -->
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="בחרו אורך שיעור" />
-                </Grid>
-                <HorizontalStackLayout RadioButtonGroup.GroupName="lengthlessonGroup" RadioButtonGroup.SelectedValue="{Binding LengthOfLesson}">
-
-                    <RadioButton
-                        Content="60 דקות"
-                        GroupName="lengthlessonGroup"
-                        IsChecked="True"
-                        Value="0" />
-                    <RadioButton
-                        Content="45 דקות"
-                        GroupName="lengthlessonGroup"
-                        Value="1" />
-
-                </HorizontalStackLayout>
+                
 
                 <!--  Driving technic  -->
                 <Grid>

@@ -1027,5 +1027,86 @@ namespace DrivingSchoolApp.Services
         }
         #endregion
 
+        #region approving managers
+        public async Task<List<Manager>> ShowPendingManagers()
+        {
+
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}showPendingManagers";
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<Manager>? result = JsonSerializer.Deserialize<List<Manager>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public async Task<bool> ApprovingManager(int ManagerId)
+        {
+            string url = $"{this.baseUrl}approvingManager?managerId={ManagerId}";
+            try
+            {
+
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> decliningManager(int managerid)
+        {
+            string url = $"{this.baseUrl}decliningManager?managerid={managerid}";
+            try
+            {
+
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
+
     }
 }

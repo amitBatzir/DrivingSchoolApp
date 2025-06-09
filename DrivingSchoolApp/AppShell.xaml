@@ -109,7 +109,7 @@ IsVisible="{Binding IsTeacher}" />-->
 
     <!--מנהל אפליקציה-->
     <ShellContent   
-Title="אישור בתי ספר"
+Title="בהמתנה"
 ContentTemplate="{DataTemplate views:ApprovingManagersView}"
 Route="ApprovingManager"
  IsVisible="{Binding AppManager}"/>

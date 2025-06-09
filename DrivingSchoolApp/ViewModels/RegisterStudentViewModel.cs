@@ -56,6 +56,7 @@ namespace DrivingSchoolApp.ViewModels
             Language = "0";
             //CurrentDate=new DateTime()
             Date = CurrentDate;
+            LengthOfLesson = 60;
             TheoryDate = CurrentDate2;
         }
         public Command UploadPhotoCommand { get; }
@@ -811,7 +812,7 @@ namespace DrivingSchoolApp.ViewModels
                     StudentAddress = Address,
                     StudentLanguage = Language,
                     LastName = LastName,
-                    LengthOfLesson = LengthOfLesson,
+                    LengthOfLesson = 60,
                     CurrentLessonNum = NumOfLessons,
                     InternalTestDone = Internaltest,
                     StudentEmail = Email,

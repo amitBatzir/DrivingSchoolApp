@@ -56,6 +56,7 @@ namespace DrivingSchoolApp
             builder.Services.AddTransient<TeacherProfileByManagerView>();
             builder.Services.AddTransient<StudentProfileByTeacherView>();
             builder.Services.AddTransient<ShowPendingLessonsView>();
+            builder.Services.AddTransient<AddNewPackageView>();
 
 
 
@@ -96,6 +97,7 @@ namespace DrivingSchoolApp
             builder.Services.AddTransient<TeacherProfileByManagerViewModel>();
             builder.Services.AddTransient<StudentProfileByTeacherViewModel>();
             builder.Services.AddTransient<ShowPendingLessonsViewModel>();
+            builder.Services.AddTransient<AddNewPackageViewModel>();
 
 
 

@@ -72,7 +72,8 @@ namespace DrivingSchoolApp.ViewModels
         {
             get
             {
-               return (currentStudent == null && currentTeacher == null && currentManager == null);
+                //Only managers with company email are syste,m admin
+               return (currentManager != null && currentManager.ManagerEmail.Contains("@driverseat.com"));
             }
         }
        

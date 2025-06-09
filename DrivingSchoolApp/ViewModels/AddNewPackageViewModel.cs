@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DrivingSchoolApp.ViewModels
 {
-    public class AddNewPackageViewModel
+    public class AddNewPackageViewModel:ViewModelBase
     {
         private DrivingSchoolAppWebAPIProxy proxy;
         private IServiceProvider serviceProvider;
