@@ -10,30 +10,30 @@ using DrivingSchoolApp.Services;
 
 namespace DrivingSchoolApp.ViewModels
 {
-    [QueryProperty(nameof(CurrentStudent),"selectedStudent")]
+    //[QueryProperty(nameof(CurrentStudent),"selectedStudent")]
     public class StudentProfileViewModel:ViewModelBase
     {
 
-        private Student currentStudent;
-        public Student CurrentStudent 
-        { 
-            get
-            { 
-                return currentStudent;
-            } 
-            set
-            {
-                currentStudent = value;
-                OnPropertyChanged();
-                UpdateStudent();
-            }
-        }
+        //private Student currentStudent;
+        //public Student CurrentStudent
+        //{
+        //    get
+        //    {
+        //        return currentStudent;
+        //    }
+        //    set
+        //    {
+        //        currentStudent = value;
+        //        OnPropertyChanged();
+        //        UpdateStudent();
+        //    }
+        //}
         private DrivingSchoolAppWebAPIProxy proxy;
         private IServiceProvider serviceProvider;
 
         public StudentProfileViewModel(DrivingSchoolAppWebAPIProxy proxy)
         {
-            currentStudent = ((App)Application.Current).LoggedInStudent;
+            Student currentStudent = ((App)Application.Current).LoggedInStudent;
 
             this.proxy = proxy;
             EditCommand = new Command(OnEdit);
@@ -54,7 +54,6 @@ namespace DrivingSchoolApp.ViewModels
             TheoryDate = currentStudent.DateOfTheory;
             NumOfLessons = currentStudent.CurrentLessonNum;
             LengthOfLesson = 60;
-            Gender = currentStudent.Gender;
             Internaltest = currentStudent.InternalTestDone;
             Address = currentStudent.StudentAddress;
             SchoolName = currentStudent.SchoolName;
@@ -73,7 +72,23 @@ namespace DrivingSchoolApp.ViewModels
             TheoryDateError = "התאוריה שלך אינה תקפה";
             NumOfLessonsError = "מספר השיעורים שלך אינו תקין";
             AddressError = "הכתובת שלך אינה תקינה";
+            Gender = currentStudent.Gender;
+            if (Gender == "1")
+            {
+                IsFemale = true;
+                IsMale = false;
 
+            }
+            else
+            {
+                IsFemale = false;
+                IsMale = true;
+            }
+            if(Internaltest == true)
+            {
+                HaveTest = true;
+                NoTest = false;
+            }
             //למחוק את זה אחרי שאני מבינה איך מכניסים את זה לעמוד פרופיל עם אופציה להחליף
             SchoolName = "Ramon";
             Teacher = 1;
@@ -84,6 +99,7 @@ namespace DrivingSchoolApp.ViewModels
         }
         private async void UpdateStudent()
         {
+            Student currentStudent = ((App)Application.Current).LoggedInStudent;
             FirstName = currentStudent.FirstName;
             LastName = currentStudent.LastName;
             Password = currentStudent.StudentPass;
@@ -743,6 +759,27 @@ namespace DrivingSchoolApp.ViewModels
                 OnPropertyChanged("Gender");
             }
         }
+        private bool isMale;
+        public bool IsMale
+        {
+            get => isMale;
+            set
+            {
+                isMale = value;
+                OnPropertyChanged("IsMale");
+            }
+        }
+
+        private bool isFemale;
+        public bool IsFemale
+        {
+            get => isFemale;
+            set
+            {
+                isFemale = value;
+                OnPropertyChanged("IsFemale");
+            }
+        }
 
 
         #endregion
@@ -757,6 +794,27 @@ namespace DrivingSchoolApp.ViewModels
             {
                 internaltest = value;
                 OnPropertyChanged("Internaltest");
+            }
+        }
+        private bool haveTest;
+        public bool HaveTest
+        {
+            get => haveTest;
+            set
+            {
+                haveTest = value;
+                OnPropertyChanged("HaveTest");
+            }
+        }
+
+        private bool noTest;
+        public bool NoTest
+        {
+            get => noTest;
+            set
+            {
+                noTest = value;
+                OnPropertyChanged("NoTest");
             }
         }
         #endregion

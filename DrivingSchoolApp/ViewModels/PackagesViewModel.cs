@@ -32,7 +32,7 @@ namespace DrivingSchoolApp.ViewModels
             TextError = "נדרש תיאור לחבילה";
 
             Change = false;
-            EditCommand = new Command(OnEdit);
+            EditCommand = new Command<Package>(OnEdit);
             SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
             AddPackageCommand = new Command(OnAddPackageCommand);
@@ -57,10 +57,14 @@ namespace DrivingSchoolApp.ViewModels
             List<Package> packageslist = await proxy.GetPackageOfSchool(managerId);
 
             if (packageslist != null)
+            {
+                Packages.Clear();
                 foreach (Package p in packageslist)
                 {
                     Packages.Add(p);
                 }
+            }
+                
 
         }
         #endregion
@@ -275,9 +279,16 @@ namespace DrivingSchoolApp.ViewModels
 
         public Command EditCommand { get; }
 
-        public void OnEdit()
+        public async void OnEdit(Package p)
         {
-            Change = true;
+            if (p != null)
+            {
+                var navParam = new Dictionary<string, object>
+                {
+                    {"selectedPackage",p}
+                };
+                await Shell.Current.GoToAsync("AddNewPackageView", navParam);
+            }
         }
 
         #region is editing
@@ -308,6 +319,12 @@ namespace DrivingSchoolApp.ViewModels
         private async void OnAddPackageCommand()
         {
             await Shell.Current.GoToAsync("AddNewPackageView");
+        }
+
+        public override void Refresh()
+        {
+            base.Refresh();
+            LoadPackages(((App)Application.Current).LoggedInManager.UserManagerId);
         }
     }
 }

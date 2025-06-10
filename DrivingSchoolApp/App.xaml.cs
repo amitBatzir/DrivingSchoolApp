@@ -30,11 +30,11 @@ namespace DrivingSchoolApp
             LoggedInManager = null;
 
             LessonStatuses = new List<LessonStatuses>();
-            LessonStatuses.Add(new Models.LessonStatuses() { StatusId = 1, StatusDescription = "Pending" });
-            LessonStatuses.Add(new Models.LessonStatuses() { StatusId = 2, StatusDescription = "Scheduled" });
-            LessonStatuses.Add(new Models.LessonStatuses() { StatusId = 3, StatusDescription = "Done" });
-            LessonStatuses.Add(new Models.LessonStatuses() { StatusId = 4, StatusDescription = "Declined" });
-            LessonStatuses.Add(new Models.LessonStatuses() { StatusId = 5, StatusDescription = "Canceled" });
+            LessonStatuses.Add(new Models.LessonStatuses() { StatusId = 1, StatusDescription = "מחכה לאישור" });
+            LessonStatuses.Add(new Models.LessonStatuses() { StatusId = 2, StatusDescription = "נקבע" });
+            LessonStatuses.Add(new Models.LessonStatuses() { StatusId = 3, StatusDescription = "בוצע" });
+            LessonStatuses.Add(new Models.LessonStatuses() { StatusId = 4, StatusDescription = "לא אושר" });
+            LessonStatuses.Add(new Models.LessonStatuses() { StatusId = 5, StatusDescription = "בוטל" });
             //Start with the Login View
             MainPage = new NavigationPage(serviceProvider.GetService<LoginView>());
         }

@@ -1,106 +1,76 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DrivingSchoolApp.View.PackagesView"
-             x:Name="PackagesPage"
-             Title="חבילות תשלום"
-             Padding="15"
-             BackgroundColor="PowderBlue"
-             FlowDirection="RightToLeft">
+<ContentPage
+    x:Class="DrivingSchoolApp.View.PackagesView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="PackagesPage"
+    Title="חבילות תשלום"
+    Padding="15"
+    BackgroundColor="PowderBlue"
+    FlowDirection="RightToLeft">
 
     <ScrollView>
         <VerticalStackLayout Spacing="20">
 
-            <!-- כותרת -->
+            <!--  כותרת  -->
             <Label
-                Text="חבילות תשלום"
+                Margin="0,10"
                 FontAttributes="Bold"
                 FontSize="26"
-                TextColor="#1F2D3D"
                 HorizontalOptions="Center"
                 HorizontalTextAlignment="Center"
-                Margin="0,10" />
+                Text="חבילות תשלום"
+                TextColor="#1F2D3D" />
 
-            <!-- כפתור פלוס  -->
-            <!-- כפתור פלוס בגודל בינוני, בלי מסגרת -->
+            <!--  כפתור פלוס  -->
+            <!--  כפתור פלוס בגודל בינוני, בלי מסגרת  -->
             <Button
-    Command="{Binding AddPackageCommand}"
-    ImageSource="plus.png"
-    BackgroundColor="Transparent"
-    BorderWidth="0"
-    HeightRequest="55"
-    WidthRequest="55"
-    HorizontalOptions="Start"
-    VerticalOptions="Start"
-    Margin="0,-10,0,0" />
+                Margin="0,-10,0,0"
+                BackgroundColor="Transparent"
+                BorderWidth="0"
+                Command="{Binding AddPackageCommand}"
+                HeightRequest="55"
+                HorizontalOptions="Start"
+                ImageSource="plus.png"
+                VerticalOptions="Start"
+                WidthRequest="55" />
 
 
-            <!-- אזור תצוגה/עריכה -->
-            <VerticalStackLayout Spacing="15" IsEnabled="{Binding Change}">
+            <!--  אזור תצוגה/עריכה  -->
+            <VerticalStackLayout Spacing="15">
 
-                <!-- רשימת חבילות -->
-                <CollectionView Margin="0,10,0,0"
-                                ItemsSource="{Binding Packages}"
-                                SelectionMode="None">
+                <!--  רשימת חבילות  -->
+                <CollectionView
+                    Margin="0,10,0,0"
+                    ItemsSource="{Binding Packages}"
+                    SelectionMode="None">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Frame CornerRadius="12" Padding="20" BackgroundColor="White" HasShadow="True">
+                            <Border Padding="20" BackgroundColor="White">
                                 <VerticalStackLayout Spacing="10">
 
-                                    <!-- כותרת חבילה -->
-                                    <Label Text="כותרת החבילה" FontAttributes="Bold" />
-                                    <Entry Placeholder="הכנס כותרת חבילה"
-                                           Style="{StaticResource entryStyle}"
-                                           Text="{Binding Title}" />
-                                    <Label Text="{Binding BindingContext.TitleError, Source={x:Reference PackagesPage}}"
-                                           IsVisible="{Binding BindingContext.ShowTitleError, Source={x:Reference PackagesPage}}"
-                                           Style="{StaticResource labelErrorStyle}" />
+                                    <!--  כותרת חבילה  -->
+                                    <Label FontAttributes="Bold" Text="כותרת החבילה" />
+                                    <Label Style="{StaticResource entryStyle}" Text="{Binding Title}" />
 
-                                    <!-- תיאור חבילה -->
-                                    <Label Text="תיאור החבילה" FontAttributes="Bold" />
-                                    <Editor Placeholder="הכנס תיאור חבילה"
-                                            Style="{StaticResource entryStyle}"
-                                            Text="{Binding Text}"
-                                            AutoSize="TextChanges" />
-                                    <Label Text="{Binding BindingContext.TextError, Source={x:Reference PackagesPage}}"
-                                           IsVisible="{Binding BindingContext.ShowTextError, Source={x:Reference PackagesPage}}"
-                                           Style="{StaticResource labelErrorStyle}" />
 
+                                    <!--  תיאור חבילה  -->
+                                    <Label FontAttributes="Bold" Text="תיאור החבילה" />
+                                    <Label Style="{StaticResource entryStyle}" Text="{Binding TheText}" />
+                                    <Button
+                                        Command="{Binding Source={x:Reference PackagesPage}, Path=BindingContext.EditCommand}"
+                                        CommandParameter="{Binding}"
+                                        IsEnabled="True"
+                                        Style="{StaticResource buttonStyle}"
+                                        Text="ערוך" />
                                 </VerticalStackLayout>
-                            </Frame>
+                            </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
             </VerticalStackLayout>
 
-            <!-- כפתורי פעולה -->
-            <Grid ColumnSpacing="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0"
-                        Command="{Binding SaveCommand}"
-                        IsEnabled="{Binding NotInServerCall}"
-                        IsVisible="{Binding Change}"
-                        Style="{StaticResource buttonStyle}"
-                        Text="שמירה" />
-
-                <Button Grid.Column="1"
-                        Command="{Binding CancelCommand}"
-                        IsEnabled="{Binding NotInServerCall}"
-                        IsVisible="{Binding Change}"
-                        Style="{StaticResource buttonStyle}"
-                        Text="ביטול" />
-            </Grid>
-
-            <!-- כפתור עריכה -->
-            <Button
-                Command="{Binding EditCommand}"
-                IsVisible="{Binding ShowEditButton}"
-                Style="{StaticResource ProfilebuttonStyle}"
-                Text="אפשר עריכה" />
 
         </VerticalStackLayout>
     </ScrollView>

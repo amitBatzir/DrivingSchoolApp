@@ -3,69 +3,95 @@
     x:Class="DrivingSchoolApp.View.AddNewLessonView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
     Title="קבע שיעור חדש"
     BackgroundColor="PowderBlue"
-    FlowDirection="RightToLeft"
-    xmlns:sys="clr-namespace:System;assembly=netstandard"
->
+    FlowDirection="RightToLeft">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
 
-            <!-- Date Picker -->
-            <Label Text="בחר תאריך:" FontAttributes="Bold" FontSize="16" />
-            <DatePicker
-                Date="{Binding SelectedDate}"
-                MinimumDate="{x:Static sys:DateTime.Now}" />
+            <!--  Date Picker  -->
+            <Label
+                FontAttributes="Bold"
+                FontSize="16"
+                Text="בחר תאריך:" />
+            <DatePicker Date="{Binding SelectedDate}" MinimumDate="{x:Static sys:DateTime.Now}" />
 
-            <!-- Available Time Slots -->
-            <Label Text="שיעורים פנויים:" FontAttributes="Bold" FontSize="16" />
+            <!--  Available Time Slots  -->
+            <Label
+                FontAttributes="Bold"
+                FontSize="16"
+                Text="שיעורים פנויים:" />
             <CollectionView
                 ItemsSource="{Binding PickerDates}"
-                SelectionMode="Single"
-                SelectedItem="{Binding SelectedPickerDate}">
+                SelectedItem="{Binding SelectedPickerDate}"
+                SelectionMode="Single">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="3" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Border Padding="10" Margin="5" BackgroundColor="White">
+                        <Border
+                            Margin="5"
+                            Padding="10"
+                            BackgroundColor="White">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="20" />
                             </Border.StrokeShape>
                             <Label
-                                Text="{Binding StringFormat='{0:HH:mm}'}"
                                 HorizontalOptions="Center"
+                                Text="{Binding StringFormat='{0:HH:mm}'}"
                                 VerticalOptions="Center" />
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <!-- Pickup Location -->
-            <Label Text="איסוף מ:" FontAttributes="Bold" FontSize="16" />
-            <Label  Grid.Column="0" IsVisible="{Binding ShowPickUpLocationError}" Style="{StaticResource labelErrorStyle}" Text="{Binding PickUpLocationError}" />
-            <Entry Placeholder="הכנס מקום איסוף" PlaceholderColor="DarkBlue" Text="{Binding PickUpLocation}" />
+            <!--  Pickup Location  -->
+            <Label
+                FontAttributes="Bold"
+                FontSize="16"
+                Text="איסוף מ:" />
+            <Label
+                Grid.Column="0"
+                IsVisible="{Binding ShowPickUpLocationError}"
+                Style="{StaticResource labelErrorStyle}"
+                Text="{Binding PickUpLocationError}" />
+            <Entry
+                Placeholder="הכנס מקום איסוף"
+                PlaceholderColor="DarkBlue"
+                Text="{Binding PickUpLocation}" />
 
-            <!-- Dropoff Location -->
-            <Label Text="הורדה ב:" FontAttributes="Bold" FontSize="16"/>
-            <Label  Grid.Column="1" IsVisible="{Binding ShowDropoffLocationnError}" Style="{StaticResource labelErrorStyle}" Text="{Binding DropoffLocationError}" />
-            <Entry Placeholder="הכנס מקום הורדה" PlaceholderColor="DarkBlue" Text="{Binding DropoffLocation}" />
+            <!--  Dropoff Location  -->
+            <Label
+                FontAttributes="Bold"
+                FontSize="16"
+                Text="הורדה ב:" />
+            <Label
+                Grid.Column="1"
+                IsVisible="{Binding ShowDropoffLocationError}"
+                Style="{StaticResource labelErrorStyle}"
+                Text="{Binding DropoffLocationError}" />
+            <Entry
+                Placeholder="הכנס מקום הורדה"
+                PlaceholderColor="DarkBlue"
+                Text="{Binding DropoffLocation}" />
 
 
-          
 
 
 
-            <!-- Schedule Button -->
+
+            <!--  Schedule Button  -->
             <Button
-                Text="קבע שיעור"
-                Command="{Binding ScheduleLessonCommand}"
                 BackgroundColor="#2196F3"
-                TextColor="White"
+                Command="{Binding ScheduleLessonCommand}"
                 CornerRadius="10"
+                FontSize="16"
                 HeightRequest="50"
-                FontSize="16" />
+                Text="קבע שיעור"
+                TextColor="White" />
 
         </VerticalStackLayout>
     </ScrollView>

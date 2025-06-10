@@ -178,6 +178,7 @@ namespace DrivingSchoolApp.ViewModels
             l = await proxy.AddLesson(l);
             if (l != null)
             {
+                ((AppShell)Shell.Current).Refresh(typeof(FutureLessonsViewModel));
                 await Shell.Current.Navigation.PopAsync();
             }
             else
@@ -206,7 +207,7 @@ namespace DrivingSchoolApp.ViewModels
             {
                 DateTime current = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, hour, 0, 0);
                 bool exist = lessons.Where(l => l.DateOfLesson == current && l.StatusId < 3).Any();
-                if (!exist)
+                if (!exist && current.ToUniversalTime() > DateTime.Now.ToUniversalTime())
                 {
                     PickerDates.Add(current);
                 }

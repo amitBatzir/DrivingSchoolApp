@@ -51,21 +51,21 @@ namespace DrivingSchoolApp.ViewModels
         {
             get
             {
-                return currentManager != null;
+                return currentManager != null && !AppManager;
             }
         }
         public bool NotManager
         {
             get
             {
-                return currentManager == null;
+                return !IsManager && !AppManager;
             }
         }
         public bool NotStudent
         {
             get
             {
-                return currentStudent == null;
+                return currentStudent == null && !AppManager;
             }
         }
         public bool AppManager

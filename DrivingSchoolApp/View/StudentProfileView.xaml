@@ -1,183 +1,217 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DrivingSchoolApp.View.StudentProfileView"
-             Title="פרופיל"
-             Padding="15"
-             BackgroundColor="PowderBlue"
-             FlowDirection="RightToLeft">
-
+<ContentPage
+    x:Class="DrivingSchoolApp.View.StudentProfileView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="פרופיל"
+    Padding="15"
+    BackgroundColor="PowderBlue"
+    FlowDirection="RightToLeft">
     <ScrollView>
-        <Frame Padding="20"
-               CornerRadius="12"
-               BackgroundColor="White"
-               HasShadow="True"
-               BorderColor="Gray">
-            <VerticalStackLayout Spacing="20"
-                                 IsEnabled="{Binding Change}">
+        <VerticalStackLayout Spacing="20">
 
-                <!-- Header -->
-                <Label Text="פרטים אישיים"
-                       FontSize="Medium"
-                       FontAttributes="Bold"
-                       HorizontalOptions="Center" />
+            <Frame
+                Padding="20"
+                BackgroundColor="White"
+                CornerRadius="12"
+                HasShadow="True">
+                <VerticalStackLayout IsEnabled="{Binding Change}" Spacing="15">
+                    <!--  Header  -->
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        HorizontalOptions="Center"
+                        Text="פרטים אישיים" />
 
-                <!-- First Name -->
-                <Label Text="שם פרטי" FontAttributes="Bold" />
-                <Entry Placeholder="הכנס שם פרטי"
-                       Style="{StaticResource entryStyle}"
-                       Text="{Binding FirstName}" />
-                <Label IsVisible="{Binding ShowFirstNameError}"
-                       Style="{StaticResource labelErrorStyle}"
-                       Text="{Binding FirstNameError}" />
+                    <!--  First Name  -->
+                    <Label FontAttributes="Bold" Text="שם פרטי" />
+                    <Entry
+                        Placeholder="הכנס שם פרטי"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding FirstName}" />
+                    <Label
+                        IsVisible="{Binding ShowFirstNameError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding FirstNameError}" />
 
-                <!-- Last Name -->
-                <Label Text="שם משפחה" />
-                <Entry Placeholder="הכנס שם משפחה"
-                       Style="{StaticResource entryStyle}"
-                       Text="{Binding LastName}" />
-                <Label IsVisible="{Binding ShowLastNameError}"
-                       Style="{StaticResource labelErrorStyle}"
-                       Text="{Binding LastNameError}" />
+                    <!--  Last Name  -->
+                    <Label Text="שם משפחה" />
+                    <Entry
+                        Placeholder="הכנס שם משפחה"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding LastName}" />
+                    <Label
+                        IsVisible="{Binding ShowLastNameError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding LastNameError}" />
 
-                <!-- ID -->
-                <Label Text="תעודת זהות" />
-                <Entry Placeholder="הכנס תעודת זהות"
-                       Style="{StaticResource entryStyle}"
-                       Text="{Binding Id}" />
-                <Label IsVisible="{Binding ShowIdError}"
-                       Style="{StaticResource labelErrorStyle}"
-                       Text="{Binding IdError}" />
+                    <!--  ID  -->
+                    <Label Text="תעודת זהות" />
+                    <Entry
+                        Placeholder="הכנס תעודת זהות"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Id}" />
+                    <Label
+                        IsVisible="{Binding ShowIdError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding IdError}" />
 
-                <!-- Email -->
-                <Label Text="אימייל" />
-                <Entry Placeholder="הכנס אימייל"
-                       Style="{StaticResource entryStyle}"
-                       Text="{Binding Email}" />
-                <Label IsVisible="{Binding ShowEmailError}"
-                       Style="{StaticResource labelErrorStyle}"
-                       Text="{Binding EmailError}" />
+                    <!--  Email  -->
+                    <Label Text="אימייל" />
+                    <Entry
+                        Placeholder="הכנס אימייל"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Email}" />
+                    <Label
+                        IsVisible="{Binding ShowEmailError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding EmailError}" />
 
-                <!-- Password -->
-                <Label Text="סיסמה" />
-                <Entry IsPassword="True"
-                       Placeholder="הכנס סיסמה"
-                       Style="{StaticResource entryStyle}"
-                       Text="{Binding Password}" />
-                <Label IsVisible="{Binding ShowPasswordError}"
-                       Style="{StaticResource labelErrorStyle}"
-                       Text="{Binding PasswordError}" />
+                    <!--  Password  -->
+                    <Label Text="סיסמה" />
+                    <Entry
+                        IsPassword="True"
+                        Placeholder="הכנס סיסמה"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Password}" />
+                    <Label
+                        IsVisible="{Binding ShowPasswordError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding PasswordError}" />
 
-                <!-- Phone -->
-                <Label Text="מספר טלפון" />
-                <Entry Placeholder="הכנס את מספר הטלפון האישי"
-                       Style="{StaticResource entryStyle}"
-                       Text="{Binding PhoneNumber}" />
-                <Label IsVisible="{Binding ShowPhoneNumberError}"
-                       Style="{StaticResource labelErrorStyle}"
-                       Text="{Binding PhoneNumberError}" />
+                    <!--  Phone  -->
+                    <Label Text="מספר טלפון" />
+                    <Entry
+                        Placeholder="הכנס את מספר הטלפון האישי"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding PhoneNumber}" />
+                    <Label
+                        IsVisible="{Binding ShowPhoneNumberError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding PhoneNumberError}" />
 
-                <!-- Address -->
-                <Label Text="כתובת מגורים" />
-                <Entry Placeholder="הכנס את כתובת מגוריך"
-                       Style="{StaticResource entryStyle}"
-                       Text="{Binding Address}" />
-                <Label IsVisible="{Binding ShowAddressError}"
-                       Style="{StaticResource labelErrorStyle}"
-                       Text="{Binding AddressError}" />
+                    <!--  Address  -->
+                    <Label Text="כתובת מגורים" />
+                    <Entry
+                        Placeholder="הכנס את כתובת מגוריך"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding Address}" />
+                    <Label
+                        IsVisible="{Binding ShowAddressError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding AddressError}" />
 
-                <!-- Birthday -->
-                <Label Text="תאריך לידה" />
-                <DatePicker Date="{Binding Date}"
-                            MaximumDate="{Binding CurrentDate}"
-                            MinimumDate="01/01/1925" />
-                <Label IsVisible="{Binding ShowDateError}"
-                       Style="{StaticResource labelErrorStyle}"
-                       Text="{Binding DateError}" />
+                    <!--  Birthday  -->
+                    <Label Text="תאריך לידה" />
+                    <DatePicker
+                        Date="{Binding Date}"
+                        MaximumDate="{Binding CurrentDate}"
+                        MinimumDate="01/01/1925" />
+                    <Label
+                        IsVisible="{Binding ShowDateError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding DateError}" />
 
-                <!-- Theory Date -->
-                <Label Text="תאריך עשיית תאוריה" />
-                <DatePicker Date="{Binding TheoryDate}"
-                            MaximumDate="{Binding CurrentDate2}"
-                            MinimumDate="01/01/1925" />
-                <Label IsVisible="{Binding ShowTheoryDateError}"
-                       Style="{StaticResource labelErrorStyle}"
-                       Text="{Binding TheoryDateError}" />
+                    <!--  Theory Date  -->
+                    <Label Text="תאריך עשיית תאוריה" />
+                    <DatePicker
+                        Date="{Binding TheoryDate}"
+                        MaximumDate="{Binding CurrentDate2}"
+                        MinimumDate="01/01/1925" />
+                    <Label
+                        IsVisible="{Binding ShowTheoryDateError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding TheoryDateError}" />
 
-                <!-- Lesson Count -->
-                <Label Text="כמות שיעורים נוכחית שעשית" />
-                <Entry Keyboard="Numeric"
-                       Placeholder="אם לא עשית עדיין שיעור תכתוב 0"
-                       Style="{StaticResource entryStyle}"
-                       Text="{Binding NumOfLessons}" />
-                <Label IsVisible="{Binding ShowNumOfLessonsError}"
-                       Style="{StaticResource labelErrorStyle}"
-                       Text="{Binding NumOfLessonsError}" />
+                    <!--  Lesson Count  -->
+                    <Label Text="כמות שיעורים נוכחית שעשית" />
+                    <Entry
+                        Keyboard="Numeric"
+                        Placeholder="אם לא עשית עדיין שיעור תכתוב 0"
+                        Style="{StaticResource entryStyle}"
+                        Text="{Binding NumOfLessons}" />
+                    <Label
+                        IsVisible="{Binding ShowNumOfLessonsError}"
+                        Style="{StaticResource labelErrorStyle}"
+                        Text="{Binding NumOfLessonsError}" />
 
-                <!-- Language -->
-                <Label Text="בחרו שפת לימוד" />
-                <HorizontalStackLayout RadioButtonGroup.GroupName="LanGroup"
-                                       RadioButtonGroup.SelectedValue="{Binding Language}"
-                                       Spacing="10">
-                    <RadioButton Content="עברית" Value="0" />
-                    <RadioButton Content="אנגלית" Value="1" />
-                    <RadioButton Content="ערבית" Value="2" />
-                </HorizontalStackLayout>
+                    <!--  Language  -->
+                    <Label Text="בחרו שפת לימוד" />
+                    <HorizontalStackLayout
+                        RadioButtonGroup.GroupName="LanGroup"
+                        RadioButtonGroup.SelectedValue="{Binding Language}"
+                        Spacing="10">
+                        <RadioButton Content="עברית" Value="0" />
+                        <RadioButton Content="אנגלית" Value="1" />
+                        <RadioButton Content="ערבית" Value="2" />
+                    </HorizontalStackLayout>
 
-                <!-- Internal Test -->
-                <Label Text="האם עשית טסט פנימי" />
-                <HorizontalStackLayout RadioButtonGroup.GroupName="InternalTestGroup"
-                                       RadioButtonGroup.SelectedValue="{Binding Internaltest}"
-                                       Spacing="10">
-                    <RadioButton Content="כן" Value="0" />
-                    <RadioButton Content="לא" Value="1" />
-                </HorizontalStackLayout>
+                    <!--  Internal Test  -->
+                    <Label Text="האם עשית טסט פנימי" />
+                    <HorizontalStackLayout
+                        RadioButtonGroup.GroupName="InternalTestGroup"
+                        RadioButtonGroup.SelectedValue="{Binding Internaltest, Mode=TwoWay}"
+                        Spacing="10">
+                        <RadioButton Content="כן" Value="0" />
+                        <RadioButton Content="לא" Value="1" />
+                    </HorizontalStackLayout>
 
-                <!-- Driving Technique -->
-                <Label Text="בחרו שיטת לימוד נהיגה" />
-                <HorizontalStackLayout RadioButtonGroup.GroupName="DrivingTechnicGroup"
-                                       RadioButtonGroup.SelectedValue="{Binding DrivingTechnic}"
-                                       Spacing="10">
-                    <RadioButton Content="ידני" Value="0" />
-                    <RadioButton Content="אוטומטי" Value="1" />
-                </HorizontalStackLayout>
+                    <!--  Driving Technique  -->
+                    <Label Text="בחרו שיטת לימוד נהיגה" />
+                    <HorizontalStackLayout
+                        RadioButtonGroup.GroupName="DrivingTechnicGroup"
+                        RadioButtonGroup.SelectedValue="{Binding DrivingTechnic}"
+                        Spacing="10">
+                        <RadioButton Content="ידני" Value="0" />
+                        <RadioButton Content="אוטומטי" Value="1" />
+                    </HorizontalStackLayout>
 
-                <!-- Gender -->
-                <Label Text="בחר מגדר" />
-                <HorizontalStackLayout RadioButtonGroup.GroupName="GenderGroup"
-                                       RadioButtonGroup.SelectedValue="{Binding Gender}"
-                                       Spacing="10">
-                    <RadioButton Content="זכר" Value="0" />
-                    <RadioButton Content="נקבה" Value="1" />
-                </HorizontalStackLayout>
+                    <!--  Gender  -->
+                    <Label Text="בחר מגדר" />
+                    <HorizontalStackLayout
+                        RadioButtonGroup.GroupName="GenderGroup"
+                        RadioButtonGroup.SelectedValue="{Binding Gender}"
+                        Spacing="10">
+                        <RadioButton
+                            Content="זכר"
+                            IsChecked="{Binding IsMale}"
+                            Value="0" />
+                        <RadioButton
+                            Content="נקבה"
+                            IsChecked="{Binding IsFemale}"
+                            Value="1" />
+                    </HorizontalStackLayout>
 
-                <!-- Buttons -->
-                <Grid ColumnSpacing="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"
+                    <!--  Buttons  -->
+                    <Grid ColumnSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Grid.Column="0"
                             Command="{Binding SaveCommand}"
                             IsEnabled="{Binding NotInServerCall}"
                             IsVisible="{Binding Change}"
                             Style="{StaticResource buttonStyle}"
                             Text="שמירה" />
-                    <Button Grid.Column="1"
+                        <Button
+                            Grid.Column="1"
                             Command="{Binding CancelCommand}"
                             IsEnabled="{Binding NotInServerCall}"
                             IsVisible="{Binding Change}"
                             Style="{StaticResource buttonStyle}"
                             Text="ביטול" />
-                </Grid>
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
 
-                <!-- Edit Button -->
-                <Button Command="{Binding EditCommand}"
-                        IsVisible="{Binding ShowEditButton}"
-                        Style="{StaticResource ProfilebuttonStyle}"
-                        Text="אפשר עריכה"
-                        Margin="0,20,0,0" />
-            </VerticalStackLayout>
-        </Frame>
+            <!--  Edit Button  -->
+            <Button
+                Command="{Binding EditCommand}"
+                IsVisible="{Binding ShowEditButton}"
+                Style="{StaticResource ProfilebuttonStyle}"
+                Text="אפשר עריכה" />
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

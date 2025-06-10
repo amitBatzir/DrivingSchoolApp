@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace DrivingSchoolApp.ViewModels
 {
+    [QueryProperty("ThePackage", "selectedPackage")]
     public class AddNewPackageViewModel:ViewModelBase
     {
         private DrivingSchoolAppWebAPIProxy proxy;
@@ -18,8 +19,44 @@ namespace DrivingSchoolApp.ViewModels
         {
             this.proxy = proxy;
             this.serviceProvider = serviceProvider;
+            PackageId = 0;
+            ScheduleLessonCommand = new Command(OnScheduleLesson);
             
         }
+
+        public Command ScheduleLessonCommand { get; set; }
+        //add property for a package
+        private Package thePackage;
+        public Package ThePackage
+        {
+            get
+            {
+                return thePackage;
+            }
+            set
+            {
+                thePackage = value;
+                Title = thePackage.Title;
+                Text = thePackage.TheText;
+                PackageId = thePackage.PackageId;
+                OnPropertyChanged();
+            }
+        }
+
+        private int packageId;
+        public int PackageId
+        {
+            get
+            {
+                return packageId;
+            }
+            set
+            {
+                packageId = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         #region the Title
         private bool showTitleError;
@@ -125,17 +162,20 @@ namespace DrivingSchoolApp.ViewModels
                 ManagerId = ((App)Application.Current).LoggedInManager.UserManagerId,
                 Title = Title,
                 TheText = Text,
+                PackageId = PackageId,
             };
 
     p = await proxy.addPackage(p);
             if (p != null)
             {
+                ((AppShell)Shell.Current).Refresh(typeof(PackagesViewModel));
+                await Shell.Current.DisplayAlert("סטטוס", "החבילה נוספה / עודכנה בהצלחה", "אוקיי");
                 await Shell.Current.Navigation.PopAsync();
-}
+            }
             else
-{
-    await Shell.Current.DisplayAlert("שגיאה", "בעיה בהוספת החבילה", "אוקיי");
-}
+            {
+                await Shell.Current.DisplayAlert("שגיאה", "בעיה בהוספת החבילה", "אוקיי");
+            }
             
         }
     }

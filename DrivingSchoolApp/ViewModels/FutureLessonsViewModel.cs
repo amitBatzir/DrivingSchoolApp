@@ -46,5 +46,12 @@ namespace DrivingSchoolApp.ViewModels
         {
             await Shell.Current.GoToAsync("AddNewLessonView");
         }
+
+        public override void Refresh()
+        {
+            base.Refresh();
+
+            LoadFutureLessons();
+        }
     }
 }

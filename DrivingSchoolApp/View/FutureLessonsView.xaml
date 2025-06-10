@@ -19,26 +19,26 @@
 
             <!--  Page Title  -->
             <Label
+                Grid.Column="1"
                 FontAttributes="Bold"
                 FontSize="20"
                 HorizontalOptions="Center"
                 Text="  שיעורים עתידיים"
-                TextColor="#2C3E50" 
-                Grid.Column="1"/>
+                TextColor="#2C3E50" />
             <!--  Lessons List  -->
 
             <Button
+                Grid.Column="0"
                 Command="{Binding AddLessonCommand}"
+                HeightRequest="75"
+                HorizontalOptions="Start"
                 ImageSource="plus.png"
                 Style="{StaticResource buttonStyle}"
-                HorizontalOptions="Start"
-                HeightRequest="75"
-                WidthRequest="75"
                 Text="קבע שיעור"
-                Grid.Column="0"/>
+                WidthRequest="75" />
 
         </Grid>
-        
+
         <CollectionView ItemsSource="{Binding Lessons}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -58,7 +58,14 @@
                                 FontSize="18"
                                 Text="{Binding DateOfLesson}"
                                 TextColor="#34495E" />
-
+                            <!--  Lesson Status  -->
+                            <HorizontalStackLayout>
+                                <Label
+                                    FontAttributes="Bold"
+                                    Text=" סטטוס:"
+                                    TextColor="#5D6D7E" />
+                                <Label Text="{Binding StatusName}" TextColor="#566573" />
+                            </HorizontalStackLayout>
                             <!--  Pickup location  -->
                             <HorizontalStackLayout>
                                 <Label
@@ -76,6 +83,8 @@
                                     TextColor="#5D6D7E" />
                                 <Label Text="{Binding DropOffLoc}" TextColor="#566573" />
                             </HorizontalStackLayout>
+
+
 
                         </VerticalStackLayout>
                     </Frame>

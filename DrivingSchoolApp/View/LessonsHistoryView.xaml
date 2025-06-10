@@ -1,58 +1,69 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DrivingSchoolApp.View.LessonsHistoryView"
-             Padding="15"
-             FlowDirection="RightToLeft"       
-             BackgroundColor="PowderBlue">
+<ContentPage
+    x:Class="DrivingSchoolApp.View.LessonsHistoryView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Padding="15"
+    BackgroundColor="PowderBlue"
+    FlowDirection="RightToLeft">
     <VerticalStackLayout Spacing="20">
 
-        <!-- Page Title -->
-        <Label Text="היסטוריית שיעורים"
-               FontSize="20"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"
-               TextColor="#2C3E50" />
+        <!--  Page Title  -->
+        <Label
+            FontAttributes="Bold"
+            FontSize="20"
+            HorizontalOptions="Center"
+            Text="היסטוריית שיעורים"
+            TextColor="#2C3E50" />
 
-        <!-- Lessons List -->
+        <!--  Lessons List  -->
         <CollectionView ItemsSource="{Binding Lessons}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Padding="15"
-                           Margin="0,5"
-                           CornerRadius="10"
-                           HasShadow="True"
-                           BackgroundColor="White"
-                           BorderColor="#D6DBDF">
+                    <Frame
+                        Margin="0,5"
+                        Padding="15"
+                        BackgroundColor="White"
+                        BorderColor="#D6DBDF"
+                        CornerRadius="10"
+                        HasShadow="True">
 
                         <VerticalStackLayout Spacing="10">
 
-                            <!-- Date -->
-                            <Label Text="{Binding DateOfLesson}"
-                                   FontAttributes="Bold"
-                                   FontSize="18"
-                                   TextColor="#34495E" />
-
-                            <!-- Pickup location -->
+                            <!--  Date  -->
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                Text="{Binding DateOfLesson}"
+                                TextColor="#34495E" />
+                            <!--  Lesson Status  -->
                             <HorizontalStackLayout>
-                                <Label Text="מקום איסוף:"
-                                       FontAttributes="Bold"
-                                       TextColor="#5D6D7E" />
-                                <Label Text="{Binding PickUpLoc}"
-                                       TextColor="#566573" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    Text=" סטטוס:"
+                                    TextColor="#5D6D7E" />
+                                <Label Text="{Binding StatusName}" TextColor="#566573" />
+                            </HorizontalStackLayout>
+                            <!--  Pickup location  -->
+                            <HorizontalStackLayout>
+                                <Label
+                                    FontAttributes="Bold"
+                                    Text="מקום איסוף:"
+                                    TextColor="#5D6D7E" />
+                                <Label Text="{Binding PickUpLoc}" TextColor="#566573" />
                             </HorizontalStackLayout>
 
-                            <!-- Drop-off location -->
+                            <!--  Drop-off location  -->
                             <HorizontalStackLayout>
-                                <Label Text="מקום הורדה:"
-                                       FontAttributes="Bold"
-                                       TextColor="#5D6D7E" />
-                                <Label Text="{Binding DropOffLoc}"
-                                       TextColor="#566573" />
+                                <Label
+                                    FontAttributes="Bold"
+                                    Text="מקום הורדה:"
+                                    TextColor="#5D6D7E" />
+                                <Label Text="{Binding DropOffLoc}" TextColor="#566573" />
                             </HorizontalStackLayout>
-                            
+
                             <HorizontalStackLayout>
-                                <Label Text="{Binding WasDone}"/>
+                                <Label Text="{Binding WasDone}" />
                             </HorizontalStackLayout>
 
                         </VerticalStackLayout>
@@ -63,16 +74,16 @@
 
     </VerticalStackLayout>
 </ContentPage>
-<!--<?xml version="1.0" encoding="utf-8" ?>  
+<!--<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             x:Class="DrivingSchoolApp.View.LessonsHistoryView"
              Padding="15"
 FlowDirection="RightToLeft">
-             -->
-<!--Title="היסטוריית שיעורים"-->
+-->
+<!--  Title="היסטוריית שיעורים"  -->
 <!--
-             
+
     <VerticalStackLayout>
         <Grid>
             <Grid.RowDefinitions>

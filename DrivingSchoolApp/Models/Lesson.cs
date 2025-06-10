@@ -30,7 +30,10 @@ namespace DrivingSchoolApp.Models
         {
             get
             {
-                return "שיעור עם " + Student.FullName + " בתאריך " + DateOfLesson;
+                if (Student != null)
+                    return "שיעור עם " + Student.FullName + " בתאריך " + DateOfLesson;
+                else
+                    return "Unknown";
             }
         }
         public string DetailsForTeacher
@@ -72,7 +75,10 @@ namespace DrivingSchoolApp.Models
         {
             get
             {
-                return Student.FullName + " " + DateOfLesson.TimeOfDay.ToString();
+                if (Student != null)
+                    return Student.FullName + " " + DateOfLesson.TimeOfDay.ToString();
+                else
+                    return "Unknown";
             }
         }
 
