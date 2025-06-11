@@ -6,9 +6,9 @@
              Title="שיעורים בהמתנה"
              FlowDirection="RightToLeft"
              BackgroundColor="PowderBlue">
-
+    <ScrollView> 
     <VerticalStackLayout Spacing="15" Padding="15">
-
+         
         <Frame
             Padding="15"
             BackgroundColor="#ffffff"
@@ -94,4 +94,5 @@
         </CollectionView>
 
     </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
