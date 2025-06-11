@@ -62,7 +62,7 @@
                                         CommandParameter="{Binding}"
                                         IsEnabled="True"
                                         Style="{StaticResource buttonStyle}"
-                                        Text="ערוך" />
+                                        Text="עריכה" />
                                 </VerticalStackLayout>
                             </Border>
                         </DataTemplate>
