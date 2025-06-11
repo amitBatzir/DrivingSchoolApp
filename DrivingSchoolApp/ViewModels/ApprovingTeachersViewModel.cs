@@ -75,7 +75,8 @@ namespace DrivingSchoolApp.ViewModels
           bool isWorking = await proxy.ApprovingTeacher(t.UserTeacherId);
             if (isWorking == true)
             {
-                 await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"המורה אושר בהצלחה", "ok");
+                ((AppShell)Shell.Current).Refresh(typeof(TeachersListViewModel));
+                await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"המורה אושר בהצלחה", "ok");
                 PendingTeachers.Remove(t);
             }
             else

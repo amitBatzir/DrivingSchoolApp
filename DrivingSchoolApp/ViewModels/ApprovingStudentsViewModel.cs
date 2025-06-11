@@ -53,6 +53,7 @@ namespace DrivingSchoolApp.ViewModels
             bool isWorking = await proxy.ApprovingStudent(s.UserStudentId);
             if (isWorking == true)
             {
+                ((AppShell)Shell.Current).Refresh(typeof(StudentListViewModel));
                 await Application.Current.MainPage.DisplayAlert("בוצע בהצלחה", $"התלמיד אושר בהצלחה", "ok");
                 PendingStudents.Remove(s);
             }
@@ -78,6 +79,7 @@ namespace DrivingSchoolApp.ViewModels
 
             }
         }
+
     }
 
 }

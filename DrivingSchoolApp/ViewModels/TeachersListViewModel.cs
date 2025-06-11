@@ -85,6 +85,12 @@ namespace DrivingSchoolApp.ViewModels
                 Teachers = new ObservableCollection<Teacher>(TeacherList);
             }
         }
+        public override void Refresh()
+        {
+            base.Refresh();
+
+            LoadTeachers();
+        }
 
     }
 }

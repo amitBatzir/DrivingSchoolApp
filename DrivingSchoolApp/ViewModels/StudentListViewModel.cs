@@ -94,13 +94,13 @@ namespace DrivingSchoolApp.ViewModels
                 Students = new ObservableCollection<Student>(StudentList);
             }
         }
-        
-        //public ICommand ProfileCommand { get; }
-        //private void OnProfile()
-        //{       
-        //    // Navigate to the profile View page
-        //    ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<StudentProfileView>());
-        //}    
+
+        public override void Refresh()
+        {
+            base.Refresh();
+
+            LoadStudents();
+        }
 
     }
 }
