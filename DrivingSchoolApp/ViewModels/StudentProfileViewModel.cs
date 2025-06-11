@@ -10,24 +10,10 @@ using DrivingSchoolApp.Services;
 
 namespace DrivingSchoolApp.ViewModels
 {
-    //[QueryProperty(nameof(CurrentStudent),"selectedStudent")]
     public class StudentProfileViewModel:ViewModelBase
     {
 
-        //private Student currentStudent;
-        //public Student CurrentStudent
-        //{
-        //    get
-        //    {
-        //        return currentStudent;
-        //    }
-        //    set
-        //    {
-        //        currentStudent = value;
-        //        OnPropertyChanged();
-        //        UpdateStudent();
-        //    }
-        //}
+ 
         private DrivingSchoolAppWebAPIProxy proxy;
         private IServiceProvider serviceProvider;
 
@@ -54,7 +40,15 @@ namespace DrivingSchoolApp.ViewModels
             TheoryDate = currentStudent.DateOfTheory;
             NumOfLessons = currentStudent.CurrentLessonNum;
             LengthOfLesson = 60;
-            Internaltest = currentStudent.InternalTestDone;
+            if (currentStudent.InternalTestDone == true)
+            {
+                Internaltest = "true";
+            }
+            else
+            {
+                Internaltest = "false";
+
+            }
             Address = currentStudent.StudentAddress;
             SchoolName = currentStudent.SchoolName;
             Teacher = currentStudent.TeacherId;
@@ -73,23 +67,6 @@ namespace DrivingSchoolApp.ViewModels
             NumOfLessonsError = "מספר השיעורים שלך אינו תקין";
             AddressError = "הכתובת שלך אינה תקינה";
             Gender = currentStudent.Gender;
-            if (Gender == "1")
-            {
-                IsFemale = true;
-                IsMale = false;
-
-            }
-            else
-            {
-                IsFemale = false;
-                IsMale = true;
-            }
-            if(Internaltest == true)
-            {
-                HaveTest = true;
-                NoTest = false;
-            }
-            //למחוק את זה אחרי שאני מבינה איך מכניסים את זה לעמוד פרופיל עם אופציה להחליף
             SchoolName = "Ramon";
             Teacher = 1;
             Package = 1;
@@ -113,7 +90,15 @@ namespace DrivingSchoolApp.ViewModels
             NumOfLessons = currentStudent.CurrentLessonNum;
             LengthOfLesson = 60;
             Gender = currentStudent.Gender;
-            Internaltest = currentStudent.InternalTestDone;
+            if (currentStudent.InternalTestDone == true)
+            {
+                Internaltest = "true";
+            }
+            else
+            {
+                Internaltest = "false";
+            }
+
             Address = currentStudent.StudentAddress;
         }
 
@@ -759,64 +744,23 @@ namespace DrivingSchoolApp.ViewModels
                 OnPropertyChanged("Gender");
             }
         }
-        private bool isMale;
-        public bool IsMale
-        {
-            get => isMale;
-            set
-            {
-                isMale = value;
-                OnPropertyChanged("IsMale");
-            }
-        }
-
-        private bool isFemale;
-        public bool IsFemale
-        {
-            get => isFemale;
-            set
-            {
-                isFemale = value;
-                OnPropertyChanged("IsFemale");
-            }
-        }
 
 
         #endregion
 
         #region internal test
-        private bool internaltest;
-
-        public bool Internaltest
+        private string internaltest;
+        public string Internaltest
         {
             get => internaltest;
             set
             {
                 internaltest = value;
-                OnPropertyChanged("Internaltest");
-            }
-        }
-        private bool haveTest;
-        public bool HaveTest
-        {
-            get => haveTest;
-            set
-            {
-                haveTest = value;
-                OnPropertyChanged("HaveTest");
+                OnPropertyChanged(nameof(Internaltest));
             }
         }
 
-        private bool noTest;
-        public bool NoTest
-        {
-            get => noTest;
-            set
-            {
-                noTest = value;
-                OnPropertyChanged("NoTest");
-            }
-        }
+
         #endregion
 
         #region Address 
@@ -926,7 +870,14 @@ namespace DrivingSchoolApp.ViewModels
                 student.CurrentLessonNum = NumOfLessons;
                 student.LengthOfLesson = 60;
                 student.Gender = Gender;
-                student.InternalTestDone = Internaltest;
+                if (Internaltest == "true")
+                {
+                    student.InternalTestDone = true;
+                }
+                else
+                {
+                    student.InternalTestDone = false;
+                }
                 student.StudentAddress = Address;
 
 
@@ -938,20 +889,6 @@ namespace DrivingSchoolApp.ViewModels
                 //If the save was successful, navigate to the login page
                 if (success)
                 {
-                    // Upload profile imae if needed
-                    //if (!string.IsNullOrEmpty(LocalPhotoPath))
-                    //    {
-                    //        Teacher? updatedTeacher = (Teacher)await proxy.UploadProfileImage(LocalPhotoPath);
-                    //        if (updatedTeacher == null)
-                    //        {
-                    //            await Shell.Current.DisplayAlert("שמור פרופיל", "נתוניך נשמרו אבל תמונת הפרופיל לא הוחלפה", "ok");
-                    //        }
-                    //        else
-                    //        {
-                    //            Teacher.ProfilePic = updatedTeacher.ProfilePic;
-                    //            UpdatePhotoURL(Teacher.ProfilePic);
-                    //        }
-                    //    }
                     InServerCall = false;
                     await Shell.Current.DisplayAlert("שמור פרופיל", "הפרופיל נשמר בהצלחה", "ok");
                 }

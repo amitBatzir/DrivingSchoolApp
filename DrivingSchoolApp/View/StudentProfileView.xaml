@@ -141,19 +141,22 @@
                         RadioButtonGroup.GroupName="LanGroup"
                         RadioButtonGroup.SelectedValue="{Binding Language}"
                         Spacing="10">
-                        <RadioButton Content="עברית" Value="0" />
-                        <RadioButton Content="אנגלית" Value="1" />
-                        <RadioButton Content="ערבית" Value="2" />
+                        <RadioButton Content="עברית" Value="hebrow" />
+                        <RadioButton Content="אנגלית" Value="English" />
+                        <RadioButton Content="ערבית" Value="Arabic" />
                     </HorizontalStackLayout>
 
                     <!--  Internal Test  -->
+                    
+                    
                     <Label Text="האם עשית טסט פנימי" />
+                    
                     <HorizontalStackLayout
                         RadioButtonGroup.GroupName="InternalTestGroup"
                         RadioButtonGroup.SelectedValue="{Binding Internaltest, Mode=TwoWay}"
                         Spacing="10">
-                        <RadioButton Content="כן" Value="0" />
-                        <RadioButton Content="לא" Value="1" />
+                        <RadioButton Content="כן" Value="true" />
+                        <RadioButton Content="לא" Value="false" />
                     </HorizontalStackLayout>
 
                     <!--  Driving Technique  -->
@@ -162,8 +165,8 @@
                         RadioButtonGroup.GroupName="DrivingTechnicGroup"
                         RadioButtonGroup.SelectedValue="{Binding DrivingTechnic}"
                         Spacing="10">
-                        <RadioButton Content="ידני" Value="0" />
-                        <RadioButton Content="אוטומטי" Value="1" />
+                        <RadioButton Content="ידני" Value="Manual" />
+                        <RadioButton Content="אוטומטי" Value="Autumat" />
                     </HorizontalStackLayout>
 
                     <!--  Gender  -->
@@ -173,13 +176,11 @@
                         RadioButtonGroup.SelectedValue="{Binding Gender}"
                         Spacing="10">
                         <RadioButton
-                            Content="זכר"
-                            IsChecked="{Binding IsMale}"
-                            Value="0" />
+                            Content="זכר"                   
+                            Value="Male" />
                         <RadioButton
                             Content="נקבה"
-                            IsChecked="{Binding IsFemale}"
-                            Value="1" />
+                            Value="Female" />
                     </HorizontalStackLayout>
 
                     <!--  Buttons  -->

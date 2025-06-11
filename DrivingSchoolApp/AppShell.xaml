@@ -96,29 +96,23 @@ IsVisible="{Binding IsTeacher}" />-->
       IsVisible="{Binding IsTeacher}"
        Icon="planner.png"
       Route="Schedule" />
-        
-    
-    <ShellContent   
+
+
+        <ShellContent   
   Title="  בהמתנה"
   ContentTemplate="{DataTemplate views:ApprovingStudentsView}"
   Route="ApprovingStudents"
      Icon="registered.png" 
     IsVisible="{Binding IsTeacher}"/>
 
-
-
-    <!--מנהל אפליקציה-->
+        <!--מנהל אפליקציה-->
     <ShellContent   
 Title="בהמתנה"
 ContentTemplate="{DataTemplate views:ApprovingManagersView}"
 Route="ApprovingManager"
+Icon="registered.png"
  IsVisible="{Binding AppManager}"/>
 
-    <ShellContent   
-Title="רשימת בתי ספר"
-ContentTemplate="{DataTemplate views:SchoolsListView}"
-Route="SchoolsList"
-         IsVisible="{Binding AppManager}"/>
     </FlyoutItem>
     <MenuItem Text="התנתקות" Command="{Binding LogoutCommand}" />
 

@@ -125,7 +125,7 @@
                             <RadioButton
                                 Content="נקבה"
                                 GroupName="GenGroup"
-                                Value="female" />
+                                Value="Female" />
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
 
@@ -139,11 +139,11 @@
                             <RadioButton
                                 Content="אוטומטי"
                                 GroupName="TechGroup"
-                                Value="0" />
+                                Value="Autumat" />
                             <RadioButton
                                 Content="ידני"
                                 GroupName="TechGroup"
-                                Value="1" />
+                                Value="Manual" />
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
 
@@ -157,11 +157,11 @@
                             <RadioButton
                                 Content="אשראי"
                                 GroupName="PayGroup"
-                                Value="0" />
+                                Value="Card" />
                             <RadioButton
                                 Content="מזומן"
                                 GroupName="PayGroup"
-                                Value="1" />
+                                Value="Cash" />
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
 

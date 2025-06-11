@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DrivingSchoolApp.View.AddNewPackageView"
-             Title="הוספת חבילה חדשה"
+             Title="הוספת / עריכת חבילה חדשה"
              BackgroundColor="PowderBlue"
              FlowDirection="RightToLeft"
              Padding="20">
@@ -11,7 +11,7 @@
         <VerticalStackLayout Spacing="25">
 
             <!-- כותרת הדף -->
-            <Label Text="הוספת חבילת תשלום"
+            <Label Text="הוספת / עריכת חבילת תשלום"
                    FontSize="26"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
@@ -43,7 +43,8 @@
             <!-- כפתור שמירה -->
             <Button Text="שמור"
                     Command="{Binding ScheduleLessonCommand}"
-                    Style="{StaticResource buttonStyle}" />
+                    Style="{StaticResource ProfilebuttonStyle}" 
+                    />
 
         </VerticalStackLayout>
     </ScrollView>

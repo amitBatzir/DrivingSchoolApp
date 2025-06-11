@@ -29,7 +29,7 @@ namespace DrivingSchoolApp.Models
         {
             get
             {
-                return "שם בית ספר: " + Schoolname + ", " + " שם מנהל:  " + FirstName + " " + LastName + "מספר טלפון של מנהל: " + ManagerPhone + "מספר טלפון של בית הספר: " + SchoolPhone + "כתובת בית הספר: " +SchoolAddress;
+                return "שם בית ספר: " + Schoolname + ", " + " שם מנהל:  " + FirstName + ", " + LastName + "מספר טלפון של מנהל : " + ManagerPhone +",  " + "מספר טלפון של בית הספר: " + SchoolPhone + ", " +"כתובת בית הספר: " +SchoolAddress;
             }
         }
 
